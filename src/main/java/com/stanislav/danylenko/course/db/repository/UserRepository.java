@@ -1,6 +1,6 @@
-package com.stanislav.danylenko.course.repository;
+package com.stanislav.danylenko.course.db.repository;
 
-import com.stanislav.danylenko.course.entity.User;
+import com.stanislav.danylenko.course.db.entity.User;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User, Long> {

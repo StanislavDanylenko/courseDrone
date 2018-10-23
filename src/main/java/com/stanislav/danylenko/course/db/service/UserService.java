@@ -1,7 +1,7 @@
-package com.stanislav.danylenko.course.service;
+package com.stanislav.danylenko.course.db.service;
 
-import com.stanislav.danylenko.course.entity.User;
-import com.stanislav.danylenko.course.repository.UserRepository;
+import com.stanislav.danylenko.course.db.entity.User;
+import com.stanislav.danylenko.course.db.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
