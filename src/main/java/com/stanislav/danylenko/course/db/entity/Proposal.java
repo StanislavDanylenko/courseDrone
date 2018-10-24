@@ -18,4 +18,7 @@ public class Proposal extends BaseEntity {
     @OneToMany(mappedBy = "proposal", cascade = CascadeType.REFRESH)
     private List<ProposalCall> users;
 
+    @OneToMany(mappedBy = "proposal", cascade = CascadeType.REFRESH)
+    private List<LocalPropose> localProposes;
+
 }
