@@ -1,26 +1,21 @@
 package com.stanislav.danylenko.course.db.entity;
 
-import com.stanislav.danylenko.course.db.enumeration.TypeOfProposal;
-import com.stanislav.danylenko.course.db.enumeration.TypeOfUser;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-public class Proposal {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Proposal extends BaseEntity {
 
     private String name;
     private String description;
 
-    @Enumerated(EnumType.STRING)
-    private TypeOfProposal type;
+    @OneToMany(mappedBy = "proposal", cascade = CascadeType.REFRESH)
+    private List<ProposalCall> users;
 
 }

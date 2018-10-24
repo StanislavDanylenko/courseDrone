@@ -9,11 +9,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-public class Role {
-
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
+public class Role extends BaseEntity {
 
     @Column
     private String name;

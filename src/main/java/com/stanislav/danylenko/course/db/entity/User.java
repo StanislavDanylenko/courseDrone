@@ -7,23 +7,24 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class User extends BaseEntity {
 
     private String firstName;
     private String lastName;
     private String patronymic;
 
     private String email;
+
+    @Enumerated(EnumType.STRING)
+    private TypeOfUser type;
 
     @Column
     @CreationTimestamp
@@ -33,14 +34,13 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 
-    @Enumerated(EnumType.STRING)
-    private TypeOfUser type;
-
-
-    @ElementCollection(targetClass=Role.class)
+    @ElementCollection(targetClass = Role.class)
     @Enumerated(EnumType.STRING) // Possibly optional (I'm not sure) but defaults to ORDINAL.
-    @CollectionTable(name="user_role")
-    @Column(name="roles")
+    @CollectionTable(name = "user_role")
+    @Column(name = "roles")
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REFRESH)
+    private List<ProposalCall> proposals;
 
 }
