@@ -20,8 +20,13 @@ public class Drone extends BaseEntity {
             cascade = CascadeType.REFRESH)
     private List<Sensor> sensors;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "local_propose_id")
+    /*@JoinColumn(name = "local_propose_id")*/
+    @JoinColumns({
+            @JoinColumn(name = "proposal_id"),
+            @JoinColumn(name = "populates_id")}
+    )
     private LocalPropose localPropose;
 
 }

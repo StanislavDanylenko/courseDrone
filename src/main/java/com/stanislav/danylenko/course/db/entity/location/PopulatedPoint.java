@@ -20,7 +20,7 @@ public class PopulatedPoint extends BaseEntity {
     @JoinColumn(name = "region_id")
     private Region region;
 
-    @OneToMany(mappedBy = "localPropose", cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "populatedPoint", cascade = CascadeType.REFRESH)
     private List<LocalPropose> proposeList;
 
 }
