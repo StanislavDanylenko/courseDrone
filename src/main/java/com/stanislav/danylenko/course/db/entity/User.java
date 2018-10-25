@@ -35,12 +35,12 @@ public class User extends BaseEntity {
     private LocalDateTime updateDateTime;
 
     @ElementCollection(targetClass = Role.class)
-    @Enumerated(EnumType.STRING) // Possibly optional (I'm not sure) but defaults to ORDINAL.
+    @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_role")
     @Column(name = "roles")
     private Set<Role> roles;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REFRESH)
-    private List<ProposalCall> proposals;
+    private List<ProposalUser> proposals;
 
 }

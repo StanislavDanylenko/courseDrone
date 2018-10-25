@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProposalCall implements Serializable {
+public class ProposalUser implements Serializable {
 
     @Id
     @ManyToOne
