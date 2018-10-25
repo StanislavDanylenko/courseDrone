@@ -7,6 +7,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -38,9 +40,9 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_role")
     @Column(name = "roles")
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REFRESH)
-    private List<ProposalUser> proposals;
+    private List<ProposalUser> proposals = new ArrayList<>();
 
 }

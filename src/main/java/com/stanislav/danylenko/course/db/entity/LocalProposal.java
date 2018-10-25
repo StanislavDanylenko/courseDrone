@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,6 +30,6 @@ public class LocalProposal implements Serializable {
 
     @OneToMany(mappedBy = "localProposal",
             cascade = CascadeType.REFRESH)
-    private List<Drone> drones;
+    private List<Drone> drones = new ArrayList<>();
 
 }

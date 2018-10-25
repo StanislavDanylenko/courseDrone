@@ -5,6 +5,7 @@ import com.stanislav.danylenko.course.db.entity.LocalProposal;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,6 +22,6 @@ public class PopulatedPoint extends BaseEntity {
     private Region region;
 
     @OneToMany(mappedBy = "populatedPoint", cascade = CascadeType.REFRESH)
-    private List<LocalProposal> proposalList;
+    private List<LocalProposal> proposalList = new ArrayList<>();
 
 }

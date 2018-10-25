@@ -3,6 +3,7 @@ package com.stanislav.danylenko.course.db.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,9 +17,9 @@ public class Proposal extends BaseEntity {
     private String description;
 
     @OneToMany(mappedBy = "proposal", cascade = CascadeType.REFRESH)
-    private List<ProposalUser> users;
+    private List<ProposalUser> users = new ArrayList<>();
 
     @OneToMany(mappedBy = "proposal", cascade = CascadeType.REFRESH)
-    private List<LocalProposal> localProposals;
+    private List<LocalProposal> localProposals = new ArrayList<>();
 
 }

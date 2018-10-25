@@ -4,6 +4,7 @@ import com.stanislav.danylenko.course.db.entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,5 +18,5 @@ public class Country extends BaseEntity {
 
     @OneToMany(mappedBy = "country",
                  cascade = CascadeType.REFRESH)
-    private List<Region> regions;
+    private List<Region> regions = new ArrayList<>();
 }

@@ -4,6 +4,7 @@ import com.stanislav.danylenko.course.db.entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,6 +22,6 @@ public class Region extends BaseEntity {
 
     @OneToMany(mappedBy = "region",
             cascade = CascadeType.REFRESH)
-    private List<PopulatedPoint> populatedPoints;
+    private List<PopulatedPoint> populatedPoints = new ArrayList<>();
 
 }

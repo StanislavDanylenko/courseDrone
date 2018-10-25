@@ -3,6 +3,7 @@ package com.stanislav.danylenko.course.db.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,7 @@ public class Drone extends BaseEntity {
 
     @OneToMany(mappedBy = "drone",
             cascade = CascadeType.REFRESH)
-    private List<Sensor> sensors;
+    private List<Sensor> sensors = new ArrayList<>();
 
 
     @ManyToOne
