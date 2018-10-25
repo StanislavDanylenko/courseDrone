@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-public class LocalPropose implements Serializable {
+public class LocalProposal implements Serializable {
 
     @Id
     @ManyToOne
@@ -25,7 +25,7 @@ public class LocalPropose implements Serializable {
     private Proposal proposal;
 
 
-    @OneToMany(mappedBy = "localPropose",
+    @OneToMany(mappedBy = "localProposal",
             cascade = CascadeType.REFRESH)
     private List<Drone> drones;
 

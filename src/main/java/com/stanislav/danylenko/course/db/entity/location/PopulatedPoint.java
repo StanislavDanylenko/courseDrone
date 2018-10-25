@@ -1,7 +1,7 @@
 package com.stanislav.danylenko.course.db.entity.location;
 
 import com.stanislav.danylenko.course.db.entity.BaseEntity;
-import com.stanislav.danylenko.course.db.entity.LocalPropose;
+import com.stanislav.danylenko.course.db.entity.LocalProposal;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,6 +21,6 @@ public class PopulatedPoint extends BaseEntity {
     private Region region;
 
     @OneToMany(mappedBy = "populatedPoint", cascade = CascadeType.REFRESH)
-    private List<LocalPropose> proposeList;
+    private List<LocalProposal> proposalList;
 
 }
