@@ -21,12 +21,11 @@ public class Drone extends BaseEntity {
     private List<Sensor> sensors;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    /*@JoinColumn(name = "local_propose_id")*/
+    @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "proposal_id"),
-            @JoinColumn(name = "populates_id")}
-    )
+            @JoinColumn(name="LOC_POINT", referencedColumnName="populated_point_id"),
+            @JoinColumn(name="LOC_PROP", referencedColumnName="proposal_id")
+    })
     private LocalPropose localPropose;
 
 }
