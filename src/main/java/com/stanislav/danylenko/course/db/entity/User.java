@@ -1,6 +1,7 @@
 package com.stanislav.danylenko.course.db.entity;
 
 import com.stanislav.danylenko.course.db.enumeration.TypeOfUser;
+import com.stanislav.danylenko.course.db.enumeration.RoleUser;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -17,6 +18,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
+@ToString
 public class User extends BaseEntity {
 
     private String firstName;
@@ -36,11 +38,11 @@ public class User extends BaseEntity {
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 
-    @ElementCollection(targetClass = Role.class)
-    @Enumerated(EnumType.STRING)
+    @ElementCollection(targetClass = RoleUser.class)
+    @Enumerated
     @CollectionTable(name = "user_role")
-    @Column(name = "roles")
-    private Set<Role> roles = new HashSet<>();
+    @Column(name = "role_name")
+    private Set<RoleUser> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REFRESH)
     private List<ProposalUser> proposals = new ArrayList<>();
