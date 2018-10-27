@@ -1,5 +1,5 @@
 package com.stanislav.danylenko.course.db.enumeration;
 
 public enum TypeOfSensor {
-    TEMPERATURE, OCID, BLABLA
+    HUMIDITY, RADIATION, PRESSURE, AIR_POLLUTION, CAMERA
 }

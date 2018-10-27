@@ -13,10 +13,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
+@RequiredArgsConstructor
 public class PopulatedPoint extends BaseEntity {
 
     @Column(nullable = false)
-    private String name;
+    @NonNull private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "region_id")

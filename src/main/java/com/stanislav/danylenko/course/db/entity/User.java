@@ -18,6 +18,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
+@RequiredArgsConstructor
 @ToString
 public class User extends BaseEntity {
 
@@ -26,7 +27,7 @@ public class User extends BaseEntity {
     private String patronymic;
 
     @Column(nullable = false, unique = true)
-    private String email;
+    @NonNull private String email;
 
     @Enumerated(EnumType.STRING)
     private TypeOfUser type;

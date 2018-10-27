@@ -14,10 +14,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
+@RequiredArgsConstructor
 public class Country extends BaseEntity {
 
     @Column(unique = true, nullable = false)
-    private String name;
+    @NonNull private String name;
 
     @OneToMany(mappedBy = "country",
                  cascade = CascadeType.ALL)
