@@ -33,7 +33,8 @@ public class UserController {
 
         /*test.testUser();
         test.testUserAndRole();*/
-        test.testLocation();
+        //test.testLocation();
+        test.testDroneWithSensors();
 
         return "tested";
     }

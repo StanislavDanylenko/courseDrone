@@ -18,7 +18,8 @@ import java.util.List;
 public class Region extends BaseEntity {
 
     @Column(nullable = false)
-    @NonNull private String name;
+    @NonNull
+    private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")
@@ -26,6 +27,7 @@ public class Region extends BaseEntity {
 
     @OneToMany(mappedBy = "region",
             cascade = CascadeType.ALL)
+    @Setter(AccessLevel.NONE)
     private List<PopulatedPoint> populatedPoints = new ArrayList<>();
 
     @Override
@@ -35,5 +37,18 @@ public class Region extends BaseEntity {
                 ", country=" + country.getName() +
                 ", populatedPoints=" + populatedPoints +
                 '}';
+    }
+
+    public boolean addPopulatedPoint(PopulatedPoint point) {
+        point.setRegion(this);
+        return populatedPoints.add(point);
+    }
+
+    public boolean removePopulatedPoint(PopulatedPoint region) {
+        if (populatedPoints.contains(region)) {
+            populatedPoints.remove(region);
+            return true;
+        }
+        return false;
     }
 }

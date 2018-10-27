@@ -11,13 +11,17 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
+@RequiredArgsConstructor
 @ToString
 public class Drone extends BaseEntity {
 
+    @Column(nullable = false)
+    @NonNull
     private String name;
 
     @OneToMany(mappedBy = "drone",
-            cascade = CascadeType.REFRESH)
+            cascade = CascadeType.ALL)
+    @Setter(AccessLevel.NONE)
     private List<Sensor> sensors = new ArrayList<>();
 
 
@@ -27,5 +31,18 @@ public class Drone extends BaseEntity {
             @JoinColumn(name="LOC_PROP", referencedColumnName="proposal_id")
     })
     private LocalProposal localProposal;
+
+    public boolean addSensor(Sensor sensor) {
+        sensor.setDrone(this);
+        return sensors.add(sensor);
+    }
+
+    public boolean removeSensor(Sensor sensor) {
+        if (sensors.contains(sensor)) {
+            sensors.remove(sensor);
+            return true;
+        }
+        return false;
+    }
 
 }

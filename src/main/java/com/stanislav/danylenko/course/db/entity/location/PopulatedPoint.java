@@ -17,13 +17,15 @@ import java.util.List;
 public class PopulatedPoint extends BaseEntity {
 
     @Column(nullable = false)
-    @NonNull private String name;
+    @NonNull
+    private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "region_id")
     private Region region;
 
     @OneToMany(mappedBy = "populatedPoint", cascade = CascadeType.ALL)
+    @Setter(AccessLevel.NONE)
     private List<LocalProposal> proposalList = new ArrayList<>();
 
     @Override

@@ -3,24 +3,34 @@ package com.stanislav.danylenko.course.db.entity;
 import com.stanislav.danylenko.course.db.enumeration.TypeOfSensor;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-@ToString
-public class Sensor extends BaseEntity{
+@RequiredArgsConstructor
+public class Sensor extends BaseEntity {
 
+    @Column(nullable = false)
+    @NonNull
     private String name;
+
+    @Column(nullable = false)
+    @NonNull
     private TypeOfSensor type;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "drone_id")
     private Drone drone;
 
+    @Override
+    public String toString() {
+        return "Sensor{" +
+                "name='" + name + '\'' +
+                ", type=" + type +
+                ", drone=" + drone.getName() +
+                '}';
+    }
 }

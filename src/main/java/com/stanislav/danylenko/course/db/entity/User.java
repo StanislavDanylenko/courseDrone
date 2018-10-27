@@ -27,7 +27,8 @@ public class User extends BaseEntity {
     private String patronymic;
 
     @Column(nullable = false, unique = true)
-    @NonNull private String email;
+    @NonNull
+    private String email;
 
     @Enumerated(EnumType.STRING)
     private TypeOfUser type;

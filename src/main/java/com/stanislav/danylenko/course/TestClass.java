@@ -1,10 +1,13 @@
 package com.stanislav.danylenko.course;
 
+import com.stanislav.danylenko.course.db.entity.Drone;
+import com.stanislav.danylenko.course.db.entity.Sensor;
 import com.stanislav.danylenko.course.db.entity.User;
 import com.stanislav.danylenko.course.db.entity.location.Country;
 import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
 import com.stanislav.danylenko.course.db.entity.location.Region;
 import com.stanislav.danylenko.course.db.enumeration.RoleUser;
+import com.stanislav.danylenko.course.db.enumeration.TypeOfSensor;
 import com.stanislav.danylenko.course.db.repository.*;
 import com.stanislav.danylenko.course.db.repository.location.CountryRepository;
 import com.stanislav.danylenko.course.db.repository.location.PopulatedPointRepository;
@@ -15,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -191,6 +195,42 @@ public class TestClass {
 
         Region regionFromList = countryList.get(0).getRegions().get(0);
         log.info("first region from country list {}", regionFromList);
+
+    }
+
+    public void testDroneWithSensors() {
+
+        System.out.println("////////////////////////////////////////\n");
+
+        Drone drone1 = new Drone("drone1");
+        droneRepository.save(drone1);
+        log.info("saved drone {}", drone1);
+
+        Sensor sensor1 = new Sensor("sensor1", TypeOfSensor.CAMERA);
+        Sensor sensor2 = new Sensor("sensor2", TypeOfSensor.HUMIDITY);
+
+        Sensor sensor3 = new Sensor("sensor3", TypeOfSensor.AIR_POLLUTION);
+        sensorRepository.save(sensor3);
+        log.info("save sensor {}", sensor3);
+
+        drone1 = droneRepository.findByName("drone1");
+        drone1.addSensor(sensor1);
+        drone1.addSensor(sensor2);
+        droneRepository.save(drone1);
+        log.info("update drone {}", drone1);
+
+        Drone drone2 = new Drone("drone2");
+        drone2.addSensor(sensor3);
+        droneRepository.save(drone2);
+        log.info("save drone {}", drone2);
+
+        Drone fromDB = droneRepository.findById(1L).orElse(null);
+        log.info("Drone {} sensors {}", fromDB, fromDB.getSensors());
+        droneRepository.delete(fromDB);
+        log.info("delete drone {}", fromDB);
+
+        List<Drone> drones = droneRepository.findAll();
+        log.info("All available drons {}", drones);
 
     }
 

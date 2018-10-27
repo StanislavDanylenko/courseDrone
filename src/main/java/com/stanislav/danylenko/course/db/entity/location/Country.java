@@ -18,10 +18,12 @@ import java.util.List;
 public class Country extends BaseEntity {
 
     @Column(unique = true, nullable = false)
-    @NonNull private String name;
+    @NonNull
+    private String name;
 
     @OneToMany(mappedBy = "country",
-                 cascade = CascadeType.ALL)
+            cascade = CascadeType.ALL)
+    @Setter(AccessLevel.NONE)
     private List<Region> regions = new ArrayList<>();
 
     @Override
@@ -31,4 +33,18 @@ public class Country extends BaseEntity {
                 ", regions=" + regions +
                 '}';
     }
+
+    public boolean addRegion(Region region) {
+        region.setCountry(this);
+       return regions.add(region);
+    }
+
+    public boolean removeRegion(Region region) {
+        if (regions.contains(region)) {
+            regions.remove(region);
+            return true;
+        }
+        return false;
+    }
+
 }
