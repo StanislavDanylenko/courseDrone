@@ -32,6 +32,7 @@ public class UserController {
 
 
         test.testUser();
+        test.testUserAndRole();
 
         return "tested";
     }

@@ -42,6 +42,17 @@ public class TestClass {
     public void testUser() {
 
         System.out.println("////////////////////////////////////////\n");
+
+        User en = new User();
+        en.setFirstName("name");
+        log.info("created user {}", en);
+        try {
+            service.save(en);
+        } catch (Exception e) {
+            log.error("email is null");
+        }
+
+
         log.info("create user");
         User n = new User();
         n.setFirstName("name");
@@ -58,6 +69,7 @@ public class TestClass {
         log.info("updating user");
         User user  = service.read(1L);
         user.setPatronymic("patronimic");
+        user.setEmail("emailTeat");
         log.info("user from db {}", user);
         service.save(user);
 
@@ -78,18 +90,35 @@ public class TestClass {
         log.info("list of users {}", userList);
     }
 
-    void testUserAndRole() {
+    public void testUserAndRole() {
 
         System.out.println("////////////////////////////////////////\n");
 
         User user  = new User();
         user.setFirstName("name1");
-        user.setEmail("email1");
+        user.setEmail("ail1em");
         user.setPatronymic("patronimic1");
-        log.info("updated user {}", user);
+        log.info("create user {}", user);
         service.save(user);
 
+        User fuser = service.findByEmail("ail1em");
+        fuser.addRole(RoleUser.USER);
+        log.info("added role {} to user {}", RoleUser.USER, fuser);
+        service.save(fuser);
+
+        User us = service.findByEmail("ail1em");
+        log.info("list of user roles {}", us.getRoles());
+
+        us.addRole(RoleUser.ADMIN);
+        us.removeRole(RoleUser.USER);
+        log.info("update user roles {}", us.getRoles());
+        service.save(fuser);
+
+        User us2 = service.findByEmail("ail1em");
+        log.info("list of user roles {}", us2.getRoles());
 
     }
+
+
 
 }

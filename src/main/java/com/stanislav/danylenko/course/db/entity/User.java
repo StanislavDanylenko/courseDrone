@@ -25,6 +25,7 @@ public class User extends BaseEntity {
     private String lastName;
     private String patronymic;
 
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Enumerated(EnumType.STRING)
@@ -41,10 +42,22 @@ public class User extends BaseEntity {
     @ElementCollection(targetClass = RoleUser.class)
     @Enumerated
     @CollectionTable(name = "user_role")
-    @Column(name = "role_name")
+    @Column(name = "role_id")
     private Set<RoleUser> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REFRESH)
     private List<ProposalUser> proposals = new ArrayList<>();
+
+    public boolean addRole(RoleUser role) {
+        return roles.add(role);
+    }
+
+    public boolean removeRole(RoleUser role) {
+        if (roles.contains(role)) {
+            roles.remove(role);
+            return true;
+        }
+        return false;
+    }
 
 }
