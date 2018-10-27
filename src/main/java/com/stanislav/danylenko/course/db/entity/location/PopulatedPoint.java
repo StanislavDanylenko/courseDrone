@@ -13,16 +13,24 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-@ToString
 public class PopulatedPoint extends BaseEntity {
 
+    @Column(nullable = false)
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "region_id")
     private Region region;
 
-    @OneToMany(mappedBy = "populatedPoint", cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "populatedPoint", cascade = CascadeType.ALL)
     private List<LocalProposal> proposalList = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return "PopulatedPoint{" +
+                "name='" + name + '\'' +
+                ", region=" + region.getName() +
+                ", proposalList=" + proposalList +
+                '}';
+    }
 }

@@ -1,6 +1,9 @@
 package com.stanislav.danylenko.course;
 
 import com.stanislav.danylenko.course.db.entity.User;
+import com.stanislav.danylenko.course.db.entity.location.Country;
+import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
+import com.stanislav.danylenko.course.db.entity.location.Region;
 import com.stanislav.danylenko.course.db.enumeration.RoleUser;
 import com.stanislav.danylenko.course.db.repository.*;
 import com.stanislav.danylenko.course.db.repository.location.CountryRepository;
@@ -116,6 +119,78 @@ public class TestClass {
 
         User us2 = service.findByEmail("ail1em");
         log.info("list of user roles {}", us2.getRoles());
+
+    }
+
+    public void testLocation() {
+
+        System.out.println("////////////////////////////////////////\n");
+
+        Country country1 = new Country();
+        country1.setName("country");
+        log.info("created country {}", country1);
+        countryRepository.save(country1);
+
+        //////////////////////////////////////////////
+
+        Region region1 = new Region();
+        region1.setName("region1");
+        region1.setCountry(country1);
+        log.info("created region {}", region1);
+        regionRepository.save(region1);
+
+        ///////////////////////////////////////////
+
+        PopulatedPoint city1 = new PopulatedPoint();
+        try {
+            populatedPointRepository.save(city1);
+        } catch (Exception e) {
+            log.error("empty city name {}", city1);
+        }
+
+        //////////////////////////////
+
+        PopulatedPoint city2 = new PopulatedPoint();
+        city2.setName("city1");
+        city2.setRegion(region1);
+        populatedPointRepository.save(city2);
+        log.info("created city {}", city2);
+
+        //////////////////////////////////////////////
+
+        Region region2 = regionRepository.findByName("region1");
+        region2.setName("Changed_name");
+        log.info("updated region {}" , region2);
+        regionRepository.save(region2);
+
+        ////////////////////////////////////
+
+        PopulatedPoint populatedPoint = populatedPointRepository.findByName("city1");
+        populatedPointRepository.delete(populatedPoint);
+        log.info("deleted populated point {}" , populatedPoint);
+
+        ////////////////////
+
+        PopulatedPoint city3 = new PopulatedPoint();
+        city3.setName("city3");
+        city3.setRegion(region2);
+        populatedPointRepository.save(city3);
+        log.info("created city {}", city3);
+
+        //////////////////////
+        List<Country> countryList = countryRepository.findAll();
+        log.info("Country list {}", countryList);
+
+        List<Region> regionList = regionRepository.findAll();
+        log.info("Region list {}", regionList);
+
+        List<PopulatedPoint> populatedPointList = populatedPointRepository.findAll();
+        log.info("Country list {}", populatedPointList);
+
+        //////////////////////////////////
+
+        Region regionFromList = countryList.get(0).getRegions().get(0);
+        log.info("first region from country list {}", regionFromList);
 
     }
 

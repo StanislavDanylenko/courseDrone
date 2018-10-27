@@ -31,8 +31,9 @@ public class UserController {
         // @RequestParam means it is a parameter from the GET or POST request
 
 
-        test.testUser();
-        test.testUserAndRole();
+        /*test.testUser();
+        test.testUserAndRole();*/
+        test.testLocation();
 
         return "tested";
     }
