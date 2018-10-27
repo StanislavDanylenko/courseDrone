@@ -4,6 +4,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,7 +13,10 @@ import java.sql.Date;
 @ToString
 public class Report implements Serializable {
 
-    private Date dateOfCreating;
-    // todo write all available sensors
+    private double humidity;
+    private double radiation;
+    private double pressure;
+    private double airPollution;
+    private List<byte[]> photo;
 
 }
