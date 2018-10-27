@@ -41,6 +41,7 @@ public class TestClass {
 
     public void testUser() {
 
+        System.out.println("////////////////////////////////////////\n");
         log.info("create user");
         User n = new User();
         n.setFirstName("name");
@@ -61,9 +62,9 @@ public class TestClass {
         service.save(user);
 
         User user1  = new User();
-        n.setFirstName("name1");
-        n.setEmail("email1");
-        user.setPatronymic("patronimic1");
+        user1.setFirstName("name1");
+        user1.setEmail("email1");
+        user1.setPatronymic("patronimic1");
         log.info("updated user {}", user1);
         service.save(user1);
 
@@ -78,9 +79,17 @@ public class TestClass {
     }
 
     void testUserAndRole() {
-        /*Set<RoleUser> roles = n.getRoles();
-        roles.add(RoleUser.USER);
-        n.setRoles(roles);*/
+
+        System.out.println("////////////////////////////////////////\n");
+
+        User user  = new User();
+        user.setFirstName("name1");
+        user.setEmail("email1");
+        user.setPatronymic("patronimic1");
+        log.info("updated user {}", user);
+        service.save(user);
+
+
     }
 
 }

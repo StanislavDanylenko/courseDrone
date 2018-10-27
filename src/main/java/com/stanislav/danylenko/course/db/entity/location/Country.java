@@ -12,6 +12,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
+@ToString
 public class Country extends BaseEntity {
 
     private String name;

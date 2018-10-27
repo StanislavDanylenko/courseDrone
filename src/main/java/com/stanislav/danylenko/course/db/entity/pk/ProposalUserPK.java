@@ -11,8 +11,10 @@ import java.io.Serializable;
 @Getter
 @Setter
 @EqualsAndHashCode
+@ToString
 public class ProposalUserPK implements Serializable {
 
     private Long user;
     private Long proposal;
+
 }

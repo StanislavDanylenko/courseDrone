@@ -9,6 +9,7 @@ import java.sql.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
+@ToString
 public class Report implements Serializable {
 
     private Date dateOfCreating;

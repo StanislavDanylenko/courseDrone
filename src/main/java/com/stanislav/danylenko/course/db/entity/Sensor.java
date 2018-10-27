@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
+@ToString
 public class Sensor extends BaseEntity{
 
     private String name;

@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @IdClass(LocalProposalPK.class)
+@ToString
 public class LocalProposal implements Serializable {
 
     @Id

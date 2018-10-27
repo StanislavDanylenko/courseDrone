@@ -2,10 +2,7 @@ package com.stanislav.danylenko.course.db.entity;
 
 import com.stanislav.danylenko.course.db.entity.bl.Report;
 import com.stanislav.danylenko.course.db.entity.pk.ProposalUserPK;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,6 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @IdClass(ProposalUserPK.class)
+@ToString
 public class ProposalUser implements Serializable {
 
     @Id

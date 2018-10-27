@@ -11,6 +11,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @EqualsAndHashCode
+@ToString
 public class LocalProposalPK implements Serializable {
 
     private Long populatedPoint;
