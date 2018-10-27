@@ -1,8 +1,6 @@
 package com.stanislav.danylenko.course;
 
-import com.stanislav.danylenko.course.db.entity.Drone;
-import com.stanislav.danylenko.course.db.entity.Sensor;
-import com.stanislav.danylenko.course.db.entity.User;
+import com.stanislav.danylenko.course.db.entity.*;
 import com.stanislav.danylenko.course.db.entity.location.Country;
 import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
 import com.stanislav.danylenko.course.db.entity.location.Region;
@@ -42,7 +40,7 @@ public class TestClass {
     @Autowired
     private LocalProposalRepository localProposalRepository;
     @Autowired
-    private ProposalUserRepository proposalUserRepository;
+    private LocalProposalUserRepository localProposalUserRepository;
 
 
 
@@ -231,6 +229,63 @@ public class TestClass {
 
         List<Drone> drones = droneRepository.findAll();
         log.info("All available drons {}", drones);
+
+    }
+
+    public void testLocalProposeUser() {
+
+        LocalProposalUser bla = new LocalProposalUser();
+
+        Country country = new Country("country");
+        countryRepository.save(country);
+
+        Region region = new Region("region");
+        region.setCountry(country);
+        regionRepository.save(region);
+
+        PopulatedPoint populatedPoint = new PopulatedPoint("popPoint");
+        populatedPoint.setRegion(region);
+        populatedPointRepository.save(populatedPoint);
+
+        //////////////
+
+        Drone drone = new Drone("drone");
+        droneRepository.save(drone);
+        Sensor sensor = new Sensor("sensor", TypeOfSensor.HUMIDITY);
+        Sensor senso2r = new Sensor("sensor2", TypeOfSensor.PRESSURE);
+        drone.addSensor(sensor);
+        drone.addSensor(senso2r);
+        droneRepository.save(drone);
+
+        //////////////////
+
+        Proposal proposal = new Proposal("title", "description");
+        proposalRepository.save(proposal);
+
+        LocalProposal localProposal = new LocalProposal();
+        localProposal.setProposal(proposal);
+        localProposal.setPopulatedPoint(populatedPoint);
+        localProposalRepository.save(localProposal);
+
+        localProposal.addDrone(drone);
+        localProposalRepository.save(localProposal);
+
+        ////////////////////////
+
+        User user = new User();
+        user.setEmail("email");
+        service.save(user);
+        user.addRole(RoleUser.USER);
+        service.save(user);
+
+        ///////////////////
+
+        // testing the last breath
+
+        LocalProposalUser lpu = new LocalProposalUser();
+        lpu.setLocalProposal(localProposal);
+        lpu.setUser(user);
+        localProposalUserRepository.save(lpu);
 
     }
 

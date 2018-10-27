@@ -1,6 +1,5 @@
 package com.stanislav.danylenko.course.db.entity;
 
-import com.stanislav.danylenko.course.db.entity.pk.ProposalUserPK;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,7 +18,7 @@ public class Drone extends BaseEntity {
     @Column(nullable = false)
     @NonNull
     private String name;
-    private ProposalUserPK currentOperationId;
+    //private ProposalUserPK currentOperationId;
     private int batteryLevel;
     private boolean isAvailable = true;
 

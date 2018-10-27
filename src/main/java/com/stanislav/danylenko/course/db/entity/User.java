@@ -8,7 +8,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -47,8 +46,18 @@ public class User extends BaseEntity {
     @Column(name = "role_id")
     private Set<RoleUser> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REFRESH)
-    private List<ProposalUser> proposals = new ArrayList<>();
+    /*@ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "localPropose_user",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = {
+                    @JoinColumn(name = "LOC_POINT", referencedColumnName = "populated_point_id"),
+                    @JoinColumn(name = "LOC_PROP", referencedColumnName = "proposal_id")
+            }
+    )
+    private List<LocalProposal> proposals = new ArrayList<>();*/
+
+    @OneToMany(mappedBy = "user")
+    List<LocalProposalUser> localProposalUsers;
 
     public boolean addRole(RoleUser role) {
         return roles.add(role);

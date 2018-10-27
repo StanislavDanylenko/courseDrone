@@ -23,10 +23,14 @@ public class Proposal extends BaseEntity {
     @NonNull
     private String description;
 
-    @OneToMany(mappedBy = "proposal", cascade = CascadeType.REFRESH)
-    private List<ProposalUser> users = new ArrayList<>();
+    /*@OneToMany(mappedBy = "proposal", cascade = CascadeType.ALL)
+    private List<ProposalUser> users = new ArrayList<>();*/
 
-    @OneToMany(mappedBy = "proposal", cascade = CascadeType.REFRESH)
-    private List<LocalProposal> localProposals = new ArrayList<>();
+    /*@OneToMany(mappedBy = "proposal", cascade = CascadeType.ALL)
+    private List<LocalProposal> localProposals = new ArrayList<>();*/
+
+    @OneToMany(mappedBy = "proposal", cascade = CascadeType.ALL)
+    @Setter(AccessLevel.NONE)
+    private List<LocalProposal> localProposals;
 
 }
