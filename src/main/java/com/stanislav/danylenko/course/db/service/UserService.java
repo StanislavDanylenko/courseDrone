@@ -10,32 +10,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserService implements GenericService<User> {
 
     @Autowired
-    PopulatedPointRepository populatedPointRepository;
+    private PopulatedPointRepository populatedPointRepository;
 
     @Autowired
     private UserRepository repository;
 
+    @Override
     public User save(User user) {
         return repository.save(user);
     }
 
+    @Override
     public void delete(User user) {
         repository.delete(user);
     }
 
+    @Override
     public User update(User user) {
         return repository.save(user);
     }
 
+    @Override
     public User find(Long id) {
         return repository.findById(id).orElse(null);
     }
 
+    @Override
     public Iterable<User> findAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
     public User findByEmail(String email) {

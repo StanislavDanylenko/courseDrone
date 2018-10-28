@@ -1,4 +1,4 @@
-package com.stanislav.danylenko.course.db.entity;
+package com.stanislav.danylenko.course.db.entity.pk;
 
 import com.stanislav.danylenko.course.db.entity.pk.LocalProposalPK;
 import lombok.EqualsAndHashCode;

@@ -54,12 +54,11 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id, HttpServletResponse response) throws DBException {
-        User user = service.find(id);
-        service.delete(user);
+        service.delete(id);
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
-    @GetMapping("/test")
+/*    @GetMapping("/test")
     public User get() {
         PopulatedPoint populatedPoint = new PopulatedPoint("asdasd");
         User user = new User();
@@ -68,6 +67,6 @@ public class UserController {
         user.setType(TypeOfUser.BUSINESS);
         user.setActive(true);
         return user;
-    }
+    }*/
 
 }

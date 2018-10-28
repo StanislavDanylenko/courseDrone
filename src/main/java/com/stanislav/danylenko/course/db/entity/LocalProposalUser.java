@@ -1,5 +1,6 @@
 package com.stanislav.danylenko.course.db.entity;
 
+import com.stanislav.danylenko.course.db.entity.pk.LocalProposalUserPK;
 import lombok.*;
 
 import javax.persistence.*;
