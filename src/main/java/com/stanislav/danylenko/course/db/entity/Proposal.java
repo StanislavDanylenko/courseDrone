@@ -26,7 +26,6 @@ public class Proposal extends BaseEntity {
 
     @JsonIgnore
     @OneToMany(mappedBy = "proposal", cascade = CascadeType.ALL)
-    @Setter(AccessLevel.NONE)
     private List<LocalProposal> localProposals;
 
 }

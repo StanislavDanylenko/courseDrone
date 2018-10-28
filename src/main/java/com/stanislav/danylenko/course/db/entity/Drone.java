@@ -24,7 +24,6 @@ public class Drone extends BaseEntity {
 
     @OneToMany(mappedBy = "drone",
             cascade = CascadeType.ALL)
-    @Setter(AccessLevel.NONE)
     private List<Sensor> sensors = new ArrayList<>();
 
 

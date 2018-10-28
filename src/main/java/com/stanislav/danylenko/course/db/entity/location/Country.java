@@ -28,7 +28,6 @@ public class Country extends BaseEntity {
     /*@JsonIgnore*/
     @OneToMany(mappedBy = "country",
             cascade = CascadeType.ALL)
-    @Setter(AccessLevel.NONE)
     private List<Region> regions = new ArrayList<>();
 
     @Override

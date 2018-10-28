@@ -31,7 +31,6 @@ public class PopulatedPoint extends BaseEntity {
 
     @JsonIgnore
     @OneToMany(mappedBy = "populatedPoint", cascade = CascadeType.ALL)
-    @Setter(AccessLevel.NONE)
     private List<LocalProposal> proposalList = new ArrayList<>();
 
     @Override

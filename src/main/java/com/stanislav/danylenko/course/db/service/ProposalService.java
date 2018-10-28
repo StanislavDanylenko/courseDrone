@@ -3,7 +3,9 @@ package com.stanislav.danylenko.course.db.service;
 import com.stanislav.danylenko.course.db.entity.Proposal;
 import com.stanislav.danylenko.course.db.repository.ProposalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ProposalService implements GenericService<Proposal> {
 
     @Autowired
@@ -37,5 +39,10 @@ public class ProposalService implements GenericService<Proposal> {
     @Override
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    public void updateProposal(Proposal proposal, Proposal newProposal) {
+        proposal.setName(newProposal.getName());
+        proposal.setDescription(newProposal.getDescription());
     }
 }
