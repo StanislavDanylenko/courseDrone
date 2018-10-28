@@ -18,7 +18,7 @@ public class Drone extends BaseEntity {
     @Column(nullable = false)
     @NonNull
     private String name;
-    //private ProposalUserPK currentOperationId;
+
     private int batteryLevel;
     private boolean isAvailable = true;
 
