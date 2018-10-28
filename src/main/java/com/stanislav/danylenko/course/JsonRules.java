@@ -1,4 +1,4 @@
-package com.stanislav.danylenko.course.db.entity;
+package com.stanislav.danylenko.course;
 
 public final class JsonRules {
 

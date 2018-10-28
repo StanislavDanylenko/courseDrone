@@ -1,8 +1,8 @@
-package com.stanislav.danylenko.course.db.service.location;
+package com.stanislav.danylenko.course.service.location;
 
 import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
 import com.stanislav.danylenko.course.db.repository.location.PopulatedPointRepository;
-import com.stanislav.danylenko.course.db.service.GenericService;
+import com.stanislav.danylenko.course.service.GenericService;
 import com.stanislav.danylenko.course.web.model.location.PopulatedPointModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

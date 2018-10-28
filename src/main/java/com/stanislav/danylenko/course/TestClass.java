@@ -10,13 +10,11 @@ import com.stanislav.danylenko.course.db.repository.*;
 import com.stanislav.danylenko.course.db.repository.location.CountryRepository;
 import com.stanislav.danylenko.course.db.repository.location.PopulatedPointRepository;
 import com.stanislav.danylenko.course.db.repository.location.RegionRepository;
-import com.stanislav.danylenko.course.db.service.UserService;
-import lombok.extern.java.Log;
+import com.stanislav.danylenko.course.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j

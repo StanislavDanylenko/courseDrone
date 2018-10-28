@@ -1,9 +1,9 @@
 package com.stanislav.danylenko.course.web.controller.location;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.stanislav.danylenko.course.db.entity.JsonRules;
+import com.stanislav.danylenko.course.JsonRules;
 import com.stanislav.danylenko.course.db.entity.location.Country;
-import com.stanislav.danylenko.course.db.service.location.CountryService;
+import com.stanislav.danylenko.course.service.location.CountryService;
 import com.stanislav.danylenko.course.exception.DBException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

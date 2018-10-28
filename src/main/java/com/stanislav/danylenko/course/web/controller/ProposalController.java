@@ -1,7 +1,7 @@
 package com.stanislav.danylenko.course.web.controller;
 
 import com.stanislav.danylenko.course.db.entity.Proposal;
-import com.stanislav.danylenko.course.db.service.ProposalService;
+import com.stanislav.danylenko.course.service.ProposalService;
 import com.stanislav.danylenko.course.exception.DBException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

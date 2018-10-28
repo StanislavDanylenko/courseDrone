@@ -2,20 +2,16 @@ package com.stanislav.danylenko.course.web.controller.user;
 
 import com.stanislav.danylenko.course.db.entity.User;
 import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
-import com.stanislav.danylenko.course.db.enumeration.L10n;
-import com.stanislav.danylenko.course.db.enumeration.TypeOfUser;
-import com.stanislav.danylenko.course.db.service.UserService;
+import com.stanislav.danylenko.course.service.UserService;
 import com.stanislav.danylenko.course.exception.DBException;
 import com.stanislav.danylenko.course.web.model.location.FullLocationModel;
 import com.stanislav.danylenko.course.web.model.user.UserRegistrationModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 @RestController
 @RequestMapping("/users")

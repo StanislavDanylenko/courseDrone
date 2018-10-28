@@ -1,4 +1,4 @@
-package com.stanislav.danylenko.course.db.service;
+package com.stanislav.danylenko.course.service;
 
 import com.stanislav.danylenko.course.db.entity.Proposal;
 import com.stanislav.danylenko.course.db.repository.ProposalRepository;

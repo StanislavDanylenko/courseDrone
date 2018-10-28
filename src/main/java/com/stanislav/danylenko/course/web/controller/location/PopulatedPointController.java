@@ -1,9 +1,9 @@
 package com.stanislav.danylenko.course.web.controller.location;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.stanislav.danylenko.course.db.entity.JsonRules;
+import com.stanislav.danylenko.course.JsonRules;
 import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
-import com.stanislav.danylenko.course.db.service.location.PopulatedPointService;
+import com.stanislav.danylenko.course.service.location.PopulatedPointService;
 import com.stanislav.danylenko.course.exception.DBException;
 import com.stanislav.danylenko.course.web.model.location.PopulatedPointModel;
 import org.springframework.beans.factory.annotation.Autowired;

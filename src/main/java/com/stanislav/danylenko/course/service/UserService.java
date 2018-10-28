@@ -1,4 +1,4 @@
-package com.stanislav.danylenko.course.db.service;
+package com.stanislav.danylenko.course.service;
 
 import com.stanislav.danylenko.course.db.entity.User;
 import com.stanislav.danylenko.course.db.entity.location.Country;
@@ -6,10 +6,9 @@ import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
 import com.stanislav.danylenko.course.db.entity.location.Region;
 import com.stanislav.danylenko.course.db.enumeration.RoleUser;
 import com.stanislav.danylenko.course.db.repository.UserRepository;
-import com.stanislav.danylenko.course.db.repository.location.PopulatedPointRepository;
-import com.stanislav.danylenko.course.db.service.location.CountryService;
-import com.stanislav.danylenko.course.db.service.location.PopulatedPointService;
-import com.stanislav.danylenko.course.db.service.location.RegionService;
+import com.stanislav.danylenko.course.service.location.CountryService;
+import com.stanislav.danylenko.course.service.location.PopulatedPointService;
+import com.stanislav.danylenko.course.service.location.RegionService;
 import com.stanislav.danylenko.course.web.model.location.FullLocationModel;
 import com.stanislav.danylenko.course.web.model.user.UserRegistrationModel;
 import org.springframework.beans.factory.annotation.Autowired;

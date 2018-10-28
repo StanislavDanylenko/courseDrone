@@ -1,6 +1,7 @@
 package com.stanislav.danylenko.course.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.stanislav.danylenko.course.JsonRules;
 import lombok.*;
 
 import javax.persistence.*;

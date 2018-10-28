@@ -1,4 +1,4 @@
-package com.stanislav.danylenko.course.db.service;
+package com.stanislav.danylenko.course.service;
 
 public interface GenericService<T> {
 

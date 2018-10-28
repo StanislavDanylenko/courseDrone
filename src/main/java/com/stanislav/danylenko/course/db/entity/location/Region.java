@@ -3,10 +3,8 @@ package com.stanislav.danylenko.course.db.entity.location;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.stanislav.danylenko.course.db.entity.BaseEntity;
-import com.stanislav.danylenko.course.db.entity.JsonRules;
+import com.stanislav.danylenko.course.JsonRules;
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.sql.Delete;
 
 import javax.persistence.*;
 import java.util.ArrayList;
