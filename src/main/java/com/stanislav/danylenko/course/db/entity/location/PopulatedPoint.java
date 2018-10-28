@@ -1,5 +1,6 @@
 package com.stanislav.danylenko.course.db.entity.location;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.stanislav.danylenko.course.db.entity.BaseEntity;
 import com.stanislav.danylenko.course.db.entity.LocalProposal;
 import lombok.*;
@@ -20,10 +21,12 @@ public class PopulatedPoint extends BaseEntity {
     @NonNull
     private String name;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "region_id")
     private Region region;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "populatedPoint", cascade = CascadeType.ALL)
     @Setter(AccessLevel.NONE)
     private List<LocalProposal> proposalList = new ArrayList<>();

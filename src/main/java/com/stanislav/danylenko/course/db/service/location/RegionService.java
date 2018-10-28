@@ -66,8 +66,8 @@ public class RegionService implements GenericService<Region> {
 
     public RegionModel getViewModel(Region region) {
         RegionModel model = new RegionModel();
+        model.setId(region.getId());
         model.setName(region.getName());
-        model.setNameCountry(region.getCountry().getName());
         model.setCountryId(region.getCountry().getId());
         return model;
     }

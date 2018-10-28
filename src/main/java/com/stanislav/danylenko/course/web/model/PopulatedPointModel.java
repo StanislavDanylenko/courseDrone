@@ -9,10 +9,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @ToString
-public class RegionModel implements Serializable {
+public class PopulatedPointModel implements Serializable {
 
     private Long id;
     private String name;
-    private Long countryId;
+    private Long regionId;
 
 }
