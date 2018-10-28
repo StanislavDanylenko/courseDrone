@@ -17,6 +17,8 @@ public class Sensor extends BaseEntity {
     @NonNull
     private String name;
 
+    private double value;
+
     @Column(nullable = false)
     @NonNull
     private TypeOfSensor type;

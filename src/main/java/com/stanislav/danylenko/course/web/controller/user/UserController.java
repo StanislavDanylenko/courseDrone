@@ -1,8 +1,12 @@
-package com.stanislav.danylenko.course.web.controller;
+package com.stanislav.danylenko.course.web.controller.user;
 
 import com.stanislav.danylenko.course.db.entity.User;
+import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
+import com.stanislav.danylenko.course.db.enumeration.L10n;
+import com.stanislav.danylenko.course.db.enumeration.TypeOfUser;
 import com.stanislav.danylenko.course.db.service.UserService;
 import com.stanislav.danylenko.course.exception.DBException;
+import com.stanislav.danylenko.course.web.model.user.UserRegistrationModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +37,8 @@ public class UserController {
 
     @PostMapping
     public @ResponseBody
-    ResponseEntity<User> createUser(@RequestBody User user) throws DBException {
+    ResponseEntity<User> createUser(@RequestBody UserRegistrationModel userModel) throws DBException {
+        User user = service.createFromRegistrationModel(userModel);
         service.save(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
@@ -52,6 +57,17 @@ public class UserController {
         User user = service.find(id);
         service.delete(user);
         response.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    @GetMapping("/test")
+    public User get() {
+        PopulatedPoint populatedPoint = new PopulatedPoint("asdasd");
+        User user = new User();
+        user.setDefaultPopulatedPoint(populatedPoint);
+        user.setLocalization(L10n.ENGLISH);
+        user.setType(TypeOfUser.BUSINESS);
+        user.setActive(true);
+        return user;
     }
 
 }

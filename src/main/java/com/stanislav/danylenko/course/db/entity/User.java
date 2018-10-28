@@ -1,5 +1,7 @@
 package com.stanislav.danylenko.course.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
 import com.stanislav.danylenko.course.db.enumeration.L10n;
 import com.stanislav.danylenko.course.db.enumeration.TypeOfUser;
 import com.stanislav.danylenko.course.db.enumeration.RoleUser;
@@ -8,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -25,43 +28,43 @@ public class User extends BaseEntity {
     private String firstName;
     private String lastName;
     private String patronymic;
+    @JsonIgnore
     private boolean isActive;
     private String password;
-    private L10n localization;
+    private PopulatedPoint defaultPopulatedPoint;
 
     @Column(nullable = false, unique = true)
     @NonNull
+    @Email
+    @JsonIgnore
     private String email;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated
+    private L10n localization;
+
+    @Enumerated
     private TypeOfUser type;
 
     @Column
     @CreationTimestamp
+    @JsonIgnore
     private LocalDateTime createDateTime;
 
     @Column
     @UpdateTimestamp
+    @JsonIgnore
     private LocalDateTime updateDateTime;
 
     @ElementCollection(targetClass = RoleUser.class)
     @Enumerated
     @CollectionTable(name = "user_role")
     @Column(name = "role_id")
+    @JsonIgnore
     private Set<RoleUser> roles = new HashSet<>();
 
-    /*@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "localPropose_user",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = {
-                    @JoinColumn(name = "LOC_POINT", referencedColumnName = "populated_point_id"),
-                    @JoinColumn(name = "LOC_PROP", referencedColumnName = "proposal_id")
-            }
-    )
-    private List<LocalProposal> proposals = new ArrayList<>();*/
-
     @OneToMany(mappedBy = "user")
-    List<LocalProposalUser> localProposalUsers;
+    @JsonIgnore
+    private List<LocalProposalUser> localProposalUsers;
 
     public boolean addRole(RoleUser role) {
         return roles.add(role);

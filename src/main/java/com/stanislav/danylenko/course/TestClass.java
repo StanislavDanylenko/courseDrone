@@ -72,7 +72,7 @@ public class TestClass {
         }
 
         log.info("updating user");
-        User user  = service.read(1L);
+        User user  = service.find(1L);
         user.setPatronymic("patronimic");
         user.setEmail("emailTeat");
         log.info("user from db {}", user);
@@ -85,13 +85,13 @@ public class TestClass {
         log.info("updated user {}", user1);
         service.save(user1);
 
-        List<User> userList = (List<User>)service.readAll();
+        List<User> userList = (List<User>)service.findAll();
         log.info("list of users {}", userList);
 
         service.delete(user);
         log.info("delete user {}", user);
 
-        userList = (List<User>)service.readAll();
+        userList = (List<User>)service.findAll();
         log.info("list of users {}", userList);
     }
 
