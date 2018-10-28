@@ -1,7 +1,9 @@
 package com.stanislav.danylenko.course.db.entity.location;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.stanislav.danylenko.course.db.entity.BaseEntity;
+import com.stanislav.danylenko.course.db.entity.JsonRules;
 import com.stanislav.danylenko.course.db.entity.LocalProposal;
 import lombok.*;
 
@@ -19,6 +21,7 @@ public class PopulatedPoint extends BaseEntity {
 
     @Column(nullable = false)
     @NonNull
+    @JsonView(value = JsonRules.PartialLocation.class)
     private String name;
 
     @JsonIgnore

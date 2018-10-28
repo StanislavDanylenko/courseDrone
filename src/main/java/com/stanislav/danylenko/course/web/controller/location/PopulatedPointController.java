@@ -1,9 +1,11 @@
 package com.stanislav.danylenko.course.web.controller.location;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.stanislav.danylenko.course.db.entity.JsonRules;
 import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
 import com.stanislav.danylenko.course.db.service.location.PopulatedPointService;
 import com.stanislav.danylenko.course.exception.DBException;
-import com.stanislav.danylenko.course.web.model.PopulatedPointModel;
+import com.stanislav.danylenko.course.web.model.location.PopulatedPointModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ public class PopulatedPointController {
     private PopulatedPointService service;
 
     @GetMapping
+    @JsonView(value = JsonRules.PartialLocation.class)
     public @ResponseBody
     ResponseEntity<Iterable<PopulatedPoint>> getCountries() throws DBException {
         return ResponseEntity.ok(service.findAll());
@@ -59,6 +62,7 @@ public class PopulatedPointController {
     }
 
     @GetMapping("/region/{id}")
+    @JsonView(value = JsonRules.PartialLocation.class)
     public @ResponseBody
     ResponseEntity<Iterable<PopulatedPoint>> getPopulatedPointsInCountry(@PathVariable Long id) throws DBException {
         return ResponseEntity.ok(service.findByRegionId(id));

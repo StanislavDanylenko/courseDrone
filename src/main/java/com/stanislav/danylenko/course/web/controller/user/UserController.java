@@ -6,6 +6,7 @@ import com.stanislav.danylenko.course.db.enumeration.L10n;
 import com.stanislav.danylenko.course.db.enumeration.TypeOfUser;
 import com.stanislav.danylenko.course.db.service.UserService;
 import com.stanislav.danylenko.course.exception.DBException;
+import com.stanislav.danylenko.course.web.model.location.FullLocationModel;
 import com.stanislav.danylenko.course.web.model.user.UserRegistrationModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -58,15 +59,13 @@ public class UserController {
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
-/*    @GetMapping("/test")
-    public User get() {
-        PopulatedPoint populatedPoint = new PopulatedPoint("asdasd");
-        User user = new User();
-        user.setDefaultPopulatedPoint(populatedPoint);
-        user.setLocalization(L10n.ENGLISH);
-        user.setType(TypeOfUser.BUSINESS);
-        user.setActive(true);
-        return user;
-    }*/
+    @GetMapping("/{id}/location")
+    public FullLocationModel getUserLocation(@PathVariable Long id) {
+        User user = service.find(id);
+        PopulatedPoint point = user.getDefaultPopulatedPoint();
+        FullLocationModel model = new FullLocationModel();
+        service.fillInfoAboutLocation(point);
+        return model;
+    }
 
 }

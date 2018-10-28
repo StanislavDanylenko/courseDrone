@@ -1,10 +1,16 @@
 package com.stanislav.danylenko.course.db.service;
 
 import com.stanislav.danylenko.course.db.entity.User;
+import com.stanislav.danylenko.course.db.entity.location.Country;
 import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
+import com.stanislav.danylenko.course.db.entity.location.Region;
 import com.stanislav.danylenko.course.db.enumeration.RoleUser;
 import com.stanislav.danylenko.course.db.repository.UserRepository;
 import com.stanislav.danylenko.course.db.repository.location.PopulatedPointRepository;
+import com.stanislav.danylenko.course.db.service.location.CountryService;
+import com.stanislav.danylenko.course.db.service.location.PopulatedPointService;
+import com.stanislav.danylenko.course.db.service.location.RegionService;
+import com.stanislav.danylenko.course.web.model.location.FullLocationModel;
 import com.stanislav.danylenko.course.web.model.user.UserRegistrationModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +19,16 @@ import org.springframework.stereotype.Service;
 public class UserService implements GenericService<User> {
 
     @Autowired
-    private PopulatedPointRepository populatedPointRepository;
+    private PopulatedPointService populatedPointService;
 
     @Autowired
     private UserRepository repository;
+
+    @Autowired
+    private CountryService countryService;
+
+    @Autowired
+    private RegionService regionService;
 
     @Override
     public User save(User user) {
@@ -68,7 +80,7 @@ public class UserService implements GenericService<User> {
         user.setPatronymic(model.getPatronymic());
         user.setLocalization(model.getLocalization());
         if (model.getDefaultPopulatedPointId() != null) {
-            PopulatedPoint populatedPoint = populatedPointRepository.getOne(model.getDefaultPopulatedPointId());
+            PopulatedPoint populatedPoint = populatedPointService.find(model.getDefaultPopulatedPointId());
             user.setDefaultPopulatedPoint(populatedPoint);
         }
         user.setEmail(model.getEmail());
@@ -77,6 +89,24 @@ public class UserService implements GenericService<User> {
         user.addRole(RoleUser.USER);
         user.setActive(true);
         return user;
+    }
+
+    public FullLocationModel fillInfoAboutLocation(PopulatedPoint point) {
+
+        FullLocationModel model = new FullLocationModel();
+
+        model.setPointId(point.getId());
+        model.setPointName(point.getName());
+
+        Region region = regionService.find(point.getRegion().getId());
+        model.setRegionId(region.getId());
+        model.setRegionName(region.getName());
+
+        Country country = countryService.find(region.getCountry().getId());
+        model.setCountryId(country.getId());
+        model.setCountryName(country.getName());
+
+        return model;
     }
 
 }

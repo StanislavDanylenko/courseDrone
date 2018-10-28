@@ -1,9 +1,11 @@
 package com.stanislav.danylenko.course.web.controller.location;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.stanislav.danylenko.course.db.entity.JsonRules;
 import com.stanislav.danylenko.course.db.entity.location.Region;
 import com.stanislav.danylenko.course.db.service.location.RegionService;
 import com.stanislav.danylenko.course.exception.DBException;
-import com.stanislav.danylenko.course.web.model.RegionModel;
+import com.stanislav.danylenko.course.web.model.location.RegionModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ public class RegionController {
     private RegionService service;
 
     @GetMapping
+    @JsonView(value = JsonRules.PartialLocation.class)
     public @ResponseBody
     ResponseEntity<Iterable<Region>> getCountries() throws DBException {
         return ResponseEntity.ok(service.findAll());
@@ -59,9 +62,16 @@ public class RegionController {
     }
 
     @GetMapping("/country/{id}")
+    @JsonView(value = JsonRules.PartialLocation.class)
     public @ResponseBody
     ResponseEntity<Iterable<Region>> getRegionsInCountry(@PathVariable Long id) throws DBException {
         return ResponseEntity.ok(service.findByCountryId(id));
     }
-    
+
+    @GetMapping("/all")
+    public @ResponseBody
+    ResponseEntity<Iterable<Region>> getCountriesFull() throws DBException {
+        return ResponseEntity.ok(service.findAll());
+    }
+
 }

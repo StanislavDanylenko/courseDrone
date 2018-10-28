@@ -1,7 +1,9 @@
 package com.stanislav.danylenko.course.db.entity.location;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.stanislav.danylenko.course.db.entity.BaseEntity;
+import com.stanislav.danylenko.course.db.entity.JsonRules;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.sql.Delete;
@@ -20,6 +22,7 @@ public class Region extends BaseEntity {
 
     @Column(nullable = false)
     @NonNull
+    @JsonView(value = JsonRules.PartialLocation.class)
     private String name;
 
     @JsonIgnore
@@ -27,7 +30,7 @@ public class Region extends BaseEntity {
     @JoinColumn(name = "country_id")
     private Country country;
 
-    @JsonIgnore
+    /*@JsonIgnore*/
     @OneToMany(mappedBy = "region",
             cascade = CascadeType.ALL)
     @Setter(AccessLevel.NONE)

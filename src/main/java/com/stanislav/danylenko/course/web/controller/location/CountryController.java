@@ -1,5 +1,7 @@
 package com.stanislav.danylenko.course.web.controller.location;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.stanislav.danylenko.course.db.entity.JsonRules;
 import com.stanislav.danylenko.course.db.entity.location.Country;
 import com.stanislav.danylenko.course.db.service.location.CountryService;
 import com.stanislav.danylenko.course.exception.DBException;
@@ -18,18 +20,21 @@ public class CountryController {
     private CountryService service;
 
     @GetMapping
+    @JsonView(value = JsonRules.PartialLocation.class)
     public @ResponseBody
     ResponseEntity<Iterable<Country>> getCountries() throws DBException {
         return ResponseEntity.ok(service.findAll());
     }
 
     @GetMapping("/{id}")
+    @JsonView(value = JsonRules.PartialLocation.class)
     public @ResponseBody
     ResponseEntity<Country> getCountry(@PathVariable Long id) throws DBException {
         return new ResponseEntity<>(service.find(id), HttpStatus.FOUND);
     }
 
     @PostMapping
+    @JsonView(value = JsonRules.PartialLocation.class)
     public @ResponseBody
     ResponseEntity<Country> createCountry(@RequestBody Country country) throws DBException {
         service.save(country);
@@ -37,18 +42,24 @@ public class CountryController {
     }
 
     @PutMapping("/{id}")
+    @JsonView(value = JsonRules.PartialLocation.class)
     public @ResponseBody
     ResponseEntity<Country> updateCountry(@RequestBody Country newCountry, @PathVariable Long id) throws DBException {
-        Country Country = service.find(id);
-        service.updateCountry(Country, newCountry);
-        service.update(Country);
-        return ResponseEntity.ok(Country);
+        Country country = service.find(id);
+        service.updateCountry(country, newCountry);
+        service.update(country);
+        return ResponseEntity.ok(country);
     }
 
     @DeleteMapping("/{id}")
     public void deleteCountry(@PathVariable Long id, HttpServletResponse response) throws DBException {
         service.delete(id);
         response.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    @GetMapping("/full")
+    ResponseEntity<Iterable<Country>> getCountriesFull() throws DBException {
+        return ResponseEntity.ok(service.findAll());
     }
     
 }

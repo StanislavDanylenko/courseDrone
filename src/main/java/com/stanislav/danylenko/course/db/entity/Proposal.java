@@ -1,5 +1,6 @@
 package com.stanislav.danylenko.course.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,12 +24,7 @@ public class Proposal extends BaseEntity {
     @NonNull
     private String description;
 
-    /*@OneToMany(mappedBy = "proposal", cascade = CascadeType.ALL)
-    private List<ProposalUser> users = new ArrayList<>();*/
-
-    /*@OneToMany(mappedBy = "proposal", cascade = CascadeType.ALL)
-    private List<LocalProposal> localProposals = new ArrayList<>();*/
-
+    @JsonIgnore
     @OneToMany(mappedBy = "proposal", cascade = CascadeType.ALL)
     @Setter(AccessLevel.NONE)
     private List<LocalProposal> localProposals;

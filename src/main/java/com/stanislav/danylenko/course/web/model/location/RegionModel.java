@@ -1,4 +1,4 @@
-package com.stanislav.danylenko.course.web.model;
+package com.stanislav.danylenko.course.web.model.location;
 
 import lombok.*;
 
@@ -9,10 +9,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @ToString
-public class PopulatedPointModel implements Serializable {
+public class RegionModel implements Serializable {
 
     private Long id;
     private String name;
-    private Long regionId;
+    private Long countryId;
 
 }
