@@ -1,5 +1,6 @@
 package com.stanislav.danylenko.course.db.entity;
 
+import com.stanislav.danylenko.course.db.enumeration.L10n;
 import com.stanislav.danylenko.course.db.enumeration.TypeOfUser;
 import com.stanislav.danylenko.course.db.enumeration.RoleUser;
 import lombok.*;
@@ -24,6 +25,9 @@ public class User extends BaseEntity {
     private String firstName;
     private String lastName;
     private String patronymic;
+    private boolean isActive;
+    private String password;
+    private L10n localization;
 
     @Column(nullable = false, unique = true)
     @NonNull

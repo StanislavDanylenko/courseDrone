@@ -23,16 +23,24 @@ public class UserService {
         return repository.save(user);
     }
 
-    public User read(Long id) {
+    public User find(Long id) {
         return repository.findById(id).orElse(null);
     }
 
-    public Iterable<User> readAll() {
+    public Iterable<User> findAll() {
         return repository.findAll();
     }
 
     public User findByEmail(String email) {
         return repository.findByEmail(email);
+    }
+
+    public void updateUser(User oldUser, User newUser) {
+        oldUser.setFirstName(newUser.getFirstName());
+        oldUser.setLastName(newUser.getLastName());
+        oldUser.setPatronymic(newUser.getPatronymic());
+        oldUser.setPassword(newUser.getPassword());
+        oldUser.setLocalization(newUser.getLocalization());
     }
 
 }
