@@ -1,7 +1,7 @@
-package com.stanislav.danylenko.course.web.controller;
+package com.stanislav.danylenko.course.web.controller.location;
 
 import com.stanislav.danylenko.course.db.entity.location.Country;
-import com.stanislav.danylenko.course.db.service.CountryService;
+import com.stanislav.danylenko.course.db.service.location.CountryService;
 import com.stanislav.danylenko.course.exception.DBException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

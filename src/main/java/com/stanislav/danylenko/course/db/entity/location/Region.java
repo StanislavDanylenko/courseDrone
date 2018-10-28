@@ -1,5 +1,6 @@
 package com.stanislav.danylenko.course.db.entity.location;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.stanislav.danylenko.course.db.entity.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -21,10 +22,12 @@ public class Region extends BaseEntity {
     @NonNull
     private String name;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")
     private Country country;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "region",
             cascade = CascadeType.ALL)
     @Setter(AccessLevel.NONE)
