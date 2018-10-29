@@ -33,6 +33,7 @@ public class DroneController {
     @PostMapping
     public @ResponseBody
     ResponseEntity<Drone> createDrone(@RequestBody Drone drone) throws DBException {
+        service.processDrone(drone);
         service.save(drone);
         return new ResponseEntity<>(drone, HttpStatus.CREATED);
     }

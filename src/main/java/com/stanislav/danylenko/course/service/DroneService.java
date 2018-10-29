@@ -1,9 +1,15 @@
 package com.stanislav.danylenko.course.service;
 
 import com.stanislav.danylenko.course.db.entity.Drone;
+import com.stanislav.danylenko.course.db.entity.Sensor;
 import com.stanislav.danylenko.course.db.repository.DroneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class DroneService implements GenericService<Drone> {
@@ -45,5 +51,18 @@ public class DroneService implements GenericService<Drone> {
         drone.setLocalProposal(newDrone.getLocalProposal());
         drone.setAvailable(newDrone.isAvailable());
         drone.setBatteryLevel(newDrone.getBatteryLevel());
+        Set<Sensor> sensors = new HashSet<>(drone.getSensors());
+        sensors.addAll(newDrone.getSensors());
+        List<Sensor> updatedSensors = new ArrayList<>(sensors);
+        drone.setSensors(updatedSensors);
+    }
+
+    public void processDrone(Drone drone) {
+        List<Sensor> sensors = drone.getSensors();
+        if (!sensors.isEmpty()) {
+            for (Sensor sensor : sensors) {
+                sensor.setDrone(drone);
+            }
+        }
     }
 }
