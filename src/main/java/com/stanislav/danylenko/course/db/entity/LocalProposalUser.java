@@ -1,10 +1,13 @@
 package com.stanislav.danylenko.course.db.entity;
 
+import com.stanislav.danylenko.course.db.entity.bl.Report;
 import com.stanislav.danylenko.course.db.entity.pk.LocalProposalUserPK;
+import com.stanislav.danylenko.course.db.enumeration.OperationStatus;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -27,5 +30,12 @@ public class LocalProposalUser implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Enumerated
+    private OperationStatus status;
+
+    private UUID uuid;
+    private Drone drone;
+    private Report report;
 
 }

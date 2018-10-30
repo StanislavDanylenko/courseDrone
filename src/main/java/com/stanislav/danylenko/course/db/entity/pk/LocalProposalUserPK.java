@@ -1,13 +1,18 @@
 package com.stanislav.danylenko.course.db.entity.pk;
 
 import com.stanislav.danylenko.course.db.entity.pk.LocalProposalPK;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @EqualsAndHashCode
+@ToString
 public class LocalProposalUserPK implements Serializable {
 
     private LocalProposalPK localProposal;

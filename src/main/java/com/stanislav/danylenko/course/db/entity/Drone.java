@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -24,6 +25,7 @@ public class Drone extends BaseEntity {
 
     private int batteryLevel;
     private boolean isAvailable = true;
+    private UUID currentUuid;
 
     @OneToMany(mappedBy = "drone",
             cascade = CascadeType.ALL)
@@ -57,7 +59,6 @@ public class Drone extends BaseEntity {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(name);
     }
 }
