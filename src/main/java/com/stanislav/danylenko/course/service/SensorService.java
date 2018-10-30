@@ -41,6 +41,10 @@ public class SensorService implements GenericService<Sensor> {
         repository.deleteById(id);
     }
 
+    public void deleteAll(Iterable<Sensor> collection) {
+        repository.deleteAll(collection);
+    }
+
     public void updateSensor(Sensor sensor, Sensor newSensor) {
         sensor.setValue(newSensor.getValue());
     }

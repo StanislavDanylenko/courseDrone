@@ -1,5 +1,6 @@
 package com.stanislav.danylenko.course.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
 import com.stanislav.danylenko.course.db.entity.pk.LocalProposalPK;
 import lombok.*;
@@ -30,13 +31,11 @@ public class LocalProposal implements Serializable {
 
 
     @OneToMany(mappedBy = "localProposal",
-            cascade = CascadeType.REFRESH)
+            cascade = CascadeType.ALL)
     private List<Drone> drones = new ArrayList<>();
 
-   /* @ManyToMany(mappedBy = "proposals")
-    private List<User> users;*/
-
-    @OneToMany(mappedBy = "localProposal")
+    @JsonIgnore
+    @OneToMany(mappedBy = "localProposal", cascade = CascadeType.ALL)
     private List<LocalProposalUser> localProposalUsers;
 
     public boolean addDrone(Drone drone) {

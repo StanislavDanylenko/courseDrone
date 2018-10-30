@@ -16,7 +16,7 @@ public class DroneService implements GenericService<Drone> {
     
     @Autowired
     private DroneRepository repository;
-    
+
     @Override
     public Drone save(Drone drone) {
         return repository.save(drone);
@@ -47,14 +47,32 @@ public class DroneService implements GenericService<Drone> {
         repository.deleteById(id);
     }
 
-    public void updateDrone(Drone drone, Drone newDrone) {
+    public Iterable<Drone> findByPopulatedPoint(Long id) {
+        return repository.findByLocalProposalPopulatedPointId(id);
+    }
+
+    public List<Sensor> updateDrone(Drone drone, Drone newDrone) {
         drone.setLocalProposal(newDrone.getLocalProposal());
         drone.setAvailable(newDrone.isAvailable());
         drone.setBatteryLevel(newDrone.getBatteryLevel());
-        Set<Sensor> sensors = new HashSet<>(drone.getSensors());
-        sensors.addAll(newDrone.getSensors());
-        List<Sensor> updatedSensors = new ArrayList<>(sensors);
+
+        Set<Sensor> sensorsOld = new HashSet<>(drone.getSensors());
+        Set<Sensor> sensorOldCopy = new HashSet<>(sensorsOld);
+        Set<Sensor> sensorNew = new HashSet<>(newDrone.getSensors());
+
+        sensorsOld.retainAll(sensorNew);
+        sensorsOld.addAll(sensorNew);
+        sensorOldCopy.removeAll(sensorsOld);
+
+        for (Sensor sensor : sensorsOld) {
+            sensor.setDrone(drone);
+        }
+
+        List<Sensor> updatedSensors = new ArrayList<>();
+        updatedSensors.addAll(sensorsOld);
         drone.setSensors(updatedSensors);
+
+        return new ArrayList<>(sensorOldCopy);
     }
 
     public void processDrone(Drone drone) {

@@ -1,10 +1,12 @@
 package com.stanislav.danylenko.course.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -26,7 +28,7 @@ public class Drone extends BaseEntity {
             cascade = CascadeType.ALL)
     private List<Sensor> sensors = new ArrayList<>();
 
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name="LOC_POINT", referencedColumnName="populated_point_id"),
@@ -47,4 +49,17 @@ public class Drone extends BaseEntity {
         return false;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Drone drone = (Drone) o;
+        return Objects.equals(name, drone.name);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(name);
+    }
 }
