@@ -25,6 +25,7 @@ public class Drone extends BaseEntity {
 
     private int batteryLevel;
     private boolean isAvailable = true;
+    @Column(columnDefinition = "BINARY(16)")
     private UUID currentUuid;
 
     @OneToMany(mappedBy = "drone",
