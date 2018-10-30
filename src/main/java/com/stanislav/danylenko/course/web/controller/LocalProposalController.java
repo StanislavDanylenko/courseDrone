@@ -49,15 +49,8 @@ public class LocalProposalController {
 
     @PutMapping
     public @ResponseBody
-    ResponseEntity<LocalProposal> updateLocalProposal(@RequestBody LocalProposalModel model) throws DBException {
-        LocalProposalPK pk = new LocalProposalPK(model.getPopulatedPointId(), model.getProposalId());
-        LocalProposal localProposal = service.find(pk);
-        List<Drone> updatedDrones = service.updateLocalProposal(localProposal, model);
-        service.update(localProposal);
-
-        /*for (Drone drone)*/
-
-        return ResponseEntity.ok(localProposal);
+    void updateLocalProposal(HttpServletResponse response) throws DBException {
+        response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
 
     @DeleteMapping

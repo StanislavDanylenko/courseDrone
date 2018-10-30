@@ -14,6 +14,5 @@ public class LocalProposalModel {
 
     private Long proposalId;
     private Long populatedPointId;
-    private List<Long> drones;
 
 }

@@ -29,18 +29,8 @@ public class LocalProposal implements Serializable {
     @JoinColumn(name = "proposal_id")
     private Proposal proposal;
 
-
-    /*@OneToMany(mappedBy = "localProposal",
-            cascade = CascadeType.ALL)
-    private List<Drone> drones = new ArrayList<>();*/
-
     @JsonIgnore
     @OneToMany(mappedBy = "localProposal", cascade = CascadeType.ALL)
     private List<LocalProposalUser> localProposalUsers;
-
-   /* public boolean addDrone(Drone drone) {
-        drone.setLocalProposal(this);
-        return drones.add(drone);
-    }*/
 
 }
