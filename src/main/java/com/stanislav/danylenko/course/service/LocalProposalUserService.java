@@ -1,18 +1,19 @@
 package com.stanislav.danylenko.course.service;
 
-import com.stanislav.danylenko.course.db.entity.LocalProposal;
-import com.stanislav.danylenko.course.db.entity.LocalProposalUser;
-import com.stanislav.danylenko.course.db.entity.User;
+import com.stanislav.danylenko.course.db.entity.*;
+import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
 import com.stanislav.danylenko.course.db.entity.pk.LocalProposalPK;
 import com.stanislav.danylenko.course.db.entity.pk.LocalProposalUserPK;
 import com.stanislav.danylenko.course.db.enumeration.OperationStatus;
+import com.stanislav.danylenko.course.db.enumeration.TypeOfSensor;
 import com.stanislav.danylenko.course.db.repository.LocalProposalUserRepository;
+import com.stanislav.danylenko.course.service.location.PopulatedPointService;
 import com.stanislav.danylenko.course.web.model.LocalProposalUserModel;
 import com.stanislav.danylenko.course.web.model.ReportModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class LocalProposalUserService {
@@ -25,6 +26,12 @@ public class LocalProposalUserService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ProposalService proposalService;
+
+    @Autowired
+    private PopulatedPointService populatedPointService;
 
 
     public LocalProposalUser save(LocalProposalUser localProposalUser) {
@@ -85,7 +92,9 @@ public class LocalProposalUserService {
         localProposalUser.setUuid(uuid);
 
         // todo logic for founding drone
-        // localProposalUser.setDrone(localProposal.finCompatibleDrone());
+        Drone drone = findCompatibleDrone(localProposal);
+        localProposalUser.setDroneId(drone.getId());
+        drone.setCurrentUuid(uuid);
 
         return localProposalUser;
     }
@@ -99,5 +108,32 @@ public class LocalProposalUserService {
             // считать состояние датчиков и отправить отчет
         }
         return localProposalUser;
+    }
+
+    private Drone findCompatibleDrone(LocalProposal localProposal) {
+        Drone finalDrone = null;
+        Proposal proposal = localProposal.getProposal();
+        PopulatedPoint populatedPoint = localProposal.getPopulatedPoint();
+
+        Set<TypeOfSensor> typeOfSensors = proposal.getSensors();
+        List<Drone> drones = populatedPoint.getDrones();
+
+        Set<Drone> compatibleTypeDrones = new TreeSet<>();
+
+        for (Drone drone : drones) {
+            List<Sensor> sensors = drone.getSensors();
+            Set<TypeOfSensor> sensorsInDrone = new HashSet<>();
+            for (Sensor sensor : sensors) {
+                sensorsInDrone.add(sensor.getType());
+            }
+            if (sensorsInDrone.containsAll(typeOfSensors)) {
+                compatibleTypeDrones.add(drone);
+            }
+        }
+
+        if (compatibleTypeDrones.size() > 0) {
+            return ((TreeSet<Drone>) compatibleTypeDrones).first();
+        }
+        return finalDrone;
     }
 }

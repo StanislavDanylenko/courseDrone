@@ -57,7 +57,6 @@ public class DroneService implements GenericService<Drone> {
         return repository.findAllByPopulatedPointId(id);
     }
 
-    //todo rewrite
     public List<Sensor> updateDrone(Drone drone, DroneModel model) {
 
         PopulatedPoint populatedPoint = populatedPointService.find(model.getPopulatedPointId());

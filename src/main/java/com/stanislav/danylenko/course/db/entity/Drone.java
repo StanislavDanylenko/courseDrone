@@ -17,7 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @RequiredArgsConstructor
 @ToString
-public class Drone extends BaseEntity {
+public class Drone extends BaseEntity implements Comparable<Drone>{
 
     @Column(nullable = false)
     @NonNull
@@ -61,5 +61,10 @@ public class Drone extends BaseEntity {
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    @Override
+    public int compareTo(Drone o) {
+        return o.getBatteryLevel() - this.getBatteryLevel();
     }
 }

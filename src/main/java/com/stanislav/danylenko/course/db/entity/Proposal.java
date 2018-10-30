@@ -1,11 +1,12 @@
 package com.stanislav.danylenko.course.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.stanislav.danylenko.course.db.enumeration.TypeOfSensor;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -27,5 +28,9 @@ public class Proposal extends BaseEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "proposal", cascade = CascadeType.ALL)
     private List<LocalProposal> localProposals;
+
+    @ElementCollection(targetClass = TypeOfSensor.class)
+    @Enumerated
+    private Set<TypeOfSensor> sensors;
 
 }

@@ -42,7 +42,7 @@ public class LocalProposalUser implements Serializable {
     @Column(updatable = false, nullable = false, unique=true, columnDefinition = "BINARY(16)")
     private UUID uuid;
 
-    private Drone drone;
+    private Long droneId;
     private Report report;
 
     @Column
