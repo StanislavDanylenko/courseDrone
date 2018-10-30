@@ -34,7 +34,9 @@ public class LocalProposalUser implements Serializable {
     @Enumerated
     private OperationStatus status;
 
+    @Id
     private UUID uuid;
+
     private Drone drone;
     private Report report;
 

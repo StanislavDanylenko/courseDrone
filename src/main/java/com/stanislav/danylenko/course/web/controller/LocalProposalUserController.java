@@ -60,14 +60,14 @@ public class LocalProposalUserController {
         return new ResponseEntity<>(service.findAllByLocalProposal(proposal), HttpStatus.FOUND);
     }
 
-    @GetMapping
+/*    @GetMapping
     public @ResponseBody
     ResponseEntity<LocalProposalUser> getLocalProposalUser(
             @RequestBody LocalProposalUserModel model) throws DBException {
         LocalProposalPK localProposalPK = new LocalProposalPK(model.getPopulatedPointId(), model.getProposalId());
         LocalProposalUserPK pk = new LocalProposalUserPK(localProposalPK, model.getUserId());
         return new ResponseEntity<>(service.find(pk), HttpStatus.FOUND);
-    }
+    }*/
 
     ///
 
@@ -79,14 +79,14 @@ public class LocalProposalUserController {
         return new ResponseEntity<>(localProposalUser, HttpStatus.CREATED);
     }
 
-    // todo write
+   /* // todo write
     @PutMapping
     public @ResponseBody
     void updateLocalProposalUser(ReportModel model) throws DBException {
         LocalProposalUser localProposalUser = service.findByUuid(model.getUuid());
         service.updateLocalProposalUser(localProposalUser, model);
-    }
-
+    }*/
+/*
     //
     @DeleteMapping
     public void deleteLocalProposalUser(@RequestBody LocalProposalUserModel model, HttpServletResponse response) throws DBException {
@@ -94,5 +94,5 @@ public class LocalProposalUserController {
         LocalProposalUserPK pk = new LocalProposalUserPK(localProposalPK, model.getProposalId());
         service.delete(pk);
         response.setStatus(HttpServletResponse.SC_OK);
-    }
+    }*/
 }
