@@ -35,6 +35,7 @@ public class LocalProposalUser implements Serializable {
     private OperationStatus status;
 
     @Id
+    @Column(updatable = false, nullable = false, unique=true, columnDefinition = "BINARY(16)")
     private UUID uuid;
 
     private Drone drone;

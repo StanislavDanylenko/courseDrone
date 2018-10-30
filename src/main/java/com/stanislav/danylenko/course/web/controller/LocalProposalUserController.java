@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/userProposals")
@@ -60,14 +61,15 @@ public class LocalProposalUserController {
         return new ResponseEntity<>(service.findAllByLocalProposal(proposal), HttpStatus.FOUND);
     }
 
-/*    @GetMapping
+    @GetMapping("/{id}")
     public @ResponseBody
-    ResponseEntity<LocalProposalUser> getLocalProposalUser(
-            @RequestBody LocalProposalUserModel model) throws DBException {
-        LocalProposalPK localProposalPK = new LocalProposalPK(model.getPopulatedPointId(), model.getProposalId());
-        LocalProposalUserPK pk = new LocalProposalUserPK(localProposalPK, model.getUserId());
-        return new ResponseEntity<>(service.find(pk), HttpStatus.FOUND);
-    }*/
+    ResponseEntity<LocalProposalUser> getLocalProposalUser(@PathVariable String id) throws DBException {
+        /*LocalProposalPK localProposalPK = new LocalProposalPK(model.getPopulatedPointId(), model.getProposalId());
+        LocalProposalUserPK pk = new LocalProposalUserPK(localProposalPK, model.getUserId());*/
+        UUID uuid = UUID.fromString(id);
+        LocalProposalUser localProposalUser = (service.findByUuid(uuid));
+        return new ResponseEntity<>(localProposalUser, HttpStatus.FOUND);
+    }
 
     ///
 
@@ -86,13 +88,12 @@ public class LocalProposalUserController {
         LocalProposalUser localProposalUser = service.findByUuid(model.getUuid());
         service.updateLocalProposalUser(localProposalUser, model);
     }*/
-/*
     //
-    @DeleteMapping
-    public void deleteLocalProposalUser(@RequestBody LocalProposalUserModel model, HttpServletResponse response) throws DBException {
-        LocalProposalPK localProposalPK = new LocalProposalPK(model.getPopulatedPointId(), model.getProposalId());
-        LocalProposalUserPK pk = new LocalProposalUserPK(localProposalPK, model.getProposalId());
-        service.delete(pk);
+    @DeleteMapping("/{id}")
+    public void deleteLocalProposalUser(@PathVariable String id, HttpServletResponse response) throws DBException {
+        /*LocalProposalPK localProposalPK = new LocalProposalPK(model.getPopulatedPointId(), model.getProposalId());
+        LocalProposalUserPK pk = new LocalProposalUserPK(localProposalPK, model.getProposalId());*/
+        service.delete(service.findByUuid(UUID.fromString(id)));
         response.setStatus(HttpServletResponse.SC_OK);
-    }*/
+    }
 }
