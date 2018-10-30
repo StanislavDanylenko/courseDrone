@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DroneRepository extends JpaRepository<Drone, Long> {
     Drone findByName(String name);
-    Iterable<Drone> findByLocalProposalPopulatedPointId(Long id);
+    /*Iterable<Drone> findByLocalProposalPopulatedPointId(Long id);*/
 }

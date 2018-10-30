@@ -30,17 +30,17 @@ public class LocalProposal implements Serializable {
     private Proposal proposal;
 
 
-    @OneToMany(mappedBy = "localProposal",
+    /*@OneToMany(mappedBy = "localProposal",
             cascade = CascadeType.ALL)
-    private List<Drone> drones = new ArrayList<>();
+    private List<Drone> drones = new ArrayList<>();*/
 
     @JsonIgnore
     @OneToMany(mappedBy = "localProposal", cascade = CascadeType.ALL)
     private List<LocalProposalUser> localProposalUsers;
 
-    public boolean addDrone(Drone drone) {
+   /* public boolean addDrone(Drone drone) {
         drone.setLocalProposal(this);
         return drones.add(drone);
-    }
+    }*/
 
 }

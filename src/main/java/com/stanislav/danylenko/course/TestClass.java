@@ -265,7 +265,7 @@ public class TestClass {
         localProposal.setPopulatedPoint(populatedPoint);
         localProposalRepository.save(localProposal);
 
-        localProposal.addDrone(drone);
+        /*localProposal.addDrone(drone);*/
         localProposalRepository.save(localProposal);
 
         ////////////////////////

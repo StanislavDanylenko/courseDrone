@@ -74,15 +74,16 @@ public class LocalProposalService {
         for(Long id : model.getDrones()) {
             droneList.add(droneService.find(id));
         }
-        localProposal.setDrones(droneList);
+        /*localProposal.setDrones(droneList);
 
         for (Drone drone : droneList) {
             drone.setLocalProposal(localProposal);
-        }
+        }*/
 
         return localProposal;
     }
 
+    //todo rewrite
     public List<Drone> updateLocalProposal(LocalProposal localProposal, LocalProposalModel model) {
 
         Set<Drone> dronesNew = new HashSet<>();
@@ -90,7 +91,7 @@ public class LocalProposalService {
             dronesNew.add(droneService.find(id));
         }
 
-        Set<Drone> dronesOld = new HashSet<>(localProposal.getDrones());
+       /* Set<Drone> dronesOld = new HashSet<>(localProposal.getDrones());
         Set<Drone> dronesOldCopy = new HashSet<>(dronesOld);
 
         dronesOld.retainAll(dronesNew);
@@ -110,8 +111,8 @@ public class LocalProposalService {
         localProposalWOutProposal.setPopulatedPoint(localProposal.getPopulatedPoint());
         for (Drone drone : dronesOldCopy) {
             drone.setLocalProposal(localProposalWOutProposal);
-        }
+        }*/
 
-        return new ArrayList<>(dronesOldCopy);
+        return /*new ArrayList<>(dronesOldCopy)*/null;
     }
 }

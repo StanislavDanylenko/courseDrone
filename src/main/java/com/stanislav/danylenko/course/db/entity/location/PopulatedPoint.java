@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.stanislav.danylenko.course.db.entity.BaseEntity;
 import com.stanislav.danylenko.course.JsonRules;
+import com.stanislav.danylenko.course.db.entity.Drone;
 import com.stanislav.danylenko.course.db.entity.LocalProposal;
 import lombok.*;
 
@@ -32,6 +33,10 @@ public class PopulatedPoint extends BaseEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "populatedPoint", cascade = CascadeType.ALL)
     private List<LocalProposal> proposalList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "populatedPoint",
+            cascade = CascadeType.ALL)
+    private List<Drone> drones = new ArrayList<>();
 
     @Override
     public String toString() {

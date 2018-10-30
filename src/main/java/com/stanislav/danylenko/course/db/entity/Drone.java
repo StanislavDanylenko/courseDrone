@@ -1,6 +1,7 @@
 package com.stanislav.danylenko.course.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,11 +31,8 @@ public class Drone extends BaseEntity {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name="LOC_POINT", referencedColumnName="populated_point_id"),
-            @JoinColumn(name="LOC_PROP", referencedColumnName="proposal_id")
-    })
-    private LocalProposal localProposal;
+    @JoinColumn(name="populated_point_id")
+    private PopulatedPoint populatedPoint;
 
     public boolean addSensor(Sensor sensor) {
         sensor.setDrone(this);

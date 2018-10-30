@@ -47,12 +47,13 @@ public class DroneService implements GenericService<Drone> {
         repository.deleteById(id);
     }
 
-    public Iterable<Drone> findByPopulatedPoint(Long id) {
+   /* public Iterable<Drone> findByPopulatedPoint(Long id) {
         return repository.findByLocalProposalPopulatedPointId(id);
-    }
+    }*/
 
+    //todo rewrite
     public List<Sensor> updateDrone(Drone drone, Drone newDrone) {
-        drone.setLocalProposal(newDrone.getLocalProposal());
+        /*drone.setLocalProposal(newDrone.getLocalProposal());*/
         drone.setAvailable(newDrone.isAvailable());
         drone.setBatteryLevel(newDrone.getBatteryLevel());
 
