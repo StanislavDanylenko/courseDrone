@@ -5,6 +5,7 @@ import com.stanislav.danylenko.course.db.entity.Sensor;
 import com.stanislav.danylenko.course.exception.DBException;
 import com.stanislav.danylenko.course.service.DroneService;
 import com.stanislav.danylenko.course.service.SensorService;
+import com.stanislav.danylenko.course.web.model.DroneModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,25 +36,25 @@ public class DroneController {
         return new ResponseEntity<>(service.find(id), HttpStatus.FOUND);
     }
 
-    /*@GetMapping("/point/{id}")
+    @GetMapping("/point/{id}")
     public @ResponseBody
     ResponseEntity<Iterable<Drone>> getDroneByPopulatedPoint(@PathVariable Long id) throws DBException {
         return new ResponseEntity<>(service.findByPopulatedPoint(id), HttpStatus.FOUND);
-    }*/
+    }
 
     @PostMapping
     public @ResponseBody
-    ResponseEntity<Drone> createDrone(@RequestBody Drone drone) throws DBException {
-        service.processDrone(drone);
+    ResponseEntity<Drone> createDrone(@RequestBody DroneModel model) throws DBException {
+        Drone drone = service.processDrone(model);
         service.save(drone);
         return new ResponseEntity<>(drone, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public @ResponseBody
-    ResponseEntity<Drone> updateDrone(@RequestBody Drone newDrone, @PathVariable Long id) throws DBException {
+    ResponseEntity<Drone> updateDrone(@RequestBody DroneModel model, @PathVariable Long id) throws DBException {
         Drone drone = service.find(id);
-        List<Sensor> sensorsForRemove = service.updateDrone(drone, newDrone);
+        List<Sensor> sensorsForRemove = service.updateDrone(drone, model);
         service.update(drone);
         sensorService.deleteAll(sensorsForRemove);
 

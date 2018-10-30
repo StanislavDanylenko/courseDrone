@@ -2,7 +2,10 @@ package com.stanislav.danylenko.course.service;
 
 import com.stanislav.danylenko.course.db.entity.Drone;
 import com.stanislav.danylenko.course.db.entity.Sensor;
+import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
 import com.stanislav.danylenko.course.db.repository.DroneRepository;
+import com.stanislav.danylenko.course.service.location.PopulatedPointService;
+import com.stanislav.danylenko.course.web.model.DroneModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +19,9 @@ public class DroneService implements GenericService<Drone> {
     
     @Autowired
     private DroneRepository repository;
+
+    @Autowired
+    private PopulatedPointService populatedPointService;
 
     @Override
     public Drone save(Drone drone) {
@@ -47,19 +53,21 @@ public class DroneService implements GenericService<Drone> {
         repository.deleteById(id);
     }
 
-   /* public Iterable<Drone> findByPopulatedPoint(Long id) {
-        return repository.findByLocalProposalPopulatedPointId(id);
-    }*/
+    public Iterable<Drone> findByPopulatedPoint(Long id) {
+        return repository.findAllByPopulatedPointId(id);
+    }
 
     //todo rewrite
-    public List<Sensor> updateDrone(Drone drone, Drone newDrone) {
-        /*drone.setLocalProposal(newDrone.getLocalProposal());*/
-        drone.setAvailable(newDrone.isAvailable());
-        drone.setBatteryLevel(newDrone.getBatteryLevel());
+    public List<Sensor> updateDrone(Drone drone, DroneModel model) {
+
+        PopulatedPoint populatedPoint = populatedPointService.find(model.getPopulatedPointId());
+        drone.setPopulatedPoint(populatedPoint);
+        drone.setAvailable(model.isAvailable());
+        drone.setBatteryLevel(model.getBatteryLevel());
 
         Set<Sensor> sensorsOld = new HashSet<>(drone.getSensors());
         Set<Sensor> sensorOldCopy = new HashSet<>(sensorsOld);
-        Set<Sensor> sensorNew = new HashSet<>(newDrone.getSensors());
+        Set<Sensor> sensorNew = new HashSet<>(model.getSensors());
 
         sensorsOld.retainAll(sensorNew);
         sensorsOld.addAll(sensorNew);
@@ -76,12 +84,22 @@ public class DroneService implements GenericService<Drone> {
         return new ArrayList<>(sensorOldCopy);
     }
 
-    public void processDrone(Drone drone) {
-        List<Sensor> sensors = drone.getSensors();
+    public Drone processDrone(DroneModel model) {
+        Drone drone = new Drone();
+        drone.setAvailable(true);
+        drone.setBatteryLevel(model.getBatteryLevel());
+        drone.setName(model.getName());
+
+        PopulatedPoint populatedPoint = populatedPointService.find(model.getPopulatedPointId());
+        drone.setPopulatedPoint(populatedPoint);
+
+        List<Sensor> sensors = model.getSensors();
         if (!sensors.isEmpty()) {
             for (Sensor sensor : sensors) {
                 sensor.setDrone(drone);
             }
         }
+        drone.setSensors(sensors);
+        return drone;
     }
 }

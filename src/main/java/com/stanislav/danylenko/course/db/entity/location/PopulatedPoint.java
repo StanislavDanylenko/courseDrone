@@ -34,8 +34,8 @@ public class PopulatedPoint extends BaseEntity {
     @OneToMany(mappedBy = "populatedPoint", cascade = CascadeType.ALL)
     private List<LocalProposal> proposalList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "populatedPoint",
-            cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy = "populatedPoint", cascade = CascadeType.ALL)
     private List<Drone> drones = new ArrayList<>();
 
     @Override
