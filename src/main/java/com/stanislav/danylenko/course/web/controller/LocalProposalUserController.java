@@ -4,10 +4,12 @@ import com.stanislav.danylenko.course.db.entity.LocalProposal;
 import com.stanislav.danylenko.course.db.entity.LocalProposalUser;
 import com.stanislav.danylenko.course.db.entity.pk.LocalProposalPK;
 import com.stanislav.danylenko.course.exception.DBException;
+import com.stanislav.danylenko.course.service.DroneService;
 import com.stanislav.danylenko.course.service.LocalProposalService;
 import com.stanislav.danylenko.course.service.LocalProposalUserService;
 import com.stanislav.danylenko.course.web.model.LocalProposalModel;
 import com.stanislav.danylenko.course.web.model.LocalProposalUserModel;
+import com.stanislav.danylenko.course.web.model.ReportModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +54,7 @@ public class LocalProposalUserController {
 
     @GetMapping("/localProposal")
     public @ResponseBody
-    ResponseEntity<Iterable<LocalProposalUser>> getLocalProposalUserByLocalPropposal(
+    ResponseEntity<Iterable<LocalProposalUser>> getLocalProposalUserByLocalProposal(
             @RequestBody LocalProposalModel model) throws DBException {
         LocalProposalPK localProposalPK = new LocalProposalPK(model.getPopulatedPointId(), model.getProposalId());
         LocalProposal proposal = localProposalService.find(localProposalPK);
@@ -75,13 +77,14 @@ public class LocalProposalUserController {
         return new ResponseEntity<>(localProposalUser, HttpStatus.CREATED);
     }
 
-   /* // todo write
-    @PutMapping
+    @PutMapping("/{id}")
     public @ResponseBody
-    void updateLocalProposalUser(ReportModel model) throws DBException {
-        LocalProposalUser localProposalUser = service.findByUuid(model.getUuid());
+    void updateLocalProposalUser(@PathVariable String id, @RequestBody ReportModel model) throws DBException {
+        UUID uuid = UUID.fromString(id);
+        LocalProposalUser localProposalUser = service.findByUuid(uuid);
         service.updateLocalProposalUser(localProposalUser, model);
-    }*/
+        service.update(localProposalUser);
+    }
 
     @DeleteMapping("/{id}")
     public void deleteLocalProposalUser(@PathVariable String id, HttpServletResponse response) throws DBException {

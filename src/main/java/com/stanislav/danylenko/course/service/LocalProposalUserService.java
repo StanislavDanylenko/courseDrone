@@ -1,6 +1,7 @@
 package com.stanislav.danylenko.course.service;
 
 import com.stanislav.danylenko.course.db.entity.*;
+import com.stanislav.danylenko.course.db.entity.bl.Report;
 import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
 import com.stanislav.danylenko.course.db.entity.pk.LocalProposalPK;
 import com.stanislav.danylenko.course.db.entity.pk.LocalProposalUserPK;
@@ -28,10 +29,7 @@ public class LocalProposalUserService {
     private UserService userService;
 
     @Autowired
-    private ProposalService proposalService;
-
-    @Autowired
-    private PopulatedPointService populatedPointService;
+    private DroneService droneService;
 
 
     public LocalProposalUser save(LocalProposalUser localProposalUser) {
@@ -91,7 +89,7 @@ public class LocalProposalUserService {
         UUID uuid = UUID.randomUUID();
         localProposalUser.setUuid(uuid);
 
-        // todo logic for founding drone
+        // logic for founding drone / todo exception if drone is unavailable
         Drone drone = findCompatibleDrone(localProposal);
         localProposalUser.setDroneId(drone.getId());
         drone.setCurrentUuid(uuid);
@@ -102,16 +100,27 @@ public class LocalProposalUserService {
     public LocalProposalUser updateLocalProposalUser(LocalProposalUser localProposalUser, ReportModel model) {
         OperationStatus status = model.getStatus();
         localProposalUser.setStatus(status);
-        if (status == OperationStatus.FINALIZED) {
-            // удалить у дрона текущую операцию
-        } else if (status == OperationStatus.GO_TO_HOME) {
-            // считать состояние датчиков и отправить отчет
+        switch (status) {
+            case NEW: // perform key points to object
+                // drone find my location
+                localProposalUser.setStatus(OperationStatus.GO_TO_TARGET_PALACE);
+                break;
+            case GO_TO_HOME:
+                Report report = new Report();
+                fillReportFields(report, model.getSensors());
+                localProposalUser.setReport(report);
+                break;
+            case FINALIZED:
+                Drone drone = droneService.find(localProposalUser.getDroneId());
+                drone.setCurrentUuid(null);
+                droneService.save(drone);
+                break;
         }
         return localProposalUser;
     }
 
     private Drone findCompatibleDrone(LocalProposal localProposal) {
-        Drone finalDrone = null;
+
         Proposal proposal = localProposal.getProposal();
         PopulatedPoint populatedPoint = localProposal.getPopulatedPoint();
 
@@ -121,19 +130,47 @@ public class LocalProposalUserService {
         Set<Drone> compatibleTypeDrones = new TreeSet<>();
 
         for (Drone drone : drones) {
-            List<Sensor> sensors = drone.getSensors();
-            Set<TypeOfSensor> sensorsInDrone = new HashSet<>();
-            for (Sensor sensor : sensors) {
-                sensorsInDrone.add(sensor.getType());
-            }
-            if (sensorsInDrone.containsAll(typeOfSensors)) {
-                compatibleTypeDrones.add(drone);
+            if (drone.getCurrentUuid() == null) {
+                List<Sensor> sensors = drone.getSensors();
+                Set<TypeOfSensor> sensorsInDrone = new HashSet<>();
+                for (Sensor sensor : sensors) {
+                    sensorsInDrone.add(sensor.getType());
+                }
+                if (sensorsInDrone.containsAll(typeOfSensors)) {
+                    compatibleTypeDrones.add(drone);
+                }
             }
         }
 
         if (compatibleTypeDrones.size() > 0) {
             return ((TreeSet<Drone>) compatibleTypeDrones).first();
         }
-        return finalDrone;
+        return null;
     }
+
+    private void fillReportFields(Report report, List<Sensor> sensors) {
+        for (Sensor sensor : sensors) {
+            switch (sensor.getType()) {
+                case HUMIDITY:
+                    report.setHumidity(sensor.getValue());
+                    break;
+                /*case CAMERA:
+                    report.setPhoto(sensor.getValue()); // think how to?
+                    break;*/
+                case PRESSURE:
+                    report.setPressure(sensor.getValue());
+                    break;
+                case AIR_POLLUTION:
+                    report.setAirPollution(sensor.getValue());
+                    break;
+                case RADIATION:
+                    report.setRadiation(sensor.getValue());
+                    break;
+                case TEMPERATURE:
+                    report.setTemperature(sensor.getValue());
+                    break;
+            }
+        }
+    }
+
 }

@@ -17,6 +17,7 @@ public class Report implements Serializable {
     private double radiation;
     private double pressure;
     private double airPollution;
+    private double temperature;
     private List<byte[]> photo;
 
 }
