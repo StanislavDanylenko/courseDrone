@@ -67,7 +67,9 @@ public class DroneController {
         Drone drone = service.find(id);
         List<Sensor> sensorsForRemove = service.updateDrone(drone, model);
         service.update(drone);
-        sensorService.deleteAll(sensorsForRemove);
+        if (sensorsForRemove != null) {
+            sensorService.deleteAll(sensorsForRemove);
+        }
 
         return ResponseEntity.ok(drone);
     }
@@ -86,6 +88,7 @@ public class DroneController {
         LocalProposalUser localProposalUser = localProposalUserService.findByUuid(uuid);
         Drone drone = droneService.find(localProposalUser.getDroneId());
         DroneTaskModel model = new DroneTaskModel();
+        model.setUuid(uuid);
         model.setCheckPoints(GeoService.getCheckPoints());
         model.setCurrentLocation(drone.getCurrentLocation());
         model.setStartLocation(drone.getCurrentLocation());

@@ -89,7 +89,7 @@ public class LocalProposalUserService {
         UUID uuid = UUID.randomUUID();
         localProposalUser.setUuid(uuid);
 
-        localProposalUser.setTargetCoordinates(model.getTargetCoordinated());
+        localProposalUser.setTargetCoordinates(model.getTargetCoordinates());
 
         // todo exception if drone is unavailable
         Drone drone = findCompatibleDrone(localProposal);
@@ -102,17 +102,19 @@ public class LocalProposalUserService {
     public LocalProposalUser updateLocalProposalUser(LocalProposalUser localProposalUser, ReportModel model) {
         OperationStatus status = model.getStatus();
         localProposalUser.setStatus(status);
+        Drone drone = null;
         switch (status) {
             case NEW:
                 localProposalUser.setStatus(OperationStatus.GO_TO_TARGET_PALACE);
                 break;
             case GO_TO_HOME:
                 Report report = new Report();
-                fillReportFields(report, model.getSensors());
+                drone = droneService.find(localProposalUser.getDroneId());
+                fillReportFields(report, drone.getSensors());
                 localProposalUser.setReport(report);
                 break;
             case FINALIZED:
-                Drone drone = droneService.find(localProposalUser.getDroneId());
+                drone = droneService.find(localProposalUser.getDroneId());
                 drone.setCurrentUuid(null);
                 droneService.save(drone);
                 break;
@@ -122,6 +124,7 @@ public class LocalProposalUserService {
 
     private Drone findCompatibleDrone(LocalProposal localProposal) {
 
+        // todo check if drone is available
         Proposal proposal = localProposal.getProposal();
         PopulatedPoint populatedPoint = localProposal.getPopulatedPoint();
 

@@ -65,21 +65,24 @@ public class DroneService implements GenericService<Drone> {
         drone.setBatteryLevel(model.getBatteryLevel());
         drone.setCurrentLocation(model.getCurrentCoordinates());
 
-        Set<Sensor> sensorsOld = new HashSet<>(drone.getSensors());
-        Set<Sensor> sensorOldCopy = new HashSet<>(sensorsOld);
-        Set<Sensor> sensorNew = new HashSet<>(model.getSensors());
+        Set<Sensor> sensorOldCopy = new HashSet<>();
+        if (model.getSensors() != null) {
+            Set<Sensor> sensorsOld = new HashSet<>(drone.getSensors());
+            sensorOldCopy = new HashSet<>(sensorsOld);
+            Set<Sensor> sensorNew = new HashSet<>(model.getSensors());
 
-        sensorsOld.retainAll(sensorNew);
-        sensorsOld.addAll(sensorNew);
-        sensorOldCopy.removeAll(sensorsOld);
+            sensorsOld.retainAll(sensorNew);
+            sensorsOld.addAll(sensorNew);
+            sensorOldCopy.removeAll(sensorsOld);
 
-        for (Sensor sensor : sensorsOld) {
-            sensor.setDrone(drone);
+            for (Sensor sensor : sensorsOld) {
+                sensor.setDrone(drone);
+            }
+
+            List<Sensor> updatedSensors = new ArrayList<>();
+            updatedSensors.addAll(sensorsOld);
+            drone.setSensors(updatedSensors);
         }
-
-        List<Sensor> updatedSensors = new ArrayList<>();
-        updatedSensors.addAll(sensorsOld);
-        drone.setSensors(updatedSensors);
 
         return new ArrayList<>(sensorOldCopy);
     }
