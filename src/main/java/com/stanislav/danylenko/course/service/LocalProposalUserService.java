@@ -89,7 +89,9 @@ public class LocalProposalUserService {
         UUID uuid = UUID.randomUUID();
         localProposalUser.setUuid(uuid);
 
-        // logic for founding drone / todo exception if drone is unavailable
+        localProposalUser.setTargetCoordinates(model.getTargetCoordinated());
+
+        // todo exception if drone is unavailable
         Drone drone = findCompatibleDrone(localProposal);
         localProposalUser.setDroneId(drone.getId());
         drone.setCurrentUuid(uuid);
@@ -101,8 +103,7 @@ public class LocalProposalUserService {
         OperationStatus status = model.getStatus();
         localProposalUser.setStatus(status);
         switch (status) {
-            case NEW: // perform key points to object
-                // drone find my location
+            case NEW:
                 localProposalUser.setStatus(OperationStatus.GO_TO_TARGET_PALACE);
                 break;
             case GO_TO_HOME:

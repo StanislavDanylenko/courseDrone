@@ -3,6 +3,7 @@ package com.stanislav.danylenko.course.web.controller.location;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.stanislav.danylenko.course.JsonRules;
 import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
+import com.stanislav.danylenko.course.service.GeoService;
 import com.stanislav.danylenko.course.service.location.PopulatedPointService;
 import com.stanislav.danylenko.course.exception.DBException;
 import com.stanislav.danylenko.course.web.model.location.PopulatedPointModel;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/points")
@@ -66,6 +68,13 @@ public class PopulatedPointController {
     public @ResponseBody
     ResponseEntity<Iterable<PopulatedPoint>> getPopulatedPointsInCountry(@PathVariable Long id) throws DBException {
         return ResponseEntity.ok(service.findByRegionId(id));
+    }
+
+    @GetMapping("/hello")
+    public @ResponseBody
+    void get() throws DBException, IOException {
+        GeoService geoService = new GeoService();
+        geoService.getCoordinatesGoogle("AIzaSyCamw4yvlznC4L_jhrNB4-yhNMR5Olq3dg");
     }
     
 }

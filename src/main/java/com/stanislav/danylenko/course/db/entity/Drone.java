@@ -27,6 +27,7 @@ public class Drone extends BaseEntity implements Comparable<Drone>{
     private boolean isAvailable = true;
     @Column(columnDefinition = "BINARY(16)")
     private UUID currentUuid;
+    private double[] currentLocation;
 
     @OneToMany(mappedBy = "drone",
             cascade = CascadeType.ALL)

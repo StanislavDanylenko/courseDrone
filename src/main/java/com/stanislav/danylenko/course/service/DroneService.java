@@ -63,6 +63,7 @@ public class DroneService implements GenericService<Drone> {
         drone.setPopulatedPoint(populatedPoint);
         drone.setAvailable(model.isAvailable());
         drone.setBatteryLevel(model.getBatteryLevel());
+        drone.setCurrentLocation(model.getCurrentCoordinates());
 
         Set<Sensor> sensorsOld = new HashSet<>(drone.getSensors());
         Set<Sensor> sensorOldCopy = new HashSet<>(sensorsOld);

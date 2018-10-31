@@ -5,6 +5,7 @@ import com.stanislav.danylenko.course.db.enumeration.OperationStatus;
 import lombok.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Getter
@@ -12,10 +13,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @ToString
-public class ReportModel {
+public class DroneTaskModel {
 
     private UUID uuid;
-    private OperationStatus status;
-    private List<Sensor> sensors;
+    private double[] targetLocation;
+    private double[] startLocation;
+    private double[] currentLocation;
+    private Map<Double, Double> checkPoints;
 
 }

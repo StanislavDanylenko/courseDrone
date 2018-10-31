@@ -17,5 +17,6 @@ public class DroneModel {
     private boolean isAvailable;
     private List<Sensor> sensors;
     private Long populatedPointId;
+    private double[] currentCoordinates;
 
 }
