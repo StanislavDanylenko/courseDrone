@@ -19,8 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.UUID;
 
+// todo change if annotation to each method
 @RestController
-@RequestMapping("/drones")
+@RequestMapping("admin/drones")
 public class DroneController {
     
     @Autowired
@@ -80,7 +81,7 @@ public class DroneController {
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
-    //// tasks for drone
+    // tasks for drone
 
     @GetMapping("/task/{id}")
     public DroneTaskModel getTask(@PathVariable String id) {

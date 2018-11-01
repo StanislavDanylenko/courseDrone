@@ -2,12 +2,14 @@ package com.stanislav.danylenko.course.web.controller.location;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.stanislav.danylenko.course.JsonRules;
+import com.stanislav.danylenko.course.db.entity.User;
 import com.stanislav.danylenko.course.db.entity.location.Country;
 import com.stanislav.danylenko.course.service.location.CountryService;
 import com.stanislav.danylenko.course.exception.DBException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -60,6 +62,14 @@ public class CountryController {
     @GetMapping("/full")
     ResponseEntity<Iterable<Country>> getCountriesFull() throws DBException {
         return ResponseEntity.ok(service.findAll());
+    }
+
+    // todo delete in next version
+    @GetMapping("/test")
+    public @ResponseBody
+    Object getCountries(Authentication auth) throws DBException {
+        User user = (User)(auth.getPrincipal());
+        return user.getLocalization();
     }
     
 }

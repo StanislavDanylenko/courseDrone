@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
+// todo change if annotation to each method
 @RestController
-@RequestMapping("/sensors")
+@RequestMapping("admin/sensors")
 public class SensorController {
     
     @Autowired

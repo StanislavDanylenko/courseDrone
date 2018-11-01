@@ -33,6 +33,7 @@ public class User extends BaseEntity implements UserDetails {
     private String patronymic;
     @JsonIgnore
     private boolean isActive;
+    @JsonIgnore
     private String password;
     private PopulatedPoint defaultPopulatedPoint;
 
@@ -62,7 +63,6 @@ public class User extends BaseEntity implements UserDetails {
     @Enumerated
     @CollectionTable(name = "user_role")
     @Column(name = "role_id")
-    @JsonIgnore
     private Set<RoleUser> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
@@ -81,31 +81,37 @@ public class User extends BaseEntity implements UserDetails {
         return false;
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
     }
 
+    @JsonIgnore
     @Override
     public String getUsername() {
         return email;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return isActive;
