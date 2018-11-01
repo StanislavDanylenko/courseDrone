@@ -73,7 +73,7 @@ public class LocalProposalUserService {
         return repository.findByUuid(uuid);
     }
 
-    public LocalProposalUser processLocalProposalUser(LocalProposalUserModel model) {
+    public LocalProposalUser processLocalProposalUser(LocalProposalUserModel model) throws Exception {
         LocalProposalUser localProposalUser = new LocalProposalUser();
 
         LocalProposalPK localProposalPK = new LocalProposalPK(model.getPopulatedPointId(), model.getProposalId());
@@ -91,8 +91,11 @@ public class LocalProposalUserService {
 
         localProposalUser.setTargetCoordinates(model.getTargetCoordinates());
 
-        // todo exception if drone is unavailable
+        // todo test it
         Drone drone = findCompatibleDrone(localProposal);
+        if (drone == null) {
+            throw new Exception("drone is unavailable");
+        }
         localProposalUser.setDroneId(drone.getId());
         drone.setCurrentUuid(uuid);
 
@@ -124,7 +127,7 @@ public class LocalProposalUserService {
 
     private Drone findCompatibleDrone(LocalProposal localProposal) {
 
-        // todo check if drone is available
+
         Proposal proposal = localProposal.getProposal();
         PopulatedPoint populatedPoint = localProposal.getPopulatedPoint();
 
@@ -140,7 +143,8 @@ public class LocalProposalUserService {
                 for (Sensor sensor : sensors) {
                     sensorsInDrone.add(sensor.getType());
                 }
-                if (sensorsInDrone.containsAll(typeOfSensors)) {
+                //todo test it
+                if (sensorsInDrone.containsAll(typeOfSensors) && drone.isAvailable()) {
                     compatibleTypeDrones.add(drone);
                 }
             }

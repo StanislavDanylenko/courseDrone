@@ -71,7 +71,7 @@ public class LocalProposalUserController {
 
     @PostMapping
     public @ResponseBody
-    ResponseEntity<LocalProposalUser> createLocalProposalUser(@RequestBody LocalProposalUserModel model) throws DBException {
+    ResponseEntity<LocalProposalUser> createLocalProposalUser(@RequestBody LocalProposalUserModel model) throws Exception {
         LocalProposalUser localProposalUser = service.processLocalProposalUser(model);
         service.save(localProposalUser);
         return new ResponseEntity<>(localProposalUser, HttpStatus.CREATED);
