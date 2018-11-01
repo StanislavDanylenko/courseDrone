@@ -69,5 +69,5 @@ public class RegionService implements GenericService<Region> {
         model.setCountryId(region.getCountry().getId());
         return model;
     }
-    
+
 }

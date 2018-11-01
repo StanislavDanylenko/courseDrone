@@ -18,12 +18,13 @@ import java.util.Set;
 
 @Service
 public class LocalProposalService {
-    
+
     @Autowired
     private LocalProposalRepository repository;
 
     @Autowired
     private ProposalService proposalService;
+
     @Autowired
     private PopulatedPointService populatedPointService;
 

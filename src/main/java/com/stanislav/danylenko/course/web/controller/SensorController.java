@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("admin/sensors")
 public class SensorController {
-    
+
     @Autowired
     private SensorService service;
 
@@ -51,6 +51,6 @@ public class SensorController {
         service.delete(id);
         response.setStatus(HttpServletResponse.SC_OK);
     }
-    
-    
+
+
 }

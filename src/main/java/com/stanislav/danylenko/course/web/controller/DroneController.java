@@ -23,7 +23,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("admin/drones")
 public class DroneController {
-    
+
     @Autowired
     private DroneService service;
 
@@ -57,7 +57,7 @@ public class DroneController {
     @PostMapping
     public @ResponseBody
     ResponseEntity<Drone> createDrone(@RequestBody DroneModel model) throws DBException {
-        Drone drone = service.processDrone(model);
+        Drone drone = service.createFromModel(model);
         service.save(drone);
         return new ResponseEntity<>(drone, HttpStatus.CREATED);
     }
@@ -96,5 +96,5 @@ public class DroneController {
         model.setTargetLocation(localProposalUser.getTargetCoordinates());
         return model;
     }
-    
+
 }

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("/proposals")
 public class ProposalController {
-    
+
     @Autowired
     private ProposalService service;
 
@@ -50,5 +50,5 @@ public class ProposalController {
         service.delete(id);
         response.setStatus(HttpServletResponse.SC_OK);
     }
-    
+
 }

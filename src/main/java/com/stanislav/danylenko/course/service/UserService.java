@@ -80,20 +80,24 @@ public class UserService implements GenericService<User>, UserDetailsService {
     public User createFromRegistrationModel(UserRegistrationModel model) {
 
         User user = new User();
+
         user.setFirstName(model.getFirstName());
         user.setLastName(model.getLastName());
         user.setPatronymic(model.getPatronymic());
         user.setLocalization(model.getLocalization());
+        user.setEmail(model.getEmail());
+        user.setType(model.getType());
+        user.addRole(RoleUser.USER);
+        user.setActive(true);
+
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(8);
+        user.setPassword(passwordEncoder.encode(model.getPassword()));
+
         if (model.getDefaultPopulatedPointId() != null) {
             PopulatedPoint populatedPoint = populatedPointService.find(model.getDefaultPopulatedPointId());
             user.setDefaultPopulatedPoint(populatedPoint);
         }
-        user.setEmail(model.getEmail());
-        user.setType(model.getType());
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(8);
-        user.setPassword(passwordEncoder.encode(model.getPassword()));
-        user.addRole(RoleUser.USER);
-        user.setActive(true);
+
         return user;
     }
 
@@ -119,7 +123,7 @@ public class UserService implements GenericService<User>, UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = repository.findByEmail(email);
 
-        if (user == null){
+        if (user == null) {
             throw new UsernameNotFoundException("User with email not found");
         }
 

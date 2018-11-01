@@ -22,7 +22,6 @@ public class Country extends BaseEntity {
     @JsonView(value = JsonRules.PartialLocation.class)
     private String name;
 
-    /*@JsonIgnore*/
     @OneToMany(mappedBy = "country",
             cascade = CascadeType.ALL)
     private List<Region> regions = new ArrayList<>();
@@ -37,7 +36,7 @@ public class Country extends BaseEntity {
 
     public boolean addRegion(Region region) {
         region.setCountry(this);
-       return regions.add(region);
+        return regions.add(region);
     }
 
     public boolean removeRegion(Region region) {

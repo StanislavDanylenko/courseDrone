@@ -28,7 +28,6 @@ public class Region extends BaseEntity {
     @JoinColumn(name = "country_id")
     private Country country;
 
-    /*@JsonIgnore*/
     @OneToMany(mappedBy = "region",
             cascade = CascadeType.ALL)
     private List<PopulatedPoint> populatedPoints = new ArrayList<>();

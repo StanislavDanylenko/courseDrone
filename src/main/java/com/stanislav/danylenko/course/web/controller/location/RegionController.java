@@ -23,7 +23,7 @@ public class RegionController {
     @GetMapping
     @JsonView(value = JsonRules.PartialLocation.class)
     public @ResponseBody
-    ResponseEntity<Iterable<Region>> getCountries() throws DBException {
+    ResponseEntity<Iterable<Region>> getRegions() throws DBException {
         return ResponseEntity.ok(service.findAll());
     }
 

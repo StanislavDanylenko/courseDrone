@@ -4,7 +4,6 @@ import com.stanislav.danylenko.course.db.entity.LocalProposal;
 import com.stanislav.danylenko.course.db.entity.LocalProposalUser;
 import com.stanislav.danylenko.course.db.entity.pk.LocalProposalPK;
 import com.stanislav.danylenko.course.exception.DBException;
-import com.stanislav.danylenko.course.service.DroneService;
 import com.stanislav.danylenko.course.service.LocalProposalService;
 import com.stanislav.danylenko.course.service.LocalProposalUserService;
 import com.stanislav.danylenko.course.web.model.LocalProposalModel;
@@ -72,7 +71,7 @@ public class LocalProposalUserController {
     @PostMapping
     public @ResponseBody
     ResponseEntity<LocalProposalUser> createLocalProposalUser(@RequestBody LocalProposalUserModel model) throws Exception {
-        LocalProposalUser localProposalUser = service.processLocalProposalUser(model);
+        LocalProposalUser localProposalUser = service.createLocalProposalUser(model);
         service.save(localProposalUser);
         return new ResponseEntity<>(localProposalUser, HttpStatus.CREATED);
     }

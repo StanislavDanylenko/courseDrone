@@ -60,7 +60,7 @@ public class CountryController {
     }
 
     @GetMapping("/full")
-    ResponseEntity<Iterable<Country>> getCountriesFull() throws DBException {
+    public ResponseEntity<Iterable<Country>> getCountriesFull() throws DBException {
         return ResponseEntity.ok(service.findAll());
     }
 
@@ -68,8 +68,8 @@ public class CountryController {
     @GetMapping("/test")
     public @ResponseBody
     Object getCountries(Authentication auth) throws DBException {
-        User user = (User)(auth.getPrincipal());
+        User user = (User) (auth.getPrincipal());
         return user.getLocalization();
     }
-    
+
 }

@@ -25,8 +25,8 @@ public class LocalProposalUser implements Serializable {
     @Id
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name="LOC_POINT", referencedColumnName="populated_point_id"),
-            @JoinColumn(name="LOC_PROP", referencedColumnName="proposal_id")
+            @JoinColumn(name = "LOC_POINT", referencedColumnName = "populated_point_id"),
+            @JoinColumn(name = "LOC_PROP", referencedColumnName = "proposal_id")
     })
     private LocalProposal localProposal;
 
@@ -39,7 +39,7 @@ public class LocalProposalUser implements Serializable {
     private OperationStatus status;
 
     @Id
-    @Column(updatable = false, nullable = false, unique=true, columnDefinition = "BINARY(16)")
+    @Column(updatable = false, nullable = false, unique = true, columnDefinition = "BINARY(16)")
     private UUID uuid;
 
     private Long droneId;

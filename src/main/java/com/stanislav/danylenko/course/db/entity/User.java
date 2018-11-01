@@ -2,7 +2,7 @@ package com.stanislav.danylenko.course.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
-import com.stanislav.danylenko.course.db.enumeration.L10n;
+import com.stanislav.danylenko.course.db.enumeration.Localization;
 import com.stanislav.danylenko.course.db.enumeration.TypeOfUser;
 import com.stanislav.danylenko.course.db.enumeration.RoleUser;
 import lombok.*;
@@ -28,23 +28,25 @@ import java.util.Set;
 @ToString
 public class User extends BaseEntity implements UserDetails {
 
-    private String firstName;
-    private String lastName;
-    private String patronymic;
-    @JsonIgnore
-    private boolean isActive;
-    @JsonIgnore
-    private String password;
-    private PopulatedPoint defaultPopulatedPoint;
-
     @Column(nullable = false, unique = true)
     @NonNull
     @Email
     @JsonIgnore
     private String email;
 
+    private String firstName;
+    private String lastName;
+    private String patronymic;
+    private PopulatedPoint defaultPopulatedPoint;
+
+    @JsonIgnore
+    private boolean isActive;
+
+    @JsonIgnore
+    private String password;
+
     @Enumerated
-    private L10n localization;
+    private Localization localization;
 
     @Enumerated
     private TypeOfUser type;

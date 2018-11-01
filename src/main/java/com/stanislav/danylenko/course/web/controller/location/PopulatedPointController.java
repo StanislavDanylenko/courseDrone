@@ -18,7 +18,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/points")
 public class PopulatedPointController {
-    
+
     @Autowired
     private PopulatedPointService service;
 
@@ -70,11 +70,4 @@ public class PopulatedPointController {
         return ResponseEntity.ok(service.findByRegionId(id));
     }
 
-    @GetMapping("/hello")
-    public @ResponseBody
-    void get() throws DBException, IOException {
-        GeoService geoService = new GeoService();
-        geoService.getCoordinatesGoogle("AIzaSyCamw4yvlznC4L_jhrNB4-yhNMR5Olq3dg");
-    }
-    
 }

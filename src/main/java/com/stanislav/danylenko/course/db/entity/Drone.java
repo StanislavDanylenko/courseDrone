@@ -17,16 +17,17 @@ import java.util.UUID;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @RequiredArgsConstructor
 @ToString
-public class Drone extends BaseEntity implements Comparable<Drone>{
+public class Drone extends BaseEntity implements Comparable<Drone> {
 
     @Column(nullable = false)
     @NonNull
     private String name;
 
-    private int batteryLevel;
-    private boolean isAvailable = true;
     @Column(columnDefinition = "BINARY(16)")
     private UUID currentUuid;
+
+    private int batteryLevel;
+    private boolean isAvailable = true;
     private double[] currentLocation;
 
     @OneToMany(mappedBy = "drone",
@@ -35,7 +36,7 @@ public class Drone extends BaseEntity implements Comparable<Drone>{
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="populated_point_id")
+    @JoinColumn(name = "populated_point_id")
     private PopulatedPoint populatedPoint;
 
     public boolean addSensor(Sensor sensor) {

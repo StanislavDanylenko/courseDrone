@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SensorService implements GenericService<Sensor> {
-    
+
     @Autowired
     private SensorRepository repository;
-    
+
     @Override
     public Sensor save(Sensor sensor) {
         return repository.save(sensor);

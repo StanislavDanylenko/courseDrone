@@ -15,22 +15,12 @@ import java.util.Map;
 @Service
 public class GeoService {
 
-    public static Map<String, Double> getCoordinatesGoogle(String key) throws IOException {
-
-        HttpUriRequest request = new HttpGet( "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=" + key);
-
-        HttpResponse response = HttpClientBuilder.create().build().execute( request );
-        String value = EntityUtils.toString(response.getEntity());
-        System.out.println(value);
-        return null;
-    }
-
     public static double[] getCurrentCoordinates() {
-        return new double[] {50.000, 45.000};
+        return new double[]{50.000, 45.000};
     }
 
     public static double[] getTargetCoordinates() {
-        return new double[] {100.000, 105.000};
+        return new double[]{100.000, 105.000};
     }
 
     public static Map<Double, Double> getCheckPoints() {

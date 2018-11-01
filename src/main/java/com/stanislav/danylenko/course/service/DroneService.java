@@ -16,7 +16,7 @@ import java.util.Set;
 
 @Service
 public class DroneService implements GenericService<Drone> {
-    
+
     @Autowired
     private DroneRepository repository;
 
@@ -65,15 +65,17 @@ public class DroneService implements GenericService<Drone> {
         drone.setBatteryLevel(model.getBatteryLevel());
         drone.setCurrentLocation(model.getCurrentCoordinates());
 
-        Set<Sensor> sensorOldCopy = new HashSet<>();
+        Set<Sensor> sensorsOldCopy = new HashSet<>();
+
         if (model.getSensors() != null) {
+
             Set<Sensor> sensorsOld = new HashSet<>(drone.getSensors());
-            sensorOldCopy = new HashSet<>(sensorsOld);
+            sensorsOldCopy = new HashSet<>(sensorsOld);
             Set<Sensor> sensorNew = new HashSet<>(model.getSensors());
 
             sensorsOld.retainAll(sensorNew);
             sensorsOld.addAll(sensorNew);
-            sensorOldCopy.removeAll(sensorsOld);
+            sensorsOldCopy.removeAll(sensorsOld);
 
             for (Sensor sensor : sensorsOld) {
                 sensor.setDrone(drone);
@@ -84,10 +86,11 @@ public class DroneService implements GenericService<Drone> {
             drone.setSensors(updatedSensors);
         }
 
-        return new ArrayList<>(sensorOldCopy);
+        return new ArrayList<>(sensorsOldCopy);
     }
 
-    public Drone processDrone(DroneModel model) {
+    public Drone createFromModel(DroneModel model) {
+
         Drone drone = new Drone();
         drone.setAvailable(true);
         drone.setBatteryLevel(model.getBatteryLevel());
