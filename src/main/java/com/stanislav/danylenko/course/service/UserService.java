@@ -12,10 +12,15 @@ import com.stanislav.danylenko.course.service.location.RegionService;
 import com.stanislav.danylenko.course.web.model.location.FullLocationModel;
 import com.stanislav.danylenko.course.web.model.user.UserRegistrationModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService implements GenericService<User> {
+public class UserService implements GenericService<User>, UserDetailsService {
 
     @Autowired
     private PopulatedPointService populatedPointService;
@@ -73,6 +78,7 @@ public class UserService implements GenericService<User> {
     }
 
     public User createFromRegistrationModel(UserRegistrationModel model) {
+
         User user = new User();
         user.setFirstName(model.getFirstName());
         user.setLastName(model.getLastName());
@@ -84,7 +90,8 @@ public class UserService implements GenericService<User> {
         }
         user.setEmail(model.getEmail());
         user.setType(model.getType());
-        user.setPassword(model.getPassword());
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(8);
+        user.setPassword(passwordEncoder.encode(model.getPassword()));
         user.addRole(RoleUser.USER);
         user.setActive(true);
         return user;
@@ -108,5 +115,15 @@ public class UserService implements GenericService<User> {
         return model;
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = repository.findByEmail(email);
+
+        if (user == null){
+            throw new UsernameNotFoundException("User with email not found");
+        }
+
+        return user;
+    }
 }
 

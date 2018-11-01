@@ -1,11 +1,13 @@
 package com.stanislav.danylenko.course.db.enumeration;
 
 
-public enum RoleUser /*implements GrantedAuthority*/ {
+import org.springframework.security.core.GrantedAuthority;
+
+public enum RoleUser implements GrantedAuthority {
     ADMIN, USER;
 
-/*    @Override
+    @Override
     public String getAuthority() {
         return name();
-    }*/
+    }
 }
