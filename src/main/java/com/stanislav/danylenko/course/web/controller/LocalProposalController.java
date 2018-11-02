@@ -1,6 +1,5 @@
 package com.stanislav.danylenko.course.web.controller;
 
-import com.stanislav.danylenko.course.db.entity.Drone;
 import com.stanislav.danylenko.course.db.entity.LocalProposal;
 import com.stanislav.danylenko.course.db.entity.pk.LocalProposalPK;
 import com.stanislav.danylenko.course.exception.DBException;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 @RestController
 @RequestMapping("/localProposals")
@@ -42,15 +40,17 @@ public class LocalProposalController {
     @PostMapping
     public @ResponseBody
     ResponseEntity<LocalProposal> createLocalProposal(@RequestBody LocalProposalModel model) throws DBException {
-        LocalProposal localProposal = service.processLocalProposal(model);
+        LocalProposal localProposal = service.createLocalProposal(model);
         service.save(localProposal);
         return new ResponseEntity<>(localProposal, HttpStatus.CREATED);
     }
 
     @PutMapping
     public @ResponseBody
-    void updateLocalProposal(HttpServletResponse response) throws DBException {
-        response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+    ResponseEntity<LocalProposal> updateLocalProposal(@RequestBody LocalProposalModel model) throws DBException {
+        LocalProposal localProposal = service.updateLocalProposal(model);
+        service.update(localProposal);
+        return new ResponseEntity<>(localProposal, HttpStatus.OK);
     }
 
     @DeleteMapping

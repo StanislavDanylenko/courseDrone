@@ -61,7 +61,7 @@ public class LocalProposalService {
         return repository.findAllByProposalId(id);
     }
 
-    public LocalProposal processLocalProposal(LocalProposalModel model) {
+    public LocalProposal createLocalProposal(LocalProposalModel model) {
         LocalProposal localProposal = new LocalProposal();
 
         Proposal proposal = proposalService.find(model.getProposalId());
@@ -69,6 +69,16 @@ public class LocalProposalService {
 
         localProposal.setPopulatedPoint(populatedPoint);
         localProposal.setProposal(proposal);
+        localProposal.setPrice(model.getPrice());
+
+        return localProposal;
+    }
+
+    public LocalProposal updateLocalProposal(LocalProposalModel model) {
+
+        LocalProposalPK localProposalPK = new LocalProposalPK(model.getPopulatedPointId(), model.getProposalId());
+        LocalProposal localProposal = repository.getOne(localProposalPK);
+        localProposal.setPrice(model.getPrice());
 
         return localProposal;
     }

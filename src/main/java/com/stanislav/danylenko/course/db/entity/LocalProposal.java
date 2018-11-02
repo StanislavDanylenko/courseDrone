@@ -1,12 +1,14 @@
 package com.stanislav.danylenko.course.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
 import com.stanislav.danylenko.course.db.entity.pk.LocalProposalPK;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,7 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @IdClass(LocalProposalPK.class)
 @ToString
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class LocalProposal implements Serializable {
 
     @Id
@@ -32,5 +35,7 @@ public class LocalProposal implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "localProposal", cascade = CascadeType.ALL)
     private List<LocalProposalUser> localProposalUsers;
+
+    private double price;
 
 }

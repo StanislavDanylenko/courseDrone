@@ -78,11 +78,12 @@ public class LocalProposalUserController {
 
     @PutMapping("/{id}")
     public @ResponseBody
-    void updateLocalProposalUser(@PathVariable String id, @RequestBody ReportModel model) throws DBException {
+    ResponseEntity<LocalProposalUser> updateLocalProposalUser(@PathVariable String id, @RequestBody ReportModel model) throws DBException {
         UUID uuid = UUID.fromString(id);
         LocalProposalUser localProposalUser = service.findByUuid(uuid);
         service.updateLocalProposalUser(localProposalUser, model);
         service.update(localProposalUser);
+        return ResponseEntity.ok(localProposalUser);
     }
 
     @DeleteMapping("/{id}")

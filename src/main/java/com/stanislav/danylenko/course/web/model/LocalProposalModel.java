@@ -3,6 +3,7 @@ package com.stanislav.danylenko.course.web.model;
 import com.stanislav.danylenko.course.db.entity.Drone;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -14,5 +15,6 @@ public class LocalProposalModel {
 
     private Long proposalId;
     private Long populatedPointId;
+    private double price;
 
 }

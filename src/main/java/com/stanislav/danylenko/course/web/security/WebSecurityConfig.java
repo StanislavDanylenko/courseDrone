@@ -79,7 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new AuthenticationSuccessHandler() {
             @Override
             public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-                httpServletResponse.getWriter().append("OK");
+                httpServletResponse.getWriter().append("Success authenticated");
                 httpServletResponse.setStatus(200);
             }
         };

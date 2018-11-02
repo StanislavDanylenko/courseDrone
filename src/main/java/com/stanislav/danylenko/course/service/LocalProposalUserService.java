@@ -14,6 +14,7 @@ import com.stanislav.danylenko.course.web.model.ReportModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 @Service
@@ -89,11 +90,11 @@ public class LocalProposalUserService {
         localProposalUser.setUser(user);
 
         localProposalUser.setStatus(OperationStatus.NEW);
+        localProposalUser.setTargetCoordinates(model.getTargetCoordinates());
+        localProposalUser.setPrice(localProposal.getPrice());
 
         UUID uuid = UUID.randomUUID();
         localProposalUser.setUuid(uuid);
-
-        localProposalUser.setTargetCoordinates(model.getTargetCoordinates());
 
         // todo test it
         Drone drone = findCompatibleDrone(localProposal);
