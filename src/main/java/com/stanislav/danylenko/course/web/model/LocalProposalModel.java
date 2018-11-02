@@ -15,6 +15,6 @@ public class LocalProposalModel {
 
     private Long proposalId;
     private Long populatedPointId;
-    private double price;
+    private BigDecimal price;
 
 }

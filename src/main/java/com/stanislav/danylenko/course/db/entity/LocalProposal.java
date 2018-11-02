@@ -36,6 +36,6 @@ public class LocalProposal implements Serializable {
     @OneToMany(mappedBy = "localProposal", cascade = CascadeType.ALL)
     private List<LocalProposalUser> localProposalUsers;
 
-    private double price;
+    private BigDecimal price;
 
 }

@@ -46,7 +46,7 @@ public class LocalProposalUser implements Serializable {
     private Long droneId;
     private Report report;
     private double[] targetCoordinates;
-    private double price;
+    private BigDecimal price;
 
     @Column
     @CreationTimestamp
