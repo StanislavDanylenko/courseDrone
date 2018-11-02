@@ -19,6 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 public class UserService implements GenericService<User>, UserDetailsService {
 
@@ -77,6 +79,21 @@ public class UserService implements GenericService<User>, UserDetailsService {
         oldUser.setDefaultPopulatedPoint(newUser.getDefaultPopulatedPoint());
     }
 
+    public void updateUserAdmin(User oldUser, User newUser) {
+        updateUser(oldUser, newUser);
+        oldUser.setActive(newUser.isActive());
+
+        Set<RoleUser> rolesOld = oldUser.getRoles();
+        for (RoleUser role : rolesOld) {
+            oldUser.removeRole(role);
+        }
+
+        Set<RoleUser> roles = newUser.getRoles();
+        for (RoleUser role : roles) {
+            oldUser.addRole(role);
+        }
+    }
+
     public User createFromRegistrationModel(UserRegistrationModel model) {
 
         User user = new User();
@@ -98,6 +115,12 @@ public class UserService implements GenericService<User>, UserDetailsService {
             user.setDefaultPopulatedPoint(populatedPoint);
         }
 
+        return user;
+    }
+
+    public User createFromRegistrationModelAdmin(UserRegistrationModel model) {
+        User user = createFromRegistrationModel(model);
+        user.addRole(RoleUser.ADMIN);
         return user;
     }
 

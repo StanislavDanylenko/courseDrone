@@ -9,6 +9,7 @@ import com.stanislav.danylenko.course.exception.DBException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ public class CountryController {
     private CountryService service;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     @JsonView(value = JsonRules.PartialLocation.class)
     public @ResponseBody
     ResponseEntity<Iterable<Country>> getCountries() throws DBException {
@@ -29,6 +31,7 @@ public class CountryController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     @JsonView(value = JsonRules.PartialLocation.class)
     public @ResponseBody
     ResponseEntity<Country> getCountry(@PathVariable Long id) throws DBException {
@@ -36,6 +39,7 @@ public class CountryController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     @JsonView(value = JsonRules.PartialLocation.class)
     public @ResponseBody
     ResponseEntity<Country> createCountry(@RequestBody Country country) throws DBException {
@@ -44,6 +48,7 @@ public class CountryController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @JsonView(value = JsonRules.PartialLocation.class)
     public @ResponseBody
     ResponseEntity<Country> updateCountry(@RequestBody Country newCountry, @PathVariable Long id) throws DBException {
@@ -54,12 +59,14 @@ public class CountryController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteCountry(@PathVariable Long id, HttpServletResponse response) throws DBException {
         service.delete(id);
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
     @GetMapping("/full")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public ResponseEntity<Iterable<Country>> getCountriesFull() throws DBException {
         return ResponseEntity.ok(service.findAll());
     }

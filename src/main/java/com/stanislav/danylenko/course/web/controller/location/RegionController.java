@@ -9,6 +9,7 @@ import com.stanislav.danylenko.course.web.model.location.RegionModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ public class RegionController {
     private RegionService service;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     @JsonView(value = JsonRules.PartialLocation.class)
     public @ResponseBody
     ResponseEntity<Iterable<Region>> getRegions() throws DBException {
@@ -28,6 +30,7 @@ public class RegionController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public @ResponseBody
     ResponseEntity<RegionModel> getRegion(@PathVariable Long id) throws DBException {
         Region region = service.find(id);
@@ -36,6 +39,7 @@ public class RegionController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public @ResponseBody
     ResponseEntity<RegionModel> createRegion(@RequestBody RegionModel regionModel) throws DBException {
         Region region = new Region();
@@ -46,6 +50,7 @@ public class RegionController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public @ResponseBody
     ResponseEntity<RegionModel> updateRegion(@RequestBody RegionModel newRegion, @PathVariable Long id) throws DBException {
         Region region = service.find(id);
@@ -56,12 +61,14 @@ public class RegionController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteRegion(@PathVariable Long id, HttpServletResponse response) throws DBException {
         service.delete(id);
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
     @GetMapping("/country/{id}")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     @JsonView(value = JsonRules.PartialLocation.class)
     public @ResponseBody
     ResponseEntity<Iterable<Region>> getRegionsInCountry(@PathVariable Long id) throws DBException {
@@ -69,6 +76,7 @@ public class RegionController {
     }
 
     @GetMapping("/all")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public @ResponseBody
     ResponseEntity<Iterable<Region>> getCountriesFull() throws DBException {
         return ResponseEntity.ok(service.findAll());

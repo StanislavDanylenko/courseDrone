@@ -13,15 +13,17 @@ import com.stanislav.danylenko.course.web.model.DroneTaskModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.UUID;
 
-// todo change if annotation to each method
+
 @RestController
-@RequestMapping("admin/drones")
+@PreAuthorize("hasAuthority('ADMIN')")
+@RequestMapping("/drones")
 public class DroneController {
 
     @Autowired

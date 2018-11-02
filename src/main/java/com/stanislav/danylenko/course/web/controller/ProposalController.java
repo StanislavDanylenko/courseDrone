@@ -6,6 +6,7 @@ import com.stanislav.danylenko.course.exception.DBException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +31,7 @@ public class ProposalController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public @ResponseBody
     ResponseEntity<Proposal> createProposal(@RequestBody Proposal proposal) throws DBException {
         service.save(proposal);
@@ -37,6 +39,7 @@ public class ProposalController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public @ResponseBody
     ResponseEntity<Proposal> updateProposal(@RequestBody Proposal newProposal, @PathVariable Long id) throws DBException {
         Proposal proposal = service.find(id);
@@ -46,6 +49,7 @@ public class ProposalController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteProposal(@PathVariable Long id, HttpServletResponse response) throws DBException {
         service.delete(id);
         response.setStatus(HttpServletResponse.SC_OK);
