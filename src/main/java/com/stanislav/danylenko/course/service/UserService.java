@@ -80,7 +80,11 @@ public class UserService implements GenericService<User>, UserDetailsService {
     }
 
     public void updateUserAdmin(User oldUser, User newUser) {
-        updateUser(oldUser, newUser);
+        oldUser.setFirstName(newUser.getFirstName());
+        oldUser.setLastName(newUser.getLastName());
+        oldUser.setPatronymic(newUser.getPatronymic());
+        oldUser.setLocalization(newUser.getLocalization());
+        oldUser.setDefaultPopulatedPoint(newUser.getDefaultPopulatedPoint());
         oldUser.setActive(newUser.isActive());
 
         Set<RoleUser> rolesOld = oldUser.getRoles();
@@ -120,6 +124,7 @@ public class UserService implements GenericService<User>, UserDetailsService {
 
     public User createFromRegistrationModelAdmin(UserRegistrationModel model) {
         User user = createFromRegistrationModel(model);
+        user.removeRole(RoleUser.USER);
         user.addRole(RoleUser.ADMIN);
         return user;
     }
