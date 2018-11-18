@@ -39,21 +39,21 @@ public class LocalProposalUserController {
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public @ResponseBody
     ResponseEntity<Iterable<LocalProposalUser>> getLocalProposalUserByUser(@PathVariable Long id) throws DBException {
-        return new ResponseEntity<>(service.findAllByUserId(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(service.findAllByUserId(id), HttpStatus.OK);
     }
 
     @GetMapping("/proposal/{id}")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public @ResponseBody
     ResponseEntity<Iterable<LocalProposalUser>> getLocalProposalUserByProposal(@PathVariable Long id) throws DBException {
-        return new ResponseEntity<>(service.findAllByProposalId(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(service.findAllByProposalId(id), HttpStatus.OK);
     }
 
     @GetMapping("/point/{id}")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public @ResponseBody
     ResponseEntity<Iterable<LocalProposalUser>> getLocalProposalUserByPopulatedPoint(@PathVariable Long id) throws DBException {
-        return new ResponseEntity<>(service.findAllByPopulatedPointId(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(service.findAllByPopulatedPointId(id), HttpStatus.OK);
     }
 
     @GetMapping("/localProposal")
@@ -63,7 +63,7 @@ public class LocalProposalUserController {
             @RequestBody LocalProposalModel model) throws DBException {
         LocalProposalPK localProposalPK = new LocalProposalPK(model.getPopulatedPointId(), model.getProposalId());
         LocalProposal proposal = localProposalService.find(localProposalPK);
-        return new ResponseEntity<>(service.findAllByLocalProposal(proposal), HttpStatus.FOUND);
+        return new ResponseEntity<>(service.findAllByLocalProposal(proposal), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -72,7 +72,7 @@ public class LocalProposalUserController {
     ResponseEntity<LocalProposalUser> getLocalProposalUser(@PathVariable String id) throws DBException {
         UUID uuid = UUID.fromString(id);
         LocalProposalUser localProposalUser = (service.findByUuid(uuid));
-        return new ResponseEntity<>(localProposalUser, HttpStatus.FOUND);
+        return new ResponseEntity<>(localProposalUser, HttpStatus.OK);
     }
 
     @PostMapping

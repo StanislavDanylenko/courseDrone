@@ -47,13 +47,13 @@ public class DroneController {
     @GetMapping("/{id}")
     public @ResponseBody
     ResponseEntity<Drone> getDrone(@PathVariable Long id) throws DBException {
-        return new ResponseEntity<>(service.find(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(service.find(id), HttpStatus.OK);
     }
 
     @GetMapping("/point/{id}")
     public @ResponseBody
     ResponseEntity<Iterable<Drone>> getDroneByPopulatedPoint(@PathVariable Long id) throws DBException {
-        return new ResponseEntity<>(service.findByPopulatedPoint(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(service.findByPopulatedPoint(id), HttpStatus.OK);
     }
 
     @PostMapping

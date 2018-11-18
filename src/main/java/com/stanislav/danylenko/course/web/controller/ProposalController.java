@@ -27,7 +27,7 @@ public class ProposalController {
     @GetMapping("/{id}")
     public @ResponseBody
     ResponseEntity<Proposal> getProposal(@PathVariable Long id) throws DBException {
-        return new ResponseEntity<>(service.find(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(service.find(id), HttpStatus.OK);
     }
 
     @PostMapping

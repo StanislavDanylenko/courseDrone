@@ -31,14 +31,14 @@ public class LocalProposalController {
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public @ResponseBody
     ResponseEntity<Iterable<LocalProposal>> getLocalProposalByPopulatedPoint(@PathVariable Long id) throws DBException {
-        return new ResponseEntity<>(service.findByPopulatedPoint(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(service.findByPopulatedPoint(id), HttpStatus.OK);
     }
 
     @GetMapping("/proposal/{id}")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public @ResponseBody
     ResponseEntity<Iterable<LocalProposal>> getLocalProposalByProposal(@PathVariable Long id) throws DBException {
-        return new ResponseEntity<>(service.findByProposal(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(service.findByProposal(id), HttpStatus.OK);
     }
 
     @PostMapping

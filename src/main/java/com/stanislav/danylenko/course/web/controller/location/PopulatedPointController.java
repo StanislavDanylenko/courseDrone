@@ -37,7 +37,7 @@ public class PopulatedPointController {
     ResponseEntity<PopulatedPointModel> getPopulatedPoint(@PathVariable Long id) throws DBException {
         PopulatedPoint populatedPoint = service.find(id);
         PopulatedPointModel model = service.getViewModel(populatedPoint);
-        return new ResponseEntity<>(model, HttpStatus.FOUND);
+        return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
     @PostMapping

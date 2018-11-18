@@ -32,7 +32,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public @ResponseBody
     ResponseEntity<User> getUser(@PathVariable Long id) throws DBException {
-        return new ResponseEntity<>(service.find(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(service.find(id), HttpStatus.OK);
     }
 
     @PostMapping

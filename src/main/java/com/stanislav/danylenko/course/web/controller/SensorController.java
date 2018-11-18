@@ -28,7 +28,7 @@ public class SensorController {
     @GetMapping("/{id}")
     public @ResponseBody
     ResponseEntity<Sensor> getSensor(@PathVariable Long id) throws DBException {
-        return new ResponseEntity<>(service.find(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(service.find(id), HttpStatus.OK);
     }
 
     @PostMapping

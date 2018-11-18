@@ -35,7 +35,7 @@ public class CountryController {
     @JsonView(value = JsonRules.PartialLocation.class)
     public @ResponseBody
     ResponseEntity<Country> getCountry(@PathVariable Long id) throws DBException {
-        return new ResponseEntity<>(service.find(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(service.find(id), HttpStatus.OK);
     }
 
     @PostMapping

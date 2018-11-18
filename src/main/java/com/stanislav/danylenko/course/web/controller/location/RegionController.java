@@ -35,7 +35,7 @@ public class RegionController {
     ResponseEntity<RegionModel> getRegion(@PathVariable Long id) throws DBException {
         Region region = service.find(id);
         RegionModel model = service.getViewModel(region);
-        return new ResponseEntity<>(model, HttpStatus.FOUND);
+        return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
     @PostMapping
