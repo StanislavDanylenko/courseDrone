@@ -5,8 +5,13 @@ var regionsTemplate;
 var regionEntityTemplate;
 var regionEntitySelectTemplate;
 
+var populatedPointsTemplate;
+var populatedPointEntityTemplate;
+var populatedPointEntitySelectTemplate;
+
 var actionCountry;
 var actionRegion;
+var actionPopulatedPoint;
 
 $(document).ready(function() {
 
@@ -14,9 +19,10 @@ $(document).ready(function() {
 
     // country
     loadCountry();
-
     // region
     loadRegion();
+    // populated point
+    loadPopulatedPoint();
 
 });
 
@@ -39,6 +45,17 @@ function loadRegion() {
     $(document).on('click', '#addRegion', createRegion);
     $(document).on('click', '.edit-region', editRegion);
     $(document).on('click', '.delete-region', deleteRegion);
+}
+
+function loadPopulatedPoint() {
+    populatedPointsTemplate = Handlebars.compile($('#populatedPointListTemplate').html());
+    populatedPointEntityTemplate = Handlebars.compile($('#populatedPointEntity').html());
+    populatedPointEntitySelectTemplate = Handlebars.compile($('#populatedPointSelectEntity').html());
+
+    $(document).on('click', '#getPopulatedPoints', getPopulatedPoints);
+    $(document).on('click', '#addPopulatedPoint', createPopulatedPoint);
+    $(document).on('click', '.edit-point', editPopulatedPoint);
+    $(document).on('click', '.delete-point', deletePopulatedPoint);
 }
 
 
