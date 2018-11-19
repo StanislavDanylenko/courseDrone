@@ -1,19 +1,45 @@
 var countriesTemplate;
 var countryEntityTemplate;
+
+var regionsTemplate;
+var regionEntityTemplate;
+var regionEntitySelectTemplate;
+
 var actionCountry;
+var actionRegion;
 
 $(document).ready(function() {
-    
+
+    $(document).on('click', '#logout', logout);
+
+    // country
+    loadCountry();
+
+    // region
+    loadRegion();
+
+});
+
+function loadCountry() {
     countriesTemplate = Handlebars.compile($('#countryListTemplate').html());
     countryEntityTemplate = Handlebars.compile($('#countryEntity').html());
-    $(document).on('click', '#logout', logout);
-    
+
     $(document).on('click', '#getCountries', getCountries);
     $(document).on('click', '#addCountry', createCountry);
     $(document).on('click', '.edit-country', editCountry);
     $(document).on('click', '.delete-county', deleteCountry);
-});
+}
 
+function loadRegion() {
+    regionsTemplate = Handlebars.compile($('#regionListTemplate').html());
+    regionEntityTemplate = Handlebars.compile($('#regionEntity').html());
+    regionEntitySelectTemplate = Handlebars.compile($('#regionSelectEntity').html());
+
+    $(document).on('click', '#getRegions', getRegions);
+    $(document).on('click', '#addRegion', createRegion);
+    $(document).on('click', '.edit-region', editRegion);
+    $(document).on('click', '.delete-region', deleteRegion);
+}
 
 
 function setDataTeble(tableName) {
@@ -38,17 +64,17 @@ function gotoPage() {
 }
 
 function logout() {
-        
-            $.ajax({
-                url: "http://localhost:8080/logout",
-                xhrFields: { withCredentials: true },
-                type: "GET",
-                success: function () {
-                    console.log('success logout');
-                    gotoPage();
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    console.log(xhr.status);
-                    console.log(xhr.responseText);
-            }});
+
+    $.ajax({
+        url: "http://localhost:8080/logout",
+        xhrFields: { withCredentials: true },
+        type: "GET",
+        success: function () {
+            console.log('success logout');
+            gotoPage();
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            console.log(xhr.status);
+            console.log(xhr.responseText);
+    }});
 }
