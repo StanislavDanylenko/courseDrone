@@ -12,6 +12,10 @@ var populatedPointEntitySelectTemplate;
 var actionCountry;
 var actionRegion;
 var actionPopulatedPoint;
+var actionProposal;
+
+var proposalsTemplate;
+var proposalEntityTemplate;
 
 $(document).ready(function() {
 
@@ -23,6 +27,8 @@ $(document).ready(function() {
     loadRegion();
     // populated point
     loadPopulatedPoint();
+    // proposal
+    loadProposal();
 
 });
 
@@ -58,7 +64,17 @@ function loadPopulatedPoint() {
     $(document).on('click', '.delete-point', deletePopulatedPoint);
 }
 
+function loadProposal() {
+    proposalsTemplate = Handlebars.compile($('#proposalListTemplate').html());
+    proposalEntityTemplate = Handlebars.compile($('#proposalEntity').html());
 
+    $(document).on('click', '#getProposals', getProposals);
+    $(document).on('click', '#addProposal', createProposal);
+    $(document).on('click', '.edit-proposal', editProposal);
+    $(document).on('click', '.delete-proposal', deleteProposal);
+}
+
+/////////////// service methods
 function setDataTeble(tableName) {
     var table = $(tableName).DataTable( {} );
 }
@@ -69,10 +85,6 @@ function getID(e, tableId) {
      console.log(rowIndex + "   " + id);
      return id;
 }
-
-/////// Countries
-
-
 
 /////////////// Logout
 

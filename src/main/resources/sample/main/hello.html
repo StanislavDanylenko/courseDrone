@@ -46,15 +46,18 @@
   <div class="row full-block">
 <!--   Navbar left   -->
       <div class="col-sm-2 no-margin-no-padding left-nav"> 
-              <div class="btn btn-block btn-secondary btn-custom" id="getCountries">
+            <div class="btn btn-block btn-secondary btn-custom" id="getCountries">
                 Country
-              </div>
-              <div class="btn btn-block btn-secondary btn-custom" id="getRegions">
+            </div>
+            <div class="btn btn-block btn-secondary btn-custom" id="getRegions">
                 Region
-              </div>
-              <div class="btn btn-block btn-secondary btn-custom" id="getPopulatedPoints">
+            </div>
+            <div class="btn btn-block btn-secondary btn-custom" id="getPopulatedPoints">
                 Populated point
-              </div>
+            </div>
+            <div class="btn btn-block btn-secondary btn-custom" id="getProposals">
+                Proposal
+            </div>
      </div>
 <!--   Main block   -->
         <div class="col-sm-10 main-edges" id="mainContainer">
@@ -120,6 +123,7 @@
             </div>
     </script>
 
+
     <!--Region templates-->
     <script id="regionListTemplate" type="text/x-handlebars-template">
         <div class="d-flex">
@@ -180,13 +184,13 @@
 
     <script id="regionSelectEntity" type="text/x-handlebars-template">
         <label for="regionCountryId">Country</label>
-        <!--<input type="text" class="form-control" id="regionCountryId" name="countryId" placeholder="Region title">-->
-        <select id='regionCountryId' name="countryId" class='form-control'>
+        <select id='regionCountryId' name="countryId" class='form-control custom-select'>
             {{#this}}
             <option value="{{ id }}">{{ name }}</option>
             {{/this}}
         </select>
     </script>
+
 
     <!--Populated points templates-->
     <script id="populatedPointListTemplate" type="text/x-handlebars-template">
@@ -248,8 +252,7 @@
 
     <script id="populatedPointSelectEntity" type="text/x-handlebars-template">
         <label for="populatedPointRegionId">Region</label>
-        <!--<input type="text" class="form-control" id="populatedPointRegionId" name="regionId" placeholder="Populated point title">-->
-        <select id='populatedPointRegionId' name="regionId" class='form-control'>
+        <select id='populatedPointRegionId' name="regionId" class='form-control custom-select'>
             {{#this}}
             <option value="{{ id }}">{{ name }}</option>
             {{/this}}
@@ -257,6 +260,98 @@
     </script>
 
 
+    <!--Proposal templates-->
+    <script id="proposalListTemplate" type="text/x-handlebars-template">
+        <div class="d-flex">
+            <div><h3>Proposal</h3></div>
+            <div><button class="btn btn-primary ml-3" type="button" id="addProposal">Add <i class="fa fa-plus"></i></button></div>
+        </div>
+        <div class="table-wrapper">
+            <table id="proposalListTable" class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Sensors</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#this}}
+                <tr>
+                    <td>{{ id }}</td>
+                    <td>{{ name }}</td>
+                    <td>{{ description }}</td>
+                    <td>{{ sensorsList }}</td>
+                    <td><button class="btn btn-warning edit-proposal text-td" type="button">Edit <i class="fa fa-edit"></i></button></td>
+                    <td><button class="btn btn-danger delete-proposal text-td" type="button">Delete <i class="fa fa-close"></i> </button></td>
+                </tr>
+                {{/this}}
+                </tbody>
+            </table>
+        </div>
+    </script>
+
+    <script id="proposalEntity" type="text/x-handlebars-template">
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <h3 id="proposalOperation">Add proposal</h3>
+                <form id="proposalForm">
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="proposalId" name="id" hidden>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="proposalName">Title</label>
+                        <input type="text" class="form-control" id="proposalName" name="name" placeholder="Proposal title">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="proposalDescription">Description</label>
+                        <textarea class="form-control" rows="5" id="proposalDescription" name="proposalDescription"></textarea>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="HUMIDITY" name="HUMIDITY">
+                        <label class="custom-control-label" for="HUMIDITY">HUMIDITY</label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="RADIATION" name="RADIATION">
+                        <label class="custom-control-label" for="RADIATION">RADIATION</label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="PRESSURE" name="PRESSURE">
+                        <label class="custom-control-label" for="PRESSURE">PRESSURE</label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="AIR_POLLUTION" name="AIR_POLLUTION">
+                        <label class="custom-control-label" for="AIR_POLLUTION">AIR_POLLUTION</label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="CAMERA" name="CAMERA">
+                        <label class="custom-control-label" for="CAMERA">CAMERA</label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="TEMPERATURE" name="TEMPERATURE">
+                        <label class="custom-control-label" for="TEMPERATURE">TEMPERATURE</label>
+                    </div>
+
+                    <button type="button" class="btn btn-success btn-block" id="proposalSubmitButton" style="margin-top: 10px">Save</button>
+
+                </form>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+    </script>
 
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
@@ -268,6 +363,7 @@
     <script src="entities/country.js"></script>
     <script src="entities/region.js"></script>
     <script src="entities/populatedPoint.js"></script>
+    <script src="entities/proposal.js"></script>
     <script src="script.js"></script>
     
 </body>

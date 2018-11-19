@@ -44,5 +44,6 @@ public class ProposalService implements GenericService<Proposal> {
     public void updateProposal(Proposal proposal, Proposal newProposal) {
         proposal.setName(newProposal.getName());
         proposal.setDescription(newProposal.getDescription());
+        proposal.setSensors(newProposal.getSensors());
     }
 }
