@@ -104,6 +104,8 @@ function loadDrone() {
     $(document).on('click', '.delete-parent-form', deleteForm);
 }
 
+function loadUser(){}
+
 /////////////// service methods
 function setDataTeble(tableName) {
     var table = $(tableName).DataTable( {} );

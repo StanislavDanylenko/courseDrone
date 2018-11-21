@@ -31,7 +31,7 @@ public class User extends BaseEntity implements UserDetails {
     @Column(nullable = false, unique = true)
     @NonNull
     @Email
-    @JsonIgnore
+//    @JsonIgnore
     private String email;
 
     private String firstName;
@@ -39,7 +39,7 @@ public class User extends BaseEntity implements UserDetails {
     private String patronymic;
     private PopulatedPoint defaultPopulatedPoint;
 
-    @JsonIgnore
+//    @JsonIgnore
     private boolean isActive;
 
     @JsonIgnore
@@ -53,12 +53,12 @@ public class User extends BaseEntity implements UserDetails {
 
     @Column
     @CreationTimestamp
-    @JsonIgnore
+//    @JsonIgnore
     private LocalDateTime createDateTime;
 
     @Column
     @UpdateTimestamp
-    @JsonIgnore
+//    @JsonIgnore
     private LocalDateTime updateDateTime;
 
     @ElementCollection(targetClass = RoleUser.class, fetch = FetchType.EAGER)
