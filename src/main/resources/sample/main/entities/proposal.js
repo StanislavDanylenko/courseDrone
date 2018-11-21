@@ -17,7 +17,7 @@ function getProposals() {
         xhrFields: { withCredentials: true },
         success: function (data) {
             actionProposal = -1;
-            renderProposalList(convertFromListToTableView(data));
+            renderProposalList(convertFromListToTableViewProposal(data));
         },
         error: function(xhr, ajaxOptions, thrownError) {
             console.log(xhr.status);
@@ -127,7 +127,7 @@ function deleteProposal(e) {
 }
 
 
-function convertFromListToTableView(data) {
+function convertFromListToTableViewProposal(data) {
     var lengthDataList = data.length;
     for (var i = 0; i < lengthDataList; i++) {
         data[i].sensorsList = data[i].sensors.join(', ');

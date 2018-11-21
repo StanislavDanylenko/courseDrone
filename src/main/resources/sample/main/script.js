@@ -1,3 +1,10 @@
+var actionCountry;
+var actionRegion;
+var actionPopulatedPoint;
+var actionProposal;
+var actionDrone;
+var actionSensor;
+
 var countriesTemplate;
 var countryEntityTemplate;
 
@@ -9,13 +16,14 @@ var populatedPointsTemplate;
 var populatedPointEntityTemplate;
 var populatedPointEntitySelectTemplate;
 
-var actionCountry;
-var actionRegion;
-var actionPopulatedPoint;
-var actionProposal;
-
 var proposalsTemplate;
 var proposalEntityTemplate;
+
+var dronesTemplate;
+var droneEntityTemplate;
+var droneEntitySelectTemplate;
+var droneSensorTemplate;
+var droneSensorListTemplate;
 
 $(document).ready(function() {
 
@@ -29,6 +37,8 @@ $(document).ready(function() {
     loadPopulatedPoint();
     // proposal
     loadProposal();
+    // drone with sensors
+    loadDrone();
 
 });
 
@@ -72,6 +82,26 @@ function loadProposal() {
     $(document).on('click', '#addProposal', createProposal);
     $(document).on('click', '.edit-proposal', editProposal);
     $(document).on('click', '.delete-proposal', deleteProposal);
+}
+
+function loadDrone() {
+    dronesTemplate = Handlebars.compile($('#droneListTemplate').html());
+    droneEntityTemplate = Handlebars.compile($('#droneEntity').html());
+    droneEntitySelectTemplate = Handlebars.compile($('#droneSelectEntity').html());
+    droneSensorTemplate = Handlebars.compile($('#droneSensor').html());
+    droneSensorListTemplate = Handlebars.compile($('#droneSensorList').html());
+
+    $(document).on('click', '#getDrones', getDrones);
+    $(document).on('click', '#addDrone', createDrone);
+
+    $(document).on('click', '.edit-drone', editDrone);
+    $(document).on('click', '.delete-drone', deleteDrone);
+
+    $(document).on('click', '.delete-sensor', deleteSensor);
+
+    $(document).on('change', '#droneBattery', changeBatteryLevel);
+    $(document).on('click', '#addDroneSensor', renderSensor);
+    $(document).on('click', '.delete-parent-form', deleteForm);
 }
 
 /////////////// service methods

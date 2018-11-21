@@ -1,6 +1,8 @@
 package com.stanislav.danylenko.course.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.stanislav.danylenko.course.JsonRules;
 import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
 import lombok.*;
 
@@ -19,22 +21,32 @@ import java.util.UUID;
 @ToString
 public class Drone extends BaseEntity implements Comparable<Drone> {
 
+    // todo add MAC-adress for drone
+
     @Column(nullable = false)
     @NonNull
+    @JsonView(value = JsonRules.DroneCustom.class)
     private String name;
 
     @Column(columnDefinition = "BINARY(16)")
+    @JsonView(value = JsonRules.DroneCustom.class)
     private UUID currentUuid;
 
+    @JsonView(value = JsonRules.DroneCustom.class)
     private int batteryLevel;
+
+    @JsonView(value = JsonRules.DroneCustom.class)
     private boolean isAvailable = true;
+
+    @JsonView(value = JsonRules.DroneCustom.class)
     private double[] currentLocation;
 
+    @JsonView(value = JsonRules.DroneCustom.class)
     @OneToMany(mappedBy = "drone",
             cascade = CascadeType.ALL)
     private List<Sensor> sensors = new ArrayList<>();
 
-    @JsonIgnore
+    @JsonView(value = JsonRules.DroneCustom.class)
     @ManyToOne
     @JoinColumn(name = "populated_point_id")
     private PopulatedPoint populatedPoint;

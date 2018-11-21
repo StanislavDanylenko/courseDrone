@@ -95,6 +95,7 @@ public class DroneService implements GenericService<Drone> {
         drone.setAvailable(true);
         drone.setBatteryLevel(model.getBatteryLevel());
         drone.setName(model.getName());
+        drone.setCurrentLocation(model.getCurrentCoordinates());
 
         PopulatedPoint populatedPoint = populatedPointService.find(model.getPopulatedPointId());
         drone.setPopulatedPoint(populatedPoint);

@@ -6,4 +6,6 @@ public final class JsonRules {
 
     public interface PartialLocation extends Id{}
 
+    public interface DroneCustom extends Id{}
+
 }

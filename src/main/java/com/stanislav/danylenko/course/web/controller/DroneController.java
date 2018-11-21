@@ -1,5 +1,7 @@
 package com.stanislav.danylenko.course.web.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.stanislav.danylenko.course.JsonRules;
 import com.stanislav.danylenko.course.db.entity.Drone;
 import com.stanislav.danylenko.course.db.entity.LocalProposalUser;
 import com.stanislav.danylenko.course.db.entity.Sensor;
@@ -39,24 +41,28 @@ public class DroneController {
     private LocalProposalUserService localProposalUserService;
 
     @GetMapping
+    @JsonView(value = JsonRules.DroneCustom.class)
     public @ResponseBody
     ResponseEntity<Iterable<Drone>> getDrones() throws DBException {
         return ResponseEntity.ok(service.findAll());
     }
 
     @GetMapping("/{id}")
+    @JsonView(value = JsonRules.DroneCustom.class)
     public @ResponseBody
     ResponseEntity<Drone> getDrone(@PathVariable Long id) throws DBException {
         return new ResponseEntity<>(service.find(id), HttpStatus.OK);
     }
 
     @GetMapping("/point/{id}")
+    @JsonView(value = JsonRules.DroneCustom.class)
     public @ResponseBody
     ResponseEntity<Iterable<Drone>> getDroneByPopulatedPoint(@PathVariable Long id) throws DBException {
         return new ResponseEntity<>(service.findByPopulatedPoint(id), HttpStatus.OK);
     }
 
     @PostMapping
+    @JsonView(value = JsonRules.DroneCustom.class)
     public @ResponseBody
     ResponseEntity<Drone> createDrone(@RequestBody DroneModel model) throws DBException {
         Drone drone = service.createFromModel(model);
@@ -65,6 +71,7 @@ public class DroneController {
     }
 
     @PutMapping("/{id}")
+    @JsonView(value = JsonRules.DroneCustom.class)
     public @ResponseBody
     ResponseEntity<Drone> updateDrone(@RequestBody DroneModel model, @PathVariable Long id) throws DBException {
         Drone drone = service.find(id);
@@ -78,6 +85,7 @@ public class DroneController {
     }
 
     @DeleteMapping("/{id}")
+    @JsonView(value = JsonRules.DroneCustom.class)
     public void deleteDrone(@PathVariable Long id, HttpServletResponse response) throws DBException {
         service.delete(id);
         response.setStatus(HttpServletResponse.SC_OK);

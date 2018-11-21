@@ -2,6 +2,7 @@ package com.stanislav.danylenko.course.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.stanislav.danylenko.course.JsonRules;
 import com.stanislav.danylenko.course.db.enumeration.TypeOfSensor;
 import lombok.*;
 
@@ -16,10 +17,12 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class Sensor extends BaseEntity {
 
+    @JsonView(value = JsonRules.DroneCustom.class)
     @Column(nullable = false)
     @NonNull
     private String name;
 
+    @JsonView(value = JsonRules.DroneCustom.class)
     @Column(nullable = false)
     @NonNull
     private TypeOfSensor type;

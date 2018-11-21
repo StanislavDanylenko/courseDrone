@@ -22,7 +22,7 @@ public class PopulatedPoint extends BaseEntity {
 
     @Column(nullable = false)
     @NonNull
-    @JsonView(value = JsonRules.PartialLocation.class)
+    @JsonView(value = {JsonRules.PartialLocation.class, JsonRules.DroneCustom.class})
     private String name;
 
     @JsonIgnore

@@ -58,6 +58,9 @@
             <div class="btn btn-block btn-secondary btn-custom" id="getProposals">
                 Proposal
             </div>
+            <div class="btn btn-block btn-secondary btn-custom" id="getDrones">
+                Drone
+            </div>
      </div>
 <!--   Main block   -->
         <div class="col-sm-10 main-edges" id="mainContainer">
@@ -353,7 +356,173 @@
         </div>
     </script>
 
-    
+
+    <!--Drone templates-->
+    <script id="droneListTemplate" type="text/x-handlebars-template">
+        <div class="d-flex">
+            <div><h3>Drone</h3></div>
+            <div><button class="btn btn-primary ml-3" type="button" id="addDrone">Add <i class="fa fa-plus"></i></button></div>
+        </div>
+        <div class="table-wrapper">
+            <table id="droneListTable" class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Current operation UUID</th>
+                    <th>Battery level</th>
+                    <th>Current location</th>
+                    <th>Availability</th>
+                    <th>Sensors</th>
+                    <th>Populated point</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#this}}
+                <tr>
+                    <td>{{ id }}</td>
+                    <td>{{ name }}</td>
+                    <td>{{ currentUuid }}</td>
+                    <td>{{ batteryLevel }}</td>
+                    <td>{{ currentLocations }}</td>
+                    <td>{{ isAvailable }}</td>
+                    <td>{{ sensorsList }}</td>
+                    <td>{{ location }}</td>
+                    <td><button class="btn btn-warning edit-drone text-td" type="button">Edit <i class="fa fa-edit"></i></button></td>
+                    <td><button class="btn btn-danger delete-drone text-td" type="button">Delete <i class="fa fa-close"></i> </button></td>
+                </tr>
+                {{/this}}
+                </tbody>
+            </table>
+        </div>
+    </script>
+
+    <script id="droneEntity" type="text/x-handlebars-template">
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-6">
+                <h3 id="droneOperation">Add drone</h3>
+                <form id="droneForm">
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="droneId" name="id" hidden>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="droneName">Title</label>
+                        <input type="text" class="form-control" id="droneName" name="name" placeholder="Drone title">
+                    </div>
+
+                    <!--range -->
+                    <div class="form-group" id="hideDroneBattery">
+                        <label for="droneBattery">Battery level</label><b><span class="span-slider" id="droneBatteryLevel">100</span><span>%</span></b>
+                        <input type="range" class="custom-range" id="droneBattery" name="name" step="1">
+                    </div>
+
+                    <!--available-->
+                    <div class="form-group">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="droneAvailable" name="droneAvailable" value="customEx" checked>
+                            <label class="custom-control-label" for="droneAvailable">Drone available</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="droneUnavailable" name="droneAvailable" value="customEx">
+                            <label class="custom-control-label" for="droneUnavailable">Drone unavailable</label>
+                        </div>
+                    </div>
+
+                    <!--coords-->
+                    <div class="form-group" id="hideDroneCoordinates">
+                        <div class="form-group">
+                            <label for="droneX" >Latitude</label>
+                            <input type="number" class="form-control"  value="-1000000" id="droneX" name="droneX">
+                        </div>
+                        <div class="form-group">
+                            <label for="droneY" >Longitude</label>
+                            <input type="number" class="form-control" value="-1000000" id="droneY" name="droneY">
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="droneSelect">
+                        <!--select list here-->
+                    </div>
+
+                    <div class="form-group" id="droneSensorListPlace">
+
+                    </div>
+
+                    <button type="button" class="btn btn-success btn-block" id="droneSubmitButton">Save</button>
+
+                </form>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-4" id="sensorList">
+                <button type="button" class="btn btn-primary btn-block" id="addDroneSensor">Add sensor <i class="fa fa-plus"></i></button>
+            </div>
+        </div>
+    </script>
+
+    <script id="droneSelectEntity" type="text/x-handlebars-template">
+        <label for="dronePopulatedPointId">Populated point</label>
+        <select id='dronePopulatedPointId' name="populatedPointId" class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+
+    <script id="droneSensor" type="text/x-handlebars-template">
+
+        <div class="sensor border border-secondary rounded dsensor">
+
+            <button type="button" class="btn btn-danger delete-parent-form" ><i class="fa fa-close"></i></button>
+
+            <div class="form-group">
+                <label for="droneName">Sensor title</label>
+                <input type="text" class="form-control" placeholder="Sensor title">
+            </div>
+
+            <label for="dronePopulatedPointId">Sensor type</label>
+            <select class='form-control custom-select'>
+                <option value="HUMIDITY">HUMIDITY</option>
+                <option value="RADIATION">RADIATION</option>
+                <option value="PRESSURE">PRESSURE</option>
+                <option value="AIR_POLLUTION">AIR_POLLUTION</option>
+                <option value="CAMERA">CAMERA</option>
+                <option value="TEMPERATURE">TEMPERATURE</option>
+            </select>
+        </div>
+    </script>
+
+    <script id="droneSensorList" type="text/x-handlebars-template">
+        <h2>Sensors</h2>
+        <table id="droneSensorListTable" class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#this}}
+            <tr>
+                <td>{{ id }}</td>
+                <td>{{ name }}</td>
+                <td>{{ type }}</td>
+                <td><button class="btn btn-danger delete-sensor text-td" type="button">Delete <i class="fa fa-close"></i> </button></td>
+            </tr>
+            {{/this}}
+            </tbody>
+        </table>
+    </script>
+
+
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
 
@@ -364,6 +533,7 @@
     <script src="entities/region.js"></script>
     <script src="entities/populatedPoint.js"></script>
     <script src="entities/proposal.js"></script>
+    <script src="entities/drone.js"></script>
     <script src="script.js"></script>
     
 </body>
