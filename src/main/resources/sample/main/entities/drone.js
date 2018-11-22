@@ -70,6 +70,7 @@ function getDrone(id) {
         success: function (data) {
             $('#droneId').val(data.id);
             $('#droneName').val(data.name);
+            setAvailabilityOfDrone(data.isAvailable);
             hideUnnesseseryFields();
             getPopulatedPointForSelect(data.populatedPoint.id);
             getSensorsForDrone(data.id);
@@ -230,6 +231,16 @@ function getAvailabilityOfDrone() {
         return true;
     }
     return false;
+}
+
+function setAvailabilityOfDrone(data) {
+    if (data != null && data === true) {
+        $('#droneAvailable').prop("checked", true);
+        $('#droneUnavailable').prop("checked", false);
+    } else {
+        $('#droneAvailable').prop("checked", false);
+        $('#droneUnavailable').prop("checked", true);
+    }
 }
 
 function getCoordinates() {
