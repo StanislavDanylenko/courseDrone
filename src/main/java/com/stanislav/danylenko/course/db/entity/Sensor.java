@@ -27,7 +27,7 @@ public class Sensor extends BaseEntity {
     @NonNull
     private TypeOfSensor type;
 
-    private double value;
+    private Double value = 0.0;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

@@ -33,13 +33,13 @@ public class Drone extends BaseEntity implements Comparable<Drone> {
     private UUID currentUuid;
 
     @JsonView(value = JsonRules.DroneCustom.class)
-    private int batteryLevel;
+    private Integer batteryLevel;
 
     @JsonView(value = JsonRules.DroneCustom.class)
-    private boolean isAvailable = true;
+    private Boolean isAvailable = true;
 
     @JsonView(value = JsonRules.DroneCustom.class)
-    private double[] currentLocation;
+    private Double[] currentLocation;
 
     @JsonView(value = JsonRules.DroneCustom.class)
     @OneToMany(mappedBy = "drone",

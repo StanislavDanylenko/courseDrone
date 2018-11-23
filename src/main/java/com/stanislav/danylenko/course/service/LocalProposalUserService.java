@@ -148,7 +148,7 @@ public class LocalProposalUserService {
                     sensorsInDrone.add(sensor.getType());
                 }
                 //todo test it
-                if (sensorsInDrone.containsAll(typeOfSensors) && drone.isAvailable()) {
+                if (sensorsInDrone.containsAll(typeOfSensors) && drone.getIsAvailable()) {
                     compatibleTypeDrones.add(drone);
                 }
             }

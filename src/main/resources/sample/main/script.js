@@ -4,6 +4,7 @@ var actionPopulatedPoint;
 var actionProposal;
 var actionDrone;
 var actionSensor;
+var actionUser;
 
 var countriesTemplate;
 var countryEntityTemplate;
@@ -25,6 +26,10 @@ var droneEntitySelectTemplate;
 var droneSensorTemplate;
 var droneSensorListTemplate;
 
+var usersTemplate;
+var userEntityTemplate;
+var userEntitySelectTemplate;
+
 $(document).ready(function() {
 
     $(document).on('click', '#logout', logout);
@@ -39,6 +44,8 @@ $(document).ready(function() {
     loadProposal();
     // drone with sensors
     loadDrone();
+    // user
+    loadUser();
 
 });
 
@@ -104,7 +111,16 @@ function loadDrone() {
     $(document).on('click', '.delete-parent-form', deleteForm);
 }
 
-function loadUser(){}
+function loadUser(){
+    usersTemplate = Handlebars.compile($('#userListTemplate').html());
+    userEntityTemplate = Handlebars.compile($('#userEntity').html());
+    userEntitySelectTemplate = Handlebars.compile($('#userSelectEntity').html());
+
+    $(document).on('click', '#getUsers', getUsers);
+    $(document).on('click', '#addUser', createUser);
+    $(document).on('click', '.edit-user', editUser);
+    $(document).on('click', '.delete-user', deleteUser);
+}
 
 /////////////// service methods
 function setDataTeble(tableName) {

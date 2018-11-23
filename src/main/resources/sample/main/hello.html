@@ -558,11 +558,11 @@
                     <td>{{ roles }}</td>
                     <td>{{ firstName }}</td>
                     <td>{{ lastName }}</td>
-                    <td>{{ lastName }}</td>
                     <td>{{ patronymic }}</td>
                     <td>{{ isActive }}</td>
                     <td>{{ defaultPopulatedPoint }}</td>
                     <td>{{ localization }}</td>
+                    <td>{{ type }}</td>
                     <td>{{ createDateTime }}</td>
                     <td>{{ updateDateTime }}</td>
 
@@ -588,22 +588,27 @@
 
                     <div class="form-group">
                         <label for="userFirstName">First name</label>
-                        <input type="text" class="form-control" id="userFirstName" name="name" placeholder="User title">
+                        <input type="text" class="form-control" id="userFirstName" name="name" placeholder="User first name">
                     </div>
 
                     <div class="form-group">
-                        <label for="userLastName">First name</label>
-                        <input type="text" class="form-control" id="userLastName" name="name" placeholder="User title">
+                        <label for="userLastName">Last name</label>
+                        <input type="text" class="form-control" id="userLastName" name="name" placeholder="User last name">
                     </div>
 
                     <div class="form-group">
                         <label for="userPatronymic">Patronymic</label>
-                        <input type="text" class="form-control" id="userPatronymic" name="name" placeholder="User title">
+                        <input type="text" class="form-control" id="userPatronymic" name="name" placeholder="User patronymic">
                     </div>
 
-                    <div class="form-group">
-                        <label for="userEmail">Patronymic</label>
-                        <input type="email" class="form-control" id="userEmail" name="name" placeholder="User title">
+                    <div class="form-group" id="hideUserEmail">
+                        <label for="userEmail">Email</label>
+                        <input type="email" class="form-control" id="userEmail" name="name" placeholder="User email">
+                    </div>
+
+                    <div class="form-group" id="hideUserPassword">
+                        <label for="userPassword">Password</label>
+                        <input type="password" class="form-control" id="userPassword" name="name" placeholder="User password">
                     </div>
 
                     <!--blocked-->
@@ -621,12 +626,12 @@
                     <div class="form-group">
                         <label for="userLocalization">Localization</label>
                         <select class='form-control custom-select' id="userLocalization">
-                            <option value="RUSSIAN">RUSSIAN</option>
+                            <option value="UKRAINIAN">UKRAINIAN</option>
                             <option value="ENGLISH">ENGLISH</option>
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="hideUserType">
                         <label for="userType">Type of user</label>
                         <select class='form-control custom-select' id="userType">
                             <option value="BUSINESS">BUSINESS</option>

@@ -4,6 +4,7 @@ import com.stanislav.danylenko.course.db.entity.User;
 import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
 import com.stanislav.danylenko.course.exception.DBException;
 import com.stanislav.danylenko.course.service.UserService;
+import com.stanislav.danylenko.course.service.location.PopulatedPointService;
 import com.stanislav.danylenko.course.web.model.location.FullLocationModel;
 import com.stanislav.danylenko.course.web.model.user.UserRegistrationModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class UserController {
 
     @Autowired
     private UserService service;
+    @Autowired
+    private PopulatedPointService populatedPointService;
 
     @GetMapping
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -57,7 +60,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('USER')")
     public void deleteUser(@PathVariable Long id, HttpServletResponse response) throws DBException {
         User user = service.find(id);
-        user.setActive(false);
+        user.setIsActive(false);
         service.save(user);
         response.setStatus(HttpServletResponse.SC_OK);
     }
@@ -66,7 +69,8 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public FullLocationModel getUserLocation(@PathVariable Long id) {
         User user = service.find(id);
-        PopulatedPoint point = user.getDefaultPopulatedPoint();
+        Long populatedPointId = (user.getDefaultPopulatedPoint());
+        PopulatedPoint point = populatedPointService.find(populatedPointId);
         FullLocationModel model = new FullLocationModel();
         service.fillInfoAboutLocation(point);
         return model;

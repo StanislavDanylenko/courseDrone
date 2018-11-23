@@ -85,16 +85,18 @@ public class UserService implements GenericService<User>, UserDetailsService {
         oldUser.setPatronymic(newUser.getPatronymic());
         oldUser.setLocalization(newUser.getLocalization());
         oldUser.setDefaultPopulatedPoint(newUser.getDefaultPopulatedPoint());
-        oldUser.setActive(newUser.isActive());
+        oldUser.setIsActive(newUser.getIsActive());
 
-        Set<RoleUser> rolesOld = oldUser.getRoles();
-        for (RoleUser role : rolesOld) {
-            oldUser.removeRole(role);
-        }
+        if (!newUser.getRoles().isEmpty()) {
+            Set<RoleUser> rolesOld = oldUser.getRoles();
+            for (RoleUser role : rolesOld) {
+                oldUser.removeRole(role);
+            }
 
-        Set<RoleUser> roles = newUser.getRoles();
-        for (RoleUser role : roles) {
-            oldUser.addRole(role);
+            Set<RoleUser> roles = newUser.getRoles();
+            for (RoleUser role : roles) {
+                oldUser.addRole(role);
+            }
         }
     }
 
@@ -109,15 +111,12 @@ public class UserService implements GenericService<User>, UserDetailsService {
         user.setEmail(model.getEmail());
         user.setType(model.getType());
         user.addRole(RoleUser.USER);
-        user.setActive(true);
+        user.setIsActive(model.getIsActive());
 
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(8);
         user.setPassword(passwordEncoder.encode(model.getPassword()));
 
-        if (model.getDefaultPopulatedPointId() != null) {
-            PopulatedPoint populatedPoint = populatedPointService.find(model.getDefaultPopulatedPointId());
-            user.setDefaultPopulatedPoint(populatedPoint);
-        }
+        user.setDefaultPopulatedPoint(model.getDefaultPopulatedPointId());
 
         return user;
     }

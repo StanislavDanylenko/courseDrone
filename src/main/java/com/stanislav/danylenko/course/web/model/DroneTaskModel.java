@@ -16,9 +16,9 @@ import java.util.UUID;
 public class DroneTaskModel {
 
     private UUID uuid;
-    private double[] targetLocation;
-    private double[] startLocation;
-    private double[] currentLocation;
+    private Double[] targetLocation;
+    private Double[] startLocation;
+    private Double[] currentLocation;
     private Map<Double, Double> checkPoints;
 
 }

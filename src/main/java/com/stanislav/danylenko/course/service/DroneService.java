@@ -61,9 +61,15 @@ public class DroneService implements GenericService<Drone> {
 
         PopulatedPoint populatedPoint = populatedPointService.find(model.getPopulatedPointId());
         drone.setPopulatedPoint(populatedPoint);
-        drone.setAvailable(model.isAvailable());
-        drone.setBatteryLevel(model.getBatteryLevel());
-        drone.setCurrentLocation(model.getCurrentCoordinates());
+        if (model.getIsAvailable() != null) {
+            drone.setIsAvailable(model.getIsAvailable());
+        }
+        if (model.getBatteryLevel() != null) {
+            drone.setBatteryLevel(model.getBatteryLevel());
+        }
+        if (model.getCurrentCoordinates() != null) {
+            drone.setCurrentLocation(model.getCurrentCoordinates());
+        }
 
         Set<Sensor> sensorsOldCopy = new HashSet<>();
 
@@ -92,7 +98,7 @@ public class DroneService implements GenericService<Drone> {
     public Drone createFromModel(DroneModel model) {
 
         Drone drone = new Drone();
-        drone.setAvailable(true);
+        drone.setIsAvailable(true);
         drone.setBatteryLevel(model.getBatteryLevel());
         drone.setName(model.getName());
         drone.setCurrentLocation(model.getCurrentCoordinates());

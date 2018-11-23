@@ -37,10 +37,10 @@ public class User extends BaseEntity implements UserDetails {
     private String firstName;
     private String lastName;
     private String patronymic;
-    private PopulatedPoint defaultPopulatedPoint;
+    private Long defaultPopulatedPoint;
 
 //    @JsonIgnore
-    private boolean isActive;
+    private Boolean isActive;
 
     @JsonIgnore
     private String password;

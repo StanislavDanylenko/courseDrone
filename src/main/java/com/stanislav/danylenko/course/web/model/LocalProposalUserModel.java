@@ -13,6 +13,6 @@ public class LocalProposalUserModel {
     private Long userId;
     private Long populatedPointId;
     private Long proposalId;
-    private double[] targetCoordinates;
+    private Double[] targetCoordinates;
 
 }

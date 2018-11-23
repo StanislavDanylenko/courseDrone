@@ -13,10 +13,10 @@ import java.util.List;
 public class DroneModel {
 
     private String name;
-    private int batteryLevel;
-    private boolean isAvailable;
+    private Integer batteryLevel;
+    private Boolean isAvailable;
     private List<Sensor> sensors;
     private Long populatedPointId;
-    private double[] currentCoordinates;
+    private Double[] currentCoordinates;
 
 }

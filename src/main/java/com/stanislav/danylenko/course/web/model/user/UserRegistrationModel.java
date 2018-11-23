@@ -23,5 +23,6 @@ public class UserRegistrationModel implements Serializable {
     private Long defaultPopulatedPointId;
     private String email;
     private TypeOfUser type;
+    private Boolean isActive;
 
 }
