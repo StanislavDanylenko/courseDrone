@@ -26,35 +26,6 @@ function getUsers() {
             console.log(xhr.responseText);
         }});
 }
-//
-function buildFullLocationSelectorForItem(populatedPointId,
-                                          countryId, regionId, populatedPointHtmlId,
-                                          countrySelectorId, regionSelectorId, populatedPointSelectorId) {
-    $.ajax({
-        url: "http://localhost:8080/countries/full",
-        type: "GET",
-        xhrFields: { withCredentials: true },
-        success: function (data) {
-            allLocation = data;
-            var defValue = data[0].id;
-            renderSelectCountryUser(data, countrySelectorId);
-            allRegions = getRegionsFromCountries(data);
-            renderSelectRegionUser(undefined, regionSelectorId);
-            renderSelectPopulatedPointUser(undefined, populatedPointSelectorId);
-            if (populatedPointId == null) {
-                $(countryId).val(defValue);
-                $(countryId).change();
-            } else {
-                setLocationOfItem(allLocation, populatedPointId, countryId, regionId, populatedPointHtmlId);
-            }
-
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
-        }});
-}
-
 
 function getUser(id) {
     console.log('in the get user method, id = ' + id);
@@ -70,7 +41,7 @@ function getUser(id) {
             $('#userPatronymic').val(data.patronymic);
             $('#userLocalization').val(data.localization);
             setIsUserNonBlocked(data.isActive);
-            buildFullLocationSelectorForItem(data.defaultPopulatedPoint,
+            buildFullLocationSelectorForItem(data.defaultPopulatedPoint, "user",
                 '#userCountryId', '#userRegionId', '#userPopulatedPointId',
                 '#userSelectCountry', '#userSelectRegion', '#userSelect');
         },
@@ -86,7 +57,7 @@ function createUser() {
     var button = $('#userSubmitButton');
     button.bind('click', saveUser);
     $('#userOperation').text('Add admin user');
-    buildFullLocationSelectorForItem(null,
+    buildFullLocationSelectorForItem(null, "user",
                         '#userCountryId','#userRegionId', '#userPopulatedPointId',
                         '#userSelectCountry', '#userSelectRegion', '#userSelect');
 }
@@ -210,7 +181,7 @@ function changeUserRegion() {
         }
     }
 
-    renderSelectRegionUser(regions, '#userSelectRegion');
+    renderSelectRegionItem(regions, "user", '#userSelectRegion');
     $('#userRegionId').val(regions[0].id);
     $('#userRegionId').change();
 }
@@ -224,66 +195,7 @@ function changeUserPopulatedPoint() {
             points = allRegions[i].populatedPoints;
         }
     }
-    renderSelectPopulatedPointUser(points, '#userSelect');
+    renderSelectPopulatedPointItem(points, "user", '#userSelect');
     $('#userPopulatedPointId').val(points[0].id);
     $('#userPopulatedPointId').change();
-}
-
-
-
-function getRegionsFromCountries(data) {
-    var regions = [];
-
-    for (var i = 0; i < data.length; i++) {
-        var region = data[i].regions;
-        for (var j = 0; j < region.length; j++) {
-            regions.push(region[j]);
-        }
-    }
-
-    return regions;
-}
-
-function setLocationOfItem(countries, id, countryId, regionId, populatedPointId) {
-    var idOfLocations = [];
-
-    for (var i = 0; i < countries.length; i++) {
-        var countryRegions = countries[i].regions;
-        for (var j = 0; j < countryRegions.length; j++) {
-            var populatedPoints = countryRegions[j].populatedPoints;
-            for (var k = 0; k < populatedPoints.length; k++) {
-                if (populatedPoints[k].id == id) {
-                    fillAllLocationTree(countryId, countries[i].id,
-                                        regionId, countryRegions[j].id,
-                                        populatedPointId, populatedPoints[k].id);
-                }
-            }
-        }
-    }
-    return idOfLocations;
-}
-
-function fillAllLocationTree(countryId, countryValue, regionId, regionValue, populatedPointId, pointValue) {
-    $(countryId).val(countryValue);
-    $(countryId).change();
-    $(regionId).val(regionValue);
-    $(regionId).change();
-    $(populatedPointId).val(pointValue);
-    $(populatedPointId).change();
-}
-
-// render section
-function renderSelectCountryUser(data, countrySelect) {
-    var html = userEntitySelectCountryTemplate(data);
-    $(countrySelect).empty().append(html);
-}
-
-function renderSelectRegionUser(data, regionSelect) {
-    var html = userEntitySelectRegionTemplate(data);
-    $(regionSelect).empty().append(html);
-}
-
-function renderSelectPopulatedPointUser(data, populatedPointSelect) {
-    var html = userEntitySelectTemplate(data);
-    $(populatedPointSelect).empty().append(html);
 }

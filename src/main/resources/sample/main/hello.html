@@ -448,9 +448,18 @@
                         </div>
                     </div>
 
+                    <div class="form-group" id="droneSelectCountry" style="margin-top: 40px;">
+                        <!--select list here-->
+                    </div>
+                    <div class="form-group" id="droneSelectRegion">
+                        <!--select list here-->
+                    </div>
+
                     <div class="form-group" id="droneSelect">
                         <!--select list here-->
                     </div>
+
+
 
                     <div class="form-group" id="droneSensorListPlace">
 
@@ -470,6 +479,24 @@
     <script id="droneSelectEntity" type="text/x-handlebars-template">
         <label for="dronePopulatedPointId">Populated point</label>
         <select id='dronePopulatedPointId' name="populatedPointId" class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+
+    <script id="droneCountrySelectEntity" type="text/x-handlebars-template">
+        <label for="droneCountryId">Country</label>
+        <select id='droneCountryId' name="populatedPointId" class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+
+    <script id="droneRegionSelectEntity" type="text/x-handlebars-template">
+        <label for="droneRegionId">Region</label>
+        <select id='droneRegionId' name="populatedPointId" class='form-control custom-select'>
             {{#this}}
             <option value="{{ id }}">{{ name }}</option>
             {{/this}}
@@ -700,6 +727,7 @@
     <script src="entities/proposal.js"></script>
     <script src="entities/drone.js"></script>
     <script src="entities/user.js"></script>
+    <script src="entities/location.js"></script>
     <script src="script.js"></script>
     
 </body>

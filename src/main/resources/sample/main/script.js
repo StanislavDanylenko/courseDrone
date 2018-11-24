@@ -24,6 +24,8 @@ var proposalEntityTemplate;
 var dronesTemplate;
 var droneEntityTemplate;
 var droneEntitySelectTemplate;
+var droneEntitySelectCountryTemplate;
+var droneEntitySelectRegionTemplate;
 var droneSensorTemplate;
 var droneSensorListTemplate;
 
@@ -104,9 +106,14 @@ function loadDrone() {
     droneEntitySelectTemplate = Handlebars.compile($('#droneSelectEntity').html());
     droneSensorTemplate = Handlebars.compile($('#droneSensor').html());
     droneSensorListTemplate = Handlebars.compile($('#droneSensorList').html());
+    droneEntitySelectCountryTemplate = Handlebars.compile($('#droneCountrySelectEntity').html());
+    droneEntitySelectRegionTemplate = Handlebars.compile($('#droneRegionSelectEntity').html());
 
     $(document).on('click', '#getDrones', getDrones);
     $(document).on('click', '#addDrone', createDrone);
+
+    $(document).on('change', '#droneCountryId', changeDroneRegion);
+    $(document).on('change', '#droneRegionId', changeDronePopulatedPoint);
 
     $(document).on('click', '.edit-drone', editDrone);
     $(document).on('click', '.delete-drone', deleteDrone);

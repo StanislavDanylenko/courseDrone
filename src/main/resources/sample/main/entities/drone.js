@@ -72,7 +72,10 @@ function getDrone(id) {
             $('#droneName').val(data.name);
             setAvailabilityOfDrone(data.isAvailable);
             hideUnnesseseryFields();
-            getPopulatedPointForSelect(data.populatedPoint.id);
+            // getPopulatedPointForSelect(data.populatedPoint.id);
+            buildFullLocationSelectorForItem(data.populatedPoint.id, "drone",
+                '#droneCountryId','#droneRegionId', '#dronePopulatedPointId',
+                '#droneSelectCountry', '#droneSelectRegion', '#droneSelect');
             getSensorsForDrone(data.id);
         },
         error: function(xhr, ajaxOptions, thrownError) {
@@ -101,7 +104,10 @@ function createDrone() {
     var button = $('#droneSubmitButton');
     button.bind('click', saveDrone);
     $('#droneOperation').text('Add drone');
-    getPopulatedPointForSelect();
+    // getPopulatedPointForSelect();
+    buildFullLocationSelectorForItem(null, "drone",
+        '#droneCountryId','#droneRegionId', '#dronePopulatedPointId',
+        '#droneSelectCountry', '#droneSelectRegion', '#droneSelect');
     $('#droneBattery').val(100);
     renderSensor();
 }
@@ -290,4 +296,34 @@ function getSensorsFromTable() {
 function hideUnnesseseryFields() {
     $('#hideDroneBattery').hide();
     $('#hideDroneCoordinates').hide();
+}
+
+//------------------
+function changeDroneRegion() {
+    var countryId = $('#droneCountryId').val();
+    var regions;
+
+    for(var i = 0; i < allLocation.length; i++) {
+        if (allLocation[i].id == countryId) {
+            regions = allLocation[i].regions;
+        }
+    }
+
+    renderSelectRegionItem(regions, "drone", '#droneSelectRegion');
+    $('#droneRegionId').val(regions[0].id);
+    $('#droneRegionId').change();
+}
+
+function changeDronePopulatedPoint() {
+    var regionId = $('#droneRegionId').val();
+    var points;
+
+    for(var i = 0; i < allRegions.length; i++) {
+        if (allRegions[i].id == regionId) {
+            points = allRegions[i].populatedPoints;
+        }
+    }
+    renderSelectPopulatedPointItem(points, "drone", '#droneSelect');
+    $('#dronePopulatedPointId').val(points[0].id);
+    $('#dronePopulatedPointId').change();
 }
