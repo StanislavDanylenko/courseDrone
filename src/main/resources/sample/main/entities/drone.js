@@ -244,7 +244,7 @@ function setAvailabilityOfDrone(data) {
 }
 
 function getCoordinates() {
-    if (($('#droneX').val() !== -1000000) && ($('#droneY').val() !== -1000000)) {
+    if (($('#droneX').val() != -1000000) && ($('#droneY').val() != -1000000)) {
         return [$('#droneX').val(), $('#droneY').val()];
     }
     return null;
