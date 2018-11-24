@@ -6,6 +6,7 @@ var actionDrone;
 var actionSensor;
 var actionUser;
 
+
 var countriesTemplate;
 var countryEntityTemplate;
 
@@ -29,6 +30,12 @@ var droneSensorListTemplate;
 var usersTemplate;
 var userEntityTemplate;
 var userEntitySelectTemplate;
+var userEntitySelectCountryTemplate;
+var userEntitySelectRegionTemplate;
+
+var allLocation;
+var userRegions;
+
 
 $(document).ready(function() {
 
@@ -115,9 +122,15 @@ function loadUser(){
     usersTemplate = Handlebars.compile($('#userListTemplate').html());
     userEntityTemplate = Handlebars.compile($('#userEntity').html());
     userEntitySelectTemplate = Handlebars.compile($('#userSelectEntity').html());
+    userEntitySelectCountryTemplate = Handlebars.compile($('#userCountrySelectEntity').html());
+    userEntitySelectRegionTemplate = Handlebars.compile($('#userRegionSelectEntity').html());
 
     $(document).on('click', '#getUsers', getUsers);
     $(document).on('click', '#addUser', createUser);
+
+    $(document).on('change', '#userCountryId', changeUserRegion);
+    $(document).on('change', '#userRegionId', changeUserPopulatedPoint);
+
     $(document).on('click', '.edit-user', editUser);
     $(document).on('click', '.delete-user', deleteUser);
 }

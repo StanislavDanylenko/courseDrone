@@ -12,8 +12,18 @@ function renderUserEntity() {
 }
 //
 function renderSelectPopulatedPointUser(data) {
-    var html = userEntitySelectTemplate(data)
+    var html = userEntitySelectTemplate(data);
     $('#userSelect').empty().append(html);
+}
+
+function renderSelectCountryUser(data) {
+    var html = userEntitySelectCountryTemplate(data);
+    $('#userSelectCountry').empty().append(html);
+}
+
+function renderSelectRegionUser(data) {
+    var html = userEntitySelectRegionTemplate(data);
+    $('#userSelectRegion').empty().append(html);
 }
 
 function getUsers() {
@@ -31,20 +41,32 @@ function getUsers() {
         }});
 }
 //
-function getPopulatedPointForSelectUser(populatedPointId) {
+function getPopulatedPointForNewUser(populatedPointId) {
     $.ajax({
-        url: "http://localhost:8080/points",
+        url: "http://localhost:8080/countries/full",
         type: "GET",
         xhrFields: { withCredentials: true },
         success: function (data) {
-            renderSelectPopulatedPointUser(data);
-            $("#userPopulatedPointId").val(populatedPointId);
+            allLocation = data;
+            var defValue = data[0].id;
+            renderSelectCountryUser(data);
+            userRegions = getRegionsFromCountries(data);
+            renderSelectRegionUser();
+            renderSelectPopulatedPointUser();
+            if (populatedPointId == undefined) {
+                $('#userCountryId').val(defValue);
+                $('#userCountryId').change();
+            } else {
+                setLocationOfUser(allLocation, populatedPointId);
+            }
+
         },
         error: function(xhr, ajaxOptions, thrownError) {
             console.log(xhr.status);
             console.log(xhr.responseText);
         }});
 }
+
 
 function getUser(id) {
     console.log('in the get user method, id = ' + id);
@@ -60,7 +82,7 @@ function getUser(id) {
             $('#userPatronymic').val(data.patronymic);
             $('#userLocalization').val(data.localization);
             setIsUserNonBlocked(data.isActive);
-            getPopulatedPointForSelectUser(data.defaultPopulatedPoint);
+            getPopulatedPointForNewUser(data.defaultPopulatedPoint);
         },
         error: function(xhr, ajaxOptions, thrownError) {
             console.log(xhr.status);
@@ -74,7 +96,7 @@ function createUser() {
     var button = $('#userSubmitButton');
     button.bind('click', saveUser);
     $('#userOperation').text('Add admin user');
-    getPopulatedPointForSelectUser();
+    getPopulatedPointForNewUser();
 }
 
 function editUser(e) {
@@ -160,6 +182,7 @@ function deleteUser(e) {
         }});
 }
 
+
 function getIsUserNonBlocked() {
     if($('#userAvailable').is(":checked")){
         return true;
@@ -181,4 +204,70 @@ function hideUserEditFields() {
     $('#hideUserEmail').hide();
     $('#hideUserType').hide();
     $('#hideUserPassword').hide();
+}
+
+
+
+function changeUserRegion() {
+    var countryId = $('#userCountryId').val();
+    var regions;
+
+    for(var i = 0; i < allLocation.length; i++) {
+        if (allLocation[i].id == countryId) {
+            regions = allLocation[i].regions;
+        }
+    }
+
+    renderSelectRegionUser(regions);
+    $('#userRegionId').val(regions[0].id);
+    $('#userRegionId').change();
+}
+
+function changeUserPopulatedPoint() {
+    var regionId = $('#userRegionId').val();
+    var points;
+
+    for(var i = 0; i < userRegions.length; i++) {
+        if (userRegions[i].id == regionId) {
+            points = userRegions[i].populatedPoints;
+        }
+    }
+    renderSelectPopulatedPointUser(points);
+    $('#userPopulatedPointId').val(points[0].id);
+    $('#userPopulatedPointId').change();
+}
+
+function getRegionsFromCountries(data) {
+    var regions = [];
+
+    for (var i = 0; i < data.length; i++) {
+        var region = data[i].regions;
+        for (var j = 0; j < region.length; j++) {
+            regions.push(region[j]);
+        }
+    }
+
+    return regions;
+}
+
+function setLocationOfUser(countries, id) {
+    var idOfLocations = [];
+
+    for (var i = 0; i < countries.length; i++) {
+        var countryRegions = countries[i].regions;
+        for (var j = 0; j < countryRegions.length; j++) {
+            var populatedPoints = countryRegions[j].populatedPoints;
+            for (var k = 0; k < populatedPoints.length; k++) {
+                if (populatedPoints[k].id == id) {
+                    $('#userCountryId').val(countries[i].id)
+                    $('#userCountryId').change();
+                    $('#userRegionId').val(countryRegions[j].id);
+                    $('#userRegionId').change();
+                    $('#userPopulatedPointId').val(populatedPoints[k].id);
+                    $('#userPopulatedPointId').change();
+                }
+            }
+        }
+    }
+    return idOfLocations;
 }

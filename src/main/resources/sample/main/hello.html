@@ -480,7 +480,7 @@
 
         <div class="sensor border border-secondary rounded dsensor">
 
-            <button type="button" class="btn btn-danger delete-parent-form" ><i class="fa fa-close"></i></button>
+            <button type="button" class="btn btn-sm btn-danger delete-parent-form pull-right" style="margin-bottom: 10px;"><i class="fa fa-close"></i></button>
 
             <div class="form-group">
                 <label for="droneName">Sensor title</label>
@@ -577,10 +577,10 @@
 
     <script id="userEntity" type="text/x-handlebars-template">
         <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-5">
                 <h3 id="userOperation">Add user</h3>
-                <form id="userForm">
+                <div id="userForm">
 
                     <div class="form-group">
                         <input type="text" class="form-control" id="userId" name="id" hidden>
@@ -622,33 +622,59 @@
                             <label class="custom-control-label" for="userUnavailable">User blocked</label>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="userLocalization">Localization</label>
-                        <select class='form-control custom-select' id="userLocalization">
-                            <option value="UKRAINIAN">UKRAINIAN</option>
-                            <option value="ENGLISH">ENGLISH</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group" id="hideUserType">
-                        <label for="userType">Type of user</label>
-                        <select class='form-control custom-select' id="userType">
-                            <option value="BUSINESS">BUSINESS</option>
-                            <option value="CLIENT">CLIENT</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group" id="userSelect">
-                        <!--select list here-->
-                    </div>
-
                     <button type="button" class="btn btn-success btn-block" id="userSubmitButton">Save</button>
-
-                </form>
+                </div>
             </div>
-            <div class="col-sm-3"></div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-5">
+                <h1></h1>
+                <div class="form-group" style="margin-top: 40px">
+                    <label for="userLocalization">Localization</label>
+                    <select class='form-control custom-select' id="userLocalization">
+                        <option value="UKRAINIAN">UKRAINIAN</option>
+                        <option value="ENGLISH">ENGLISH</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="hideUserType">
+                    <label for="userType">Type of user</label>
+                    <select class='form-control custom-select' id="userType">
+                        <option value="BUSINESS">BUSINESS</option>
+                        <option value="CLIENT">CLIENT</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group" id="userSelectCountry" style="margin-top: 40px;">
+                    <!--select list here-->
+                </div>
+                <div class="form-group" id="userSelectRegion">
+                    <!--select list here-->
+                </div>
+                <div class="form-group" id="userSelect">
+                    <!--select list here-->
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
         </div>
+    </script>
+
+    <script id="userCountrySelectEntity" type="text/x-handlebars-template">
+        <label for="userCountryId">Country</label>
+        <select id='userCountryId' name="populatedPointId" class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+
+    <script id="userRegionSelectEntity" type="text/x-handlebars-template">
+        <label for="userRegionId">Region</label>
+        <select id='userRegionId' name="populatedPointId" class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
     </script>
 
     <script id="userSelectEntity" type="text/x-handlebars-template">
