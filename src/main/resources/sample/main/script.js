@@ -34,7 +34,7 @@ var userEntitySelectCountryTemplate;
 var userEntitySelectRegionTemplate;
 
 var allLocation;
-var userRegions;
+var allRegions;
 
 
 $(document).ready(function() {

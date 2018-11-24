@@ -10,21 +10,7 @@ function renderUserEntity() {
     $('#mainContainer').empty().append(html);
     $('#userSelect').empty().append(select);
 }
-//
-function renderSelectPopulatedPointUser(data) {
-    var html = userEntitySelectTemplate(data);
-    $('#userSelect').empty().append(html);
-}
 
-function renderSelectCountryUser(data) {
-    var html = userEntitySelectCountryTemplate(data);
-    $('#userSelectCountry').empty().append(html);
-}
-
-function renderSelectRegionUser(data) {
-    var html = userEntitySelectRegionTemplate(data);
-    $('#userSelectRegion').empty().append(html);
-}
 
 function getUsers() {
     $.ajax({
@@ -41,7 +27,9 @@ function getUsers() {
         }});
 }
 //
-function getPopulatedPointForNewUser(populatedPointId) {
+function buildFullLocationSelectorForItem(populatedPointId,
+                                          countryId, regionId, populatedPointHtmlId,
+                                          countrySelectorId, regionSelectorId, populatedPointSelectorId) {
     $.ajax({
         url: "http://localhost:8080/countries/full",
         type: "GET",
@@ -49,15 +37,15 @@ function getPopulatedPointForNewUser(populatedPointId) {
         success: function (data) {
             allLocation = data;
             var defValue = data[0].id;
-            renderSelectCountryUser(data);
-            userRegions = getRegionsFromCountries(data);
-            renderSelectRegionUser();
-            renderSelectPopulatedPointUser();
-            if (populatedPointId == undefined) {
-                $('#userCountryId').val(defValue);
-                $('#userCountryId').change();
+            renderSelectCountryUser(data, countrySelectorId);
+            allRegions = getRegionsFromCountries(data);
+            renderSelectRegionUser(undefined, regionSelectorId);
+            renderSelectPopulatedPointUser(undefined, populatedPointSelectorId);
+            if (populatedPointId == null) {
+                $(countryId).val(defValue);
+                $(countryId).change();
             } else {
-                setLocationOfUser(allLocation, populatedPointId);
+                setLocationOfItem(allLocation, populatedPointId, countryId, regionId, populatedPointHtmlId);
             }
 
         },
@@ -82,7 +70,9 @@ function getUser(id) {
             $('#userPatronymic').val(data.patronymic);
             $('#userLocalization').val(data.localization);
             setIsUserNonBlocked(data.isActive);
-            getPopulatedPointForNewUser(data.defaultPopulatedPoint);
+            buildFullLocationSelectorForItem(data.defaultPopulatedPoint,
+                '#userCountryId', '#userRegionId', '#userPopulatedPointId',
+                '#userSelectCountry', '#userSelectRegion', '#userSelect');
         },
         error: function(xhr, ajaxOptions, thrownError) {
             console.log(xhr.status);
@@ -96,7 +86,9 @@ function createUser() {
     var button = $('#userSubmitButton');
     button.bind('click', saveUser);
     $('#userOperation').text('Add admin user');
-    getPopulatedPointForNewUser();
+    buildFullLocationSelectorForItem(null,
+                        '#userCountryId','#userRegionId', '#userPopulatedPointId',
+                        '#userSelectCountry', '#userSelectRegion', '#userSelect');
 }
 
 function editUser(e) {
@@ -207,7 +199,7 @@ function hideUserEditFields() {
 }
 
 
-
+// todo cannot do refactor
 function changeUserRegion() {
     var countryId = $('#userCountryId').val();
     var regions;
@@ -218,7 +210,7 @@ function changeUserRegion() {
         }
     }
 
-    renderSelectRegionUser(regions);
+    renderSelectRegionUser(regions, '#userSelectRegion');
     $('#userRegionId').val(regions[0].id);
     $('#userRegionId').change();
 }
@@ -227,15 +219,17 @@ function changeUserPopulatedPoint() {
     var regionId = $('#userRegionId').val();
     var points;
 
-    for(var i = 0; i < userRegions.length; i++) {
-        if (userRegions[i].id == regionId) {
-            points = userRegions[i].populatedPoints;
+    for(var i = 0; i < allRegions.length; i++) {
+        if (allRegions[i].id == regionId) {
+            points = allRegions[i].populatedPoints;
         }
     }
-    renderSelectPopulatedPointUser(points);
+    renderSelectPopulatedPointUser(points, '#userSelect');
     $('#userPopulatedPointId').val(points[0].id);
     $('#userPopulatedPointId').change();
 }
+
+
 
 function getRegionsFromCountries(data) {
     var regions = [];
@@ -250,7 +244,7 @@ function getRegionsFromCountries(data) {
     return regions;
 }
 
-function setLocationOfUser(countries, id) {
+function setLocationOfItem(countries, id, countryId, regionId, populatedPointId) {
     var idOfLocations = [];
 
     for (var i = 0; i < countries.length; i++) {
@@ -259,15 +253,37 @@ function setLocationOfUser(countries, id) {
             var populatedPoints = countryRegions[j].populatedPoints;
             for (var k = 0; k < populatedPoints.length; k++) {
                 if (populatedPoints[k].id == id) {
-                    $('#userCountryId').val(countries[i].id)
-                    $('#userCountryId').change();
-                    $('#userRegionId').val(countryRegions[j].id);
-                    $('#userRegionId').change();
-                    $('#userPopulatedPointId').val(populatedPoints[k].id);
-                    $('#userPopulatedPointId').change();
+                    fillAllLocationTree(countryId, countries[i].id,
+                                        regionId, countryRegions[j].id,
+                                        populatedPointId, populatedPoints[k].id);
                 }
             }
         }
     }
     return idOfLocations;
+}
+
+function fillAllLocationTree(countryId, countryValue, regionId, regionValue, populatedPointId, pointValue) {
+    $(countryId).val(countryValue);
+    $(countryId).change();
+    $(regionId).val(regionValue);
+    $(regionId).change();
+    $(populatedPointId).val(pointValue);
+    $(populatedPointId).change();
+}
+
+// render section
+function renderSelectCountryUser(data, countrySelect) {
+    var html = userEntitySelectCountryTemplate(data);
+    $(countrySelect).empty().append(html);
+}
+
+function renderSelectRegionUser(data, regionSelect) {
+    var html = userEntitySelectRegionTemplate(data);
+    $(regionSelect).empty().append(html);
+}
+
+function renderSelectPopulatedPointUser(data, populatedPointSelect) {
+    var html = userEntitySelectTemplate(data);
+    $(populatedPointSelect).empty().append(html);
 }
