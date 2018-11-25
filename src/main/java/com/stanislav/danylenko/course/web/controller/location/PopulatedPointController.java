@@ -24,7 +24,6 @@ public class PopulatedPointController {
     private PopulatedPointService service;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     @JsonView(value = JsonRules.PartialLocation.class)
     public @ResponseBody
     ResponseEntity<Iterable<PopulatedPoint>> getPopulatedPoints() throws DBException {

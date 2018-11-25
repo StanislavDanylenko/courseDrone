@@ -22,7 +22,6 @@ public class RegionController {
     private RegionService service;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     @JsonView(value = JsonRules.PartialLocation.class)
     public @ResponseBody
     ResponseEntity<Iterable<Region>> getRegions() throws DBException {

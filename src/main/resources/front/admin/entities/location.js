@@ -81,6 +81,9 @@ function renderSelectCountryItem(data, entity, countrySelect) {
         case "localProposal":
             html = localProposalEntitySelectCountryTemplate(data);
             break;
+        case "registration":
+            html = registrationCountryListTemplate(data);
+            break;
     }
     $(countrySelect).empty().append(html);
 }
@@ -97,6 +100,9 @@ function renderSelectRegionItem(data, entity, regionSelect) {
         case "localProposal":
             html = localProposalEntitySelectRegionTemplate(data);
             break;
+        case "registration":
+            html = registrationRegionListTemplate(data);
+            break;
     }
     $(regionSelect).empty().append(html);
 }
@@ -112,6 +118,9 @@ function renderSelectPopulatedPointItem(data, entity, populatedPointSelect) {
             break;
         case "localProposal":
             html = localProposalEntitySelectTemplate(data);
+            break;
+        case "registration":
+            html = registrationPointListTemplate(data);
             break;
     }
     $(populatedPointSelect).empty().append(html);

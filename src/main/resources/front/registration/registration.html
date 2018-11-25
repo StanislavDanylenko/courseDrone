@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> Registration page </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="registration.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div class="border border-primary rounded p-5" style="background-color: white">
+        <div class="text-center">
+            <h3 id="userOperation">Registration</h3>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="userId" name="id" hidden>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userFirstName">First name</label>
+                        <input type="text" class="form-control" id="userFirstName" name="name" placeholder="User first name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userLastName">Last name</label>
+                        <input type="text" class="form-control" id="userLastName" name="name" placeholder="User last name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userPatronymic">Patronymic</label>
+                        <input type="text" class="form-control" id="userPatronymic" name="name" placeholder="User patronymic">
+                    </div>
+
+                    <div class="form-group" id="hideUserEmail">
+                        <label for="userEmail">Email</label>
+                        <input type="email" class="form-control" id="userEmail" name="name" placeholder="User email">
+                    </div>
+
+                    <div class="form-group" id="hideUserPassword">
+                        <label for="userPassword">Password</label>
+                        <input type="password" class="form-control" id="userPassword" name="name" placeholder="User password">
+                    </div>
+
+            </div>
+            <div class="col-sm-6">
+
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="userLocalization">Localization</label>
+                    <select class='form-control custom-select' id="userLocalization">
+                        <option value="UKRAINIAN">UKRAINIAN</option>
+                        <option value="ENGLISH">ENGLISH</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="hideUserType">
+                    <label for="userType">Type of user</label>
+                    <select class='form-control custom-select' id="userType">
+                        <option value="BUSINESS">BUSINESS</option>
+                        <option value="CLIENT">CLIENT</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group" id="registrationUserSelectCountry">
+                    <!--select list here-->
+                </div>
+                <div class="form-group" id="registrationUserSelectRegion">
+                    <!--select list here-->
+                </div>
+                <div class="form-group" id="registrationUserSelect">
+                    <!--select list here-->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-success btn-block mt-2" id="submitRegistrationButton">Register me</button>
+        </div>
+    </div>
+
+<script src="registration.js"></script>
+<script src="../user.js"></script>
+
+    <script id="userCountrySelectEntity" type="text/x-handlebars-template">
+        <label for="userCountryId">Country</label>
+        <select id='userCountryId' class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+
+    <script id="userRegionSelectEntity" type="text/x-handlebars-template">
+        <label for="userRegionId">Region</label>
+        <select id='userRegionId' class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+
+    <script id="userPointSelectEntity" type="text/x-handlebars-template">
+        <label for="userPointId">PopulatePoint</label>
+        <select id='userPointId' class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
+    <script src="../admin/entities/location.js"></script>
+
+</body>
+</html>

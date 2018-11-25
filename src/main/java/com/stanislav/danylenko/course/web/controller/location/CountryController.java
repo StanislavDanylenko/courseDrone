@@ -23,7 +23,6 @@ public class CountryController {
     private CountryService service;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     @JsonView(value = JsonRules.PartialLocation.class)
     public @ResponseBody
     ResponseEntity<Iterable<Country>> getCountries() throws DBException {
@@ -66,7 +65,6 @@ public class CountryController {
     }
 
     @GetMapping("/full")
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public ResponseEntity<Iterable<Country>> getCountriesFull() throws DBException {
         return ResponseEntity.ok(service.findAll());
     }

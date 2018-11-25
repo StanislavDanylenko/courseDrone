@@ -3,7 +3,7 @@ $(document).ready(function() {
 });
 
 function gotoPage() {
-    $(location).attr('href','../main/hello.html');
+    $(location).attr('href','../admin/admin.html');
 }
 
 function authorization() {

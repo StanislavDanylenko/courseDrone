@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <title>Administration panel</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="admin.js"></script>
+</head>
+<body style="height: 100vh">
+
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="#">Speeer</a>
+
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav w-100 nav-justified">
+      <li class="nav-item">
+        <a class="nav-link hov-link" href="#">Profile</a>
+      </li>
+      <!--<li class="nav-item">
+        <a class="nav-link hov-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link hov-link" href="#">Link</a>
+      </li> -->
+        <div class="btn btn-secondary ml-3" id="logout">
+            Log out
+        </div>
+    </ul>
+  </div> 
+</nav>
+
+<div class="container-fluid" style="height: 100%">
+
+  <div class="row full-block">
+<!--   Navbar left   -->
+      <div class="col-sm-2 no-margin-no-padding left-nav"> 
+            <div class="btn btn-block btn-secondary btn-custom" id="getCountries">
+                Country
+            </div>
+            <div class="btn btn-block btn-secondary btn-custom" id="getRegions">
+                Region
+            </div>
+            <div class="btn btn-block btn-secondary btn-custom" id="getPopulatedPoints">
+                Populated point
+            </div>
+            <div class="btn btn-block btn-secondary btn-custom" id="getProposals">
+                Proposal
+            </div>
+            <div class="btn btn-block btn-secondary btn-custom" id="getDrones">
+                Drone
+            </div>
+          <div class="btn btn-block btn-secondary btn-custom" id="getUsers">
+              User
+          </div>
+          <div class="btn btn-block btn-secondary btn-custom" id="getLocalProposals">
+              Local Proposal
+          </div>
+          <div class="btn btn-block btn-secondary btn-custom" id="getOrders">
+              Order
+          </div>
+     </div>
+<!--   Main block   -->
+        <div class="col-sm-10 main-edges" id="mainContainer">
+            <h3>Hello in administrator panel</h3>
+        </div>
+      
+    </div>
+
+  
+</div>
+
+    <!--Country templates-->
+    <script id="countryListTemplate" type="text/x-handlebars-template">
+        <div class="d-flex">
+            <div><h3>Country</h3></div>
+            <div><button class="btn btn-primary ml-3" type="button" id="addCountry">Add <i class="fa fa-plus"></i></button></div>
+        </div>
+            <div class="table-wrapper">
+                <table id="countryListTable" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#this}}
+                        <tr>
+                            <td>{{ id }}</td>
+                            <td>{{ name }}</td>
+                            <td><button class="btn btn-warning edit-country text-td" type="button">Edit <i class="fa fa-edit"></i></button></td>
+                            <td><button class="btn btn-danger delete-county text-td" type="button">Delete <i class="fa fa-close"></i> </button></td>
+                        </tr>
+                        {{/this}}
+                    </tbody>
+                </table>
+            </div>
+    </script>
+    
+    <script id="countryEntity" type="text/x-handlebars-template">
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6">
+                    <h3 id="countryOperation">Add country</h3>
+                    <form id="countryForm">
+                
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="countryId" name="id" hidden>
+                        </div>
+                
+                        <div class="form-group">
+                            <label for="countryName">Title</label>
+                            <input type="text" class="form-control" id="countryName" name="name" placeholder="Country title">
+                        </div>
+
+                        <button type="button" class="btn btn-success btn-block" id="countrySubmitButton">Save</button>
+            
+                    </form>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+    </script>
+
+
+    <!--Region templates-->
+    <script id="regionListTemplate" type="text/x-handlebars-template">
+        <div class="d-flex">
+            <div><h3>Region</h3></div>
+            <div><button class="btn btn-primary ml-3" type="button" id="addRegion">Add <i class="fa fa-plus"></i></button></div>
+        </div>
+        <div class="table-wrapper">
+            <table id="regionListTable" class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#this}}
+                <tr>
+                    <td>{{ id }}</td>
+                    <td>{{ name }}</td>
+                    <td><button class="btn btn-warning edit-region text-td" type="button">Edit <i class="fa fa-edit"></i></button></td>
+                    <td><button class="btn btn-danger delete-region text-td" type="button">Delete <i class="fa fa-close"></i> </button></td>
+                </tr>
+                {{/this}}
+                </tbody>
+            </table>
+        </div>
+    </script>
+
+    <script id="regionEntity" type="text/x-handlebars-template">
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <h3 id="regionOperation">Add region</h3>
+                <form id="regionForm">
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="regionId" name="id" hidden>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regionName">Title</label>
+                        <input type="text" class="form-control" id="regionName" name="name" placeholder="Region title">
+                    </div>
+
+                    <div class="form-group" id="regionSelect">
+
+                    </div>
+
+                    <button type="button" class="btn btn-success btn-block" id="regionSubmitButton">Save</button>
+
+                </form>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+    </script>
+
+    <script id="regionSelectEntity" type="text/x-handlebars-template">
+        <label for="regionCountryId">Country</label>
+        <select id='regionCountryId' name="countryId" class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+
+
+    <!--Populated points templates-->
+    <script id="populatedPointListTemplate" type="text/x-handlebars-template">
+        <div class="d-flex">
+            <div><h3>Populated point</h3></div>
+            <div><button class="btn btn-primary ml-3" type="button" id="addPopulatedPoint">Add <i class="fa fa-plus"></i></button></div>
+        </div>
+        <div class="table-wrapper">
+            <table id="populatedPointListTable" class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#this}}
+                <tr>
+                    <td>{{ id }}</td>
+                    <td>{{ name }}</td>
+                    <td><button class="btn btn-warning edit-point text-td" type="button">Edit <i class="fa fa-edit"></i></button></td>
+                    <td><button class="btn btn-danger delete-point text-td" type="button">Delete <i class="fa fa-close"></i> </button></td>
+                </tr>
+                {{/this}}
+                </tbody>
+            </table>
+        </div>
+    </script>
+
+    <script id="populatedPointEntity" type="text/x-handlebars-template">
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <h3 id="populatedPointOperation">Add populated point</h3>
+                <form id="populatedPointForm">
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="populatedPointId" name="id" hidden>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="populatedPointName">Title</label>
+                        <input type="text" class="form-control" id="populatedPointName" name="name" placeholder="Populated point title">
+                    </div>
+
+                    <div class="form-group" id="populatedPointSelect">
+
+                    </div>
+
+                    <button type="button" class="btn btn-success btn-block" id="populatedPointSubmitButton">Save</button>
+
+                </form>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+    </script>
+
+    <script id="populatedPointSelectEntity" type="text/x-handlebars-template">
+        <label for="populatedPointRegionId">Region</label>
+        <select id='populatedPointRegionId' name="regionId" class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+
+
+    <!--Proposal templates-->
+    <script id="proposalListTemplate" type="text/x-handlebars-template">
+        <div class="d-flex">
+            <div><h3>Proposal</h3></div>
+            <div><button class="btn btn-primary ml-3" type="button" id="addProposal">Add <i class="fa fa-plus"></i></button></div>
+        </div>
+        <div class="table-wrapper">
+            <table id="proposalListTable" class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Sensors</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#this}}
+                <tr>
+                    <td>{{ id }}</td>
+                    <td>{{ name }}</td>
+                    <td>{{ description }}</td>
+                    <td>{{ sensorsList }}</td>
+                    <td><button class="btn btn-warning edit-proposal text-td" type="button">Edit <i class="fa fa-edit"></i></button></td>
+                    <td><button class="btn btn-danger delete-proposal text-td" type="button">Delete <i class="fa fa-close"></i> </button></td>
+                </tr>
+                {{/this}}
+                </tbody>
+            </table>
+        </div>
+    </script>
+
+    <script id="proposalEntity" type="text/x-handlebars-template">
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <h3 id="proposalOperation">Add proposal</h3>
+                <form id="proposalForm">
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="proposalId" name="id" hidden>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="proposalName">Title</label>
+                        <input type="text" class="form-control" id="proposalName" name="name" placeholder="Proposal title">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="proposalDescription">Description</label>
+                        <textarea class="form-control" rows="5" id="proposalDescription" name="proposalDescription"></textarea>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="HUMIDITY" name="HUMIDITY">
+                        <label class="custom-control-label" for="HUMIDITY">HUMIDITY</label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="RADIATION" name="RADIATION">
+                        <label class="custom-control-label" for="RADIATION">RADIATION</label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="PRESSURE" name="PRESSURE">
+                        <label class="custom-control-label" for="PRESSURE">PRESSURE</label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="AIR_POLLUTION" name="AIR_POLLUTION">
+                        <label class="custom-control-label" for="AIR_POLLUTION">AIR_POLLUTION</label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="CAMERA" name="CAMERA">
+                        <label class="custom-control-label" for="CAMERA">CAMERA</label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="TEMPERATURE" name="TEMPERATURE">
+                        <label class="custom-control-label" for="TEMPERATURE">TEMPERATURE</label>
+                    </div>
+
+                    <button type="button" class="btn btn-success btn-block" id="proposalSubmitButton" style="margin-top: 10px">Save</button>
+
+                </form>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+    </script>
+
+
+    <!--Drone templates-->
+    <script id="droneListTemplate" type="text/x-handlebars-template">
+        <div class="d-flex">
+            <div><h3>Drone</h3></div>
+            <div><button class="btn btn-primary ml-3" type="button" id="addDrone">Add <i class="fa fa-plus"></i></button></div>
+        </div>
+        <div class="table-wrapper">
+            <table id="droneListTable" class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Current operation UUID</th>
+                    <th>Battery level</th>
+                    <th>Current location</th>
+                    <th>Availability</th>
+                    <th>Sensors</th>
+                    <th>Populated point</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#this}}
+                <tr>
+                    <td>{{ id }}</td>
+                    <td>{{ name }}</td>
+                    <td>{{ currentUuid }}</td>
+                    <td>{{ batteryLevel }}</td>
+                    <td>{{ currentLocations }}</td>
+                    <td>{{ isAvailable }}</td>
+                    <td>{{ sensorsList }}</td>
+                    <td>{{ location }}</td>
+                    <td><button class="btn btn-warning edit-drone text-td" type="button">Edit <i class="fa fa-edit"></i></button></td>
+                    <td><button class="btn btn-danger delete-drone text-td" type="button">Delete <i class="fa fa-close"></i> </button></td>
+                </tr>
+                {{/this}}
+                </tbody>
+            </table>
+        </div>
+    </script>
+
+    <script id="droneEntity" type="text/x-handlebars-template">
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-6">
+                <h3 id="droneOperation">Add drone</h3>
+                <form id="droneForm">
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="droneId" name="id" hidden>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="droneName">Title</label>
+                        <input type="text" class="form-control" id="droneName" name="name" placeholder="Drone title">
+                    </div>
+
+                    <!--range -->
+                    <div class="form-group" id="hideDroneBattery">
+                        <label for="droneBattery">Battery level</label><b><span class="span-slider" id="droneBatteryLevel">100</span><span>%</span></b>
+                        <input type="range" class="custom-range" id="droneBattery" name="name" step="1">
+                    </div>
+
+                    <!--available-->
+                    <div class="form-group">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="droneAvailable" name="droneAvailable" value="customEx" checked>
+                            <label class="custom-control-label" for="droneAvailable">Drone available</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="droneUnavailable" name="droneAvailable" value="customEx">
+                            <label class="custom-control-label" for="droneUnavailable">Drone unavailable</label>
+                        </div>
+                    </div>
+
+                    <!--coords-->
+                    <div class="form-group" id="hideDroneCoordinates">
+                        <div class="form-group">
+                            <label for="droneX" >Latitude</label>
+                            <input type="number" class="form-control"  value="-1000000" id="droneX" name="droneX">
+                        </div>
+                        <div class="form-group">
+                            <label for="droneY" >Longitude</label>
+                            <input type="number" class="form-control" value="-1000000" id="droneY" name="droneY">
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="droneSelectCountry" style="margin-top: 40px;">
+                        <!--select list here-->
+                    </div>
+                    <div class="form-group" id="droneSelectRegion">
+                        <!--select list here-->
+                    </div>
+
+                    <div class="form-group" id="droneSelect">
+                        <!--select list here-->
+                    </div>
+
+
+
+                    <div class="form-group" id="droneSensorListPlace">
+
+                    </div>
+
+                    <button type="button" class="btn btn-success btn-block" id="droneSubmitButton">Save</button>
+
+                </form>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-4" id="sensorList">
+                <button type="button" class="btn btn-primary btn-block" id="addDroneSensor">Add sensor <i class="fa fa-plus"></i></button>
+            </div>
+        </div>
+    </script>
+
+    <script id="droneSelectEntity" type="text/x-handlebars-template">
+        <label for="dronePopulatedPointId">Populated point</label>
+        <select id='dronePopulatedPointId' name="populatedPointId" class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+
+    <script id="droneCountrySelectEntity" type="text/x-handlebars-template">
+        <label for="droneCountryId">Country</label>
+        <select id='droneCountryId' name="populatedPointId" class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+
+    <script id="droneRegionSelectEntity" type="text/x-handlebars-template">
+        <label for="droneRegionId">Region</label>
+        <select id='droneRegionId' name="populatedPointId" class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+
+    <script id="droneSensor" type="text/x-handlebars-template">
+
+        <div class="sensor border border-secondary rounded dsensor">
+
+            <button type="button" class="btn btn-sm btn-danger delete-parent-form pull-right" style="margin-bottom: 10px;"><i class="fa fa-close"></i></button>
+
+            <div class="form-group">
+                <label for="droneName">Sensor title</label>
+                <input type="text" class="form-control" placeholder="Sensor title">
+            </div>
+
+            <label for="dronePopulatedPointId">Sensor type</label>
+            <select class='form-control custom-select'>
+                <option value="HUMIDITY">HUMIDITY</option>
+                <option value="RADIATION">RADIATION</option>
+                <option value="PRESSURE">PRESSURE</option>
+                <option value="AIR_POLLUTION">AIR_POLLUTION</option>
+                <option value="CAMERA">CAMERA</option>
+                <option value="TEMPERATURE">TEMPERATURE</option>
+            </select>
+        </div>
+    </script>
+
+    <script id="droneSensorList" type="text/x-handlebars-template">
+        <h2>Sensors</h2>
+        <table id="droneSensorListTable" class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#this}}
+            <tr>
+                <td>{{ id }}</td>
+                <td>{{ name }}</td>
+                <td>{{ type }}</td>
+                <td><button class="btn btn-danger delete-sensor text-td" type="button">Delete <i class="fa fa-close"></i> </button></td>
+            </tr>
+            {{/this}}
+            </tbody>
+        </table>
+    </script>
+
+
+    <!--User template-->
+    <script id="userListTemplate" type="text/x-handlebars-template">
+        <div class="d-flex">
+            <div><h3>User</h3></div>
+            <div><button class="btn btn-primary ml-3" type="button" id="addUser">Add <i class="fa fa-plus"></i></button></div>
+        </div>
+        <div class="table-wrapper">
+            <table id="userListTable" class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Roles</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Patronymic</th>
+                    <th>Is Active</th>
+                    <th>Default populated point</th>
+                    <th>Localization</th>
+                    <th>Type</th>
+                    <th>Date of registration</th>
+                    <th>Date of change</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#this}}
+                <tr>
+                    <td>{{ id }}</td>
+                    <td>{{ email }}</td>
+                    <td>{{ roles }}</td>
+                    <td>{{ firstName }}</td>
+                    <td>{{ lastName }}</td>
+                    <td>{{ patronymic }}</td>
+                    <td>{{ isActive }}</td>
+                    <td>{{ defaultPopulatedPoint }}</td>
+                    <td>{{ localization }}</td>
+                    <td>{{ type }}</td>
+                    <td>{{ createDateTime }}</td>
+                    <td>{{ updateDateTime }}</td>
+
+                    <td><button class="btn btn-warning edit-user text-td" type="button">Edit <i class="fa fa-edit"></i></button></td>
+                    <td><button class="btn btn-danger delete-user text-td" type="button">Delete <i class="fa fa-close"></i> </button></td>
+                </tr>
+                {{/this}}
+                </tbody>
+            </table>
+        </div>
+    </script>
+
+    <script id="userEntity" type="text/x-handlebars-template">
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-5">
+                <h3 id="userOperation">Add user</h3>
+                <div id="userForm">
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="userId" name="id" hidden>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userFirstName">First name</label>
+                        <input type="text" class="form-control" id="userFirstName" name="name" placeholder="User first name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userLastName">Last name</label>
+                        <input type="text" class="form-control" id="userLastName" name="name" placeholder="User last name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userPatronymic">Patronymic</label>
+                        <input type="text" class="form-control" id="userPatronymic" name="name" placeholder="User patronymic">
+                    </div>
+
+                    <div class="form-group" id="hideUserEmail">
+                        <label for="userEmail">Email</label>
+                        <input type="email" class="form-control" id="userEmail" name="name" placeholder="User email">
+                    </div>
+
+                    <div class="form-group" id="hideUserPassword">
+                        <label for="userPassword">Password</label>
+                        <input type="password" class="form-control" id="userPassword" name="name" placeholder="User password">
+                    </div>
+
+                    <!--blocked-->
+                    <div class="form-group">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="userAvailable" name="userAvailable" value="customEx" checked>
+                            <label class="custom-control-label" for="userAvailable">User active</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="userUnavailable" name="userAvailable" value="customEx">
+                            <label class="custom-control-label" for="userUnavailable">User blocked</label>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-success btn-block" id="userSubmitButton">Save</button>
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-5">
+                <h1></h1>
+                <div class="form-group" style="margin-top: 40px">
+                    <label for="userLocalization">Localization</label>
+                    <select class='form-control custom-select' id="userLocalization">
+                        <option value="UKRAINIAN">UKRAINIAN</option>
+                        <option value="ENGLISH">ENGLISH</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="hideUserType">
+                    <label for="userType">Type of user</label>
+                    <select class='form-control custom-select' id="userType">
+                        <option value="BUSINESS">BUSINESS</option>
+                        <option value="CLIENT">CLIENT</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group" id="userSelectCountry" style="margin-top: 40px;">
+                    <!--select list here-->
+                </div>
+                <div class="form-group" id="userSelectRegion">
+                    <!--select list here-->
+                </div>
+                <div class="form-group" id="userSelect">
+                    <!--select list here-->
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+    </script>
+
+    <script id="userCountrySelectEntity" type="text/x-handlebars-template">
+        <label for="userCountryId">Country</label>
+        <select id='userCountryId' name="populatedPointId" class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+
+    <script id="userRegionSelectEntity" type="text/x-handlebars-template">
+        <label for="userRegionId">Region</label>
+        <select id='userRegionId' name="populatedPointId" class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+
+    <script id="userSelectEntity" type="text/x-handlebars-template">
+        <label for="userPopulatedPointId">Populated point</label>
+        <select id='userPopulatedPointId' name="populatedPointId" class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+
+
+    <!--Local proposal templates-->
+    <script id="localProposalListTemplate" type="text/x-handlebars-template">
+        <div class="d-flex">
+            <div><h3>LocalProposal</h3></div>
+            <div><button class="btn btn-primary ml-3" type="button" id="addLocalProposal">Add <i class="fa fa-plus"></i></button></div>
+        </div>
+        <div class="table-wrapper">
+            <table id="localProposalListTable" class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Proposal(ID)</th>
+                    <th>Populated point(ID)</th>
+                    <th>Price</th>
+                    <th>Is active</th>
+
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#this}}
+                <tr>
+                    <td>{{ proposalInfo }}</td>
+                    <td>{{ populatedPointInfo }}</td>
+                    <td>{{ price }}</td>
+                    <td>{{ isActive }}</td>
+
+                    <td><button class="btn btn-warning edit-localProposal text-td" type="button">Edit <i class="fa fa-edit"></i></button></td>
+                    <td><button class="btn delete-localProposal text-td" type="button" style='background-color: #cc00ff;'>Change status <i class="fa fa-arrows-h"></i> </button></td>
+                </tr>
+                {{/this}}
+                </tbody>
+            </table>
+        </div>
+    </script>
+
+    <script id="localProposalEntity" type="text/x-handlebars-template">
+        <div class="row">
+            <div class="col-sm-1"></div>
+
+            <div class="col-sm-5">
+                <h3 id="localProposalOperation">Add Local Proposal</h3>
+                <div id="localProposalForm" style="margin-top: 75px;">
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="editedLocalProposalProposalId" name="id" hidden>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="editedLocalProposalPopulatedPointId" name="id" hidden>
+                    </div>
+
+                    <div class="form-group" id="localProposalProposalSelect">
+                        <!--select list here-->
+                    </div>
+
+                    <!--blocked-->
+                    <div class="form-group">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="localProposalAvailable" name="localProposalAvailable" value="customEx" checked>
+                            <label class="custom-control-label" for="localProposalAvailable">Local proposal available</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="localProposalUnavailable" name="localProposalAvailable" value="customEx">
+                            <label class="custom-control-label" for="localProposalUnavailable">Local proposal blocked</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="droneX" >Price</label>
+                        <input type="number" min="0.1" step="0.1" class="form-control"  id="localProposalPriceId">
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <div class="col-sm-1"></div>
+
+            <div class="col-sm-5">
+
+                <div class="form-group" id="localProposalSelectCountry" style="margin-top: 40px;">
+                    <!--select list here-->
+                </div>
+                <div class="form-group" id="localProposalSelectRegion">
+                    <!--select list here-->
+                </div>
+                <div class="form-group" id="localProposalSelect">
+                    <!--select list here-->
+                </div>
+
+            </div>
+
+            <div class="col-sm-1"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-11" style="margin-top: 45px;">
+                <button type="button" class="btn btn-success btn-block" id="localProposalSubmitButton">Save</button>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+    </script>
+    <!--location-->
+    <script id="localProposalCountrySelectEntity" type="text/x-handlebars-template">
+        <label for="localProposalCountryId">Country</label>
+        <select id='localProposalCountryId' name="populatedPointId" class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+
+    <script id="localProposalRegionSelectEntity" type="text/x-handlebars-template">
+        <label for="localProposalRegionId">Region</label>
+        <select id='localProposalRegionId' name="populatedPointId" class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+
+    <script id="localProposalSelectEntity" type="text/x-handlebars-template">
+        <label for="localProposalPopulatedPointId">Populated point</label>
+        <select id='localProposalPopulatedPointId' name="populatedPointId" class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+    <!--proposal-->
+    <script id="localProposalProposalSelectEntity" type="text/x-handlebars-template">
+        <label for="localProposalPopulatedPointId">Populated point</label>
+        <select id='localProposalProposalId' name="populatedPointId" class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+
+    <!--Local Proposal User-->
+    <script id="orderListTemplate" type="text/x-handlebars-template">
+        <div class="d-flex">
+            <div><h3>Orders</h3></div>
+        </div>
+        <div class="table-wrapper">
+            <table id="orderListTable" class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>UUID</th>
+                    <th>Status</th>
+                    <th>DroneID</th>
+                    <th>User email (ID)</th>
+                    <th>Price</th>
+                    <th>Target coordinates</th>
+
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#this}}
+                <tr>
+                    <td>{{ uuid }}</td>
+                    <td>{{ status }}</td>
+                    <td>{{ droneId }}</td>
+                    <td>{{ userInfo }}</td>
+                    <td>{{ price }}</td>
+                    <td>{{ targetCoordinates }}</td>
+
+                    <td><button class="btn btn-danger cancel-order text-td" type="button">Delete <i class="fa fa-close"></i> </button></td>
+                </tr>
+                {{/this}}
+                </tbody>
+            </table>
+        </div>
+    </script>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
+    <script src="entities/country.js"></script>
+    <script src="entities/region.js"></script>
+    <script src="entities/populatedPoint.js"></script>
+    <script src="entities/proposal.js"></script>
+    <script src="entities/drone.js"></script>
+    <script src="entities/user.js"></script>
+    <script src="entities/location.js"></script>
+    <script src="entities/localProposal.js"></script>
+    <script src="entities/localProposalUser.js"></script>
+    <script src="admin.js"></script>
+    
+</body>
+</html>

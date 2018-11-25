@@ -55,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()/*.configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())*/
                 .and()
                 .authorizeRequests()
-                .antMatchers("/countries/**", "/proposals/**", "/users/**").permitAll()
+                .antMatchers("/countries/**", "/regions/**", "/points/**", "/proposals/**", "/users/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
