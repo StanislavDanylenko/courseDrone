@@ -1,5 +1,8 @@
 $(document).ready(function() {
-   $(document).on('click', '#loginButton', authorization);
+    $(document).on('click', '#loginButton', authorization);
+    $(document).on('click', '#registrationButton', function () {
+        $(location).attr('href','../registration/registration.html');
+    });
 });
 
 function gotoPage() {
