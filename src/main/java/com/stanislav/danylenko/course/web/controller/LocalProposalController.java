@@ -5,6 +5,7 @@ import com.stanislav.danylenko.course.db.entity.pk.LocalProposalPK;
 import com.stanislav.danylenko.course.exception.DBException;
 import com.stanislav.danylenko.course.service.LocalProposalService;
 import com.stanislav.danylenko.course.web.model.LocalProposalModel;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,14 @@ public class LocalProposalController {
     public @ResponseBody
     ResponseEntity<Iterable<LocalProposal>> getLocalProposalByPopulatedPoint(@PathVariable Long id) throws DBException {
         return new ResponseEntity<>(service.findByPopulatedPoint(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/point/{id}/active/{isActive}")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
+    public @ResponseBody
+    ResponseEntity<Iterable<LocalProposal>> getLocalProposalByActivity(@PathVariable Long id,
+                                                                       @PathVariable Boolean isActive) throws DBException {
+        return new ResponseEntity<>(service.findAllByPopulatedPointAndActivity(id, isActive), HttpStatus.OK);
     }
 
     @GetMapping("/proposal/{id}")

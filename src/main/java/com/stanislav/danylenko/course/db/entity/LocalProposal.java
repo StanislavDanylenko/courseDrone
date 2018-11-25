@@ -38,4 +38,6 @@ public class LocalProposal implements Serializable {
 
     private BigDecimal price;
 
+    private Boolean isActive;
+
 }

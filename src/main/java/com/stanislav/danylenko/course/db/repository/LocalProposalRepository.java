@@ -9,4 +9,6 @@ public interface LocalProposalRepository extends JpaRepository<LocalProposal, Lo
     Iterable<LocalProposal> findAllByPopulatedPointId(Long id);
 
     Iterable<LocalProposal> findAllByProposalId(Long id);
+
+    Iterable<LocalProposal> findAllByPopulatedPointIdAndIsActive(Long id, Boolean isActive);
 }

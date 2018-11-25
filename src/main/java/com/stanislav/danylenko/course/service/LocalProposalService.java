@@ -61,6 +61,10 @@ public class LocalProposalService {
         return repository.findAllByProposalId(id);
     }
 
+    public Iterable<LocalProposal> findAllByPopulatedPointAndActivity(Long populatedPointId, Boolean isActive) {
+        return repository.findAllByPopulatedPointIdAndIsActive(populatedPointId, isActive);
+    }
+
     public LocalProposal createLocalProposal(LocalProposalModel model) {
         LocalProposal localProposal = new LocalProposal();
 
