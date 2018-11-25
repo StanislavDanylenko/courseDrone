@@ -50,7 +50,15 @@ public class LocalProposalService {
     }
 
     public void delete(LocalProposalPK id) {
-        repository.deleteById(id);
+        LocalProposal localProposal = repository.findById(id).orElse(null);
+        if (localProposal != null) {
+            if (localProposal.getIsActive()) {
+                localProposal.setIsActive(false);
+            } else {
+                localProposal.setIsActive(true);
+            }
+            repository.save(localProposal);
+        }
     }
 
     public Iterable<LocalProposal> findByPopulatedPoint(Long id) {
@@ -74,6 +82,7 @@ public class LocalProposalService {
         localProposal.setPopulatedPoint(populatedPoint);
         localProposal.setProposal(proposal);
         localProposal.setPrice(model.getPrice());
+        localProposal.setIsActive(model.getIsActive());
 
         return localProposal;
     }
@@ -83,6 +92,7 @@ public class LocalProposalService {
         LocalProposalPK localProposalPK = new LocalProposalPK(model.getPopulatedPointId(), model.getProposalId());
         LocalProposal localProposal = repository.getOne(localProposalPK);
         localProposal.setPrice(model.getPrice());
+        localProposal.setIsActive(model.getIsActive());
 
         return localProposal;
     }

@@ -28,6 +28,14 @@ public class LocalProposalController {
         return ResponseEntity.ok(service.findAll());
     }
 
+    @PostMapping("/pk")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
+    public @ResponseBody
+    ResponseEntity<LocalProposal> getLocalProposal(@RequestBody LocalProposalModel model) throws DBException {
+        LocalProposalPK pk = new LocalProposalPK(model.getPopulatedPointId(), model.getProposalId());
+        return ResponseEntity.ok(service.find(pk));
+    }
+
     @GetMapping("/point/{id}")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public @ResponseBody

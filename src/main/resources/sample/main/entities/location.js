@@ -78,6 +78,9 @@ function renderSelectCountryItem(data, entity, countrySelect) {
         case "drone":
             html = droneEntitySelectCountryTemplate(data);
             break;
+        case "localProposal":
+            html = localProposalEntitySelectCountryTemplate(data);
+            break;
     }
     $(countrySelect).empty().append(html);
 }
@@ -91,6 +94,9 @@ function renderSelectRegionItem(data, entity, regionSelect) {
         case "drone":
             html = droneEntitySelectRegionTemplate(data);
             break;
+        case "localProposal":
+            html = localProposalEntitySelectRegionTemplate(data);
+            break;
     }
     $(regionSelect).empty().append(html);
 }
@@ -103,6 +109,9 @@ function renderSelectPopulatedPointItem(data, entity, populatedPointSelect) {
             break;
         case "drone":
             html = droneEntitySelectTemplate(data);
+            break;
+        case "localProposal":
+            html = localProposalEntitySelectTemplate(data);
             break;
     }
     $(populatedPointSelect).empty().append(html);

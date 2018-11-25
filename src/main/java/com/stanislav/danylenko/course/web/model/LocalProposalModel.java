@@ -15,6 +15,7 @@ public class LocalProposalModel {
 
     private Long proposalId;
     private Long populatedPointId;
+    private Boolean isActive;
     private BigDecimal price;
 
 }

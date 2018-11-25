@@ -5,6 +5,7 @@ var actionProposal;
 var actionDrone;
 var actionSensor;
 var actionUser;
+var actionLocalProposal;
 
 
 var countriesTemplate;
@@ -35,6 +36,13 @@ var userEntitySelectTemplate;
 var userEntitySelectCountryTemplate;
 var userEntitySelectRegionTemplate;
 
+var localProposalsTemplate;
+var localProposalEntityTemplate;
+var localProposalEntitySelectTemplate;
+var localProposalEntitySelectCountryTemplate;
+var localProposalEntitySelectRegionTemplate;
+var localProposalEntitySelectProposalTemplate;
+
 var allLocation;
 var allRegions;
 
@@ -55,7 +63,8 @@ $(document).ready(function() {
     loadDrone();
     // user
     loadUser();
-
+    // local proposal
+    loadLocalProposal();
 });
 
 function loadCountry() {
@@ -142,6 +151,24 @@ function loadUser(){
     $(document).on('click', '.delete-user', deleteUser);
 }
 
+function loadLocalProposal(){
+    localProposalsTemplate = Handlebars.compile($('#localProposalListTemplate').html());
+    localProposalEntityTemplate = Handlebars.compile($('#localProposalEntity').html());
+    localProposalEntitySelectTemplate = Handlebars.compile($('#localProposalSelectEntity').html());
+    localProposalEntitySelectCountryTemplate = Handlebars.compile($('#localProposalCountrySelectEntity').html());
+    localProposalEntitySelectRegionTemplate = Handlebars.compile($('#localProposalRegionSelectEntity').html());
+    localProposalEntitySelectProposalTemplate = Handlebars.compile($('#localProposalProposalSelectEntity').html());
+
+    $(document).on('click', '#getLocalProposals', getLocalProposals);
+    $(document).on('click', '#addLocalProposal', createLocalProposal);
+
+    $(document).on('change', '#localProposalCountryId', changeLocalProposalRegion);
+    $(document).on('change', '#localProposalRegionId', changeLocalProposalPopulatedPoint);
+
+    $(document).on('click', '.edit-localProposal', editLocalProposal);
+    $(document).on('click', '.delete-localProposal', deleteLocalProposal);
+}
+
 /////////////// service methods
 function setDataTeble(tableName) {
     var table = $(tableName).DataTable( {} );
@@ -152,6 +179,13 @@ function getID(e, tableId) {
      var id = $(tableId +' tr').eq(rowIndex).find('td').eq(0).html();
      console.log(rowIndex + "   " + id);
      return id;
+}
+
+function getIDSecondColumn(e, tableId) {
+    var rowIndex = $(e.target).parent().parent().index() + 1;
+    var id = $(tableId +' tr').eq(rowIndex).find('td').eq(1).html();
+    console.log(rowIndex + "   " + id);
+    return id;
 }
 
 /////////////// Logout
