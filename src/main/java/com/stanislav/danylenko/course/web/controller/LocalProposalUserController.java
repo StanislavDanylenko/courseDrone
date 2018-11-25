@@ -3,6 +3,7 @@ package com.stanislav.danylenko.course.web.controller;
 import com.stanislav.danylenko.course.db.entity.LocalProposal;
 import com.stanislav.danylenko.course.db.entity.LocalProposalUser;
 import com.stanislav.danylenko.course.db.entity.pk.LocalProposalPK;
+import com.stanislav.danylenko.course.db.enumeration.OperationStatus;
 import com.stanislav.danylenko.course.exception.DBException;
 import com.stanislav.danylenko.course.service.LocalProposalService;
 import com.stanislav.danylenko.course.service.LocalProposalUserService;
@@ -99,6 +100,15 @@ public class LocalProposalUserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteLocalProposalUser(@PathVariable String id, HttpServletResponse response) throws DBException {
         service.delete(service.findByUuid(UUID.fromString(id)));
+        response.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    @DeleteMapping("/cancel/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public void cancelLocalProposalUser(@PathVariable String id, HttpServletResponse response) throws DBException {
+        LocalProposalUser proposal = service.findByUuid(UUID.fromString(id));
+        proposal.setStatus(OperationStatus.CANCELED);
+        service.save(proposal);
         response.setStatus(HttpServletResponse.SC_OK);
     }
 }

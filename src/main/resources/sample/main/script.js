@@ -43,6 +43,8 @@ var localProposalEntitySelectCountryTemplate;
 var localProposalEntitySelectRegionTemplate;
 var localProposalEntitySelectProposalTemplate;
 
+var localProposalsUserTemplate;
+
 var allLocation;
 var allRegions;
 
@@ -65,6 +67,8 @@ $(document).ready(function() {
     loadUser();
     // local proposal
     loadLocalProposal();
+    // order
+    loadLocalProposalUser();
 });
 
 function loadCountry() {
@@ -167,6 +171,14 @@ function loadLocalProposal(){
 
     $(document).on('click', '.edit-localProposal', editLocalProposal);
     $(document).on('click', '.delete-localProposal', deleteLocalProposal);
+}
+
+function loadLocalProposalUser(){
+    localProposalsUserTemplate = Handlebars.compile($('#orderListTemplate').html());
+
+
+    $(document).on('click', '#getOrders', getOrders);
+    $(document).on('click', '.cancel-order', cancelOrder);
 }
 
 /////////////// service methods

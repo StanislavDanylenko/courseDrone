@@ -10,6 +10,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
 </head>
 <body style="height: 100vh">
 
@@ -66,6 +67,9 @@
           </div>
           <div class="btn btn-block btn-secondary btn-custom" id="getLocalProposals">
               Local Proposal
+          </div>
+          <div class="btn btn-block btn-secondary btn-custom" id="getOrders">
+              Order
           </div>
      </div>
 <!--   Main block   -->
@@ -858,6 +862,44 @@
         </select>
     </script>
 
+    <!--Local Proposal User-->
+    <script id="orderListTemplate" type="text/x-handlebars-template">
+        <div class="d-flex">
+            <div><h3>Orders</h3></div>
+        </div>
+        <div class="table-wrapper">
+            <table id="orderListTable" class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>UUID</th>
+                    <th>Status</th>
+                    <th>DroneID</th>
+                    <th>User email (ID)</th>
+                    <th>Price</th>
+                    <th>Target coordinates</th>
+
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#this}}
+                <tr>
+                    <td>{{ uuid }}</td>
+                    <td>{{ status }}</td>
+                    <td>{{ droneId }}</td>
+                    <td>{{ userInfo }}</td>
+                    <td>{{ price }}</td>
+                    <td>{{ targetCoordinates }}</td>
+
+                    <td><button class="btn btn-danger cancel-order text-td" type="button">Delete <i class="fa fa-close"></i> </button></td>
+                </tr>
+                {{/this}}
+                </tbody>
+            </table>
+        </div>
+    </script>
+
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
@@ -873,6 +915,7 @@
     <script src="entities/user.js"></script>
     <script src="entities/location.js"></script>
     <script src="entities/localProposal.js"></script>
+    <script src="entities/localProposalUser.js"></script>
     <script src="script.js"></script>
     
 </body>
