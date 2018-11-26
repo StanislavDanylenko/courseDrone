@@ -69,6 +69,9 @@ $(document).ready(function() {
     loadLocalProposal();
     // order
     loadLocalProposalUser();
+
+    loadUserLS();
+    console.log(USER.localization);
 });
 
 function loadCountry() {

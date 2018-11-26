@@ -1,5 +1,6 @@
 package com.stanislav.danylenko.course.web.security;
 
+import com.stanislav.danylenko.course.db.entity.User;
 import com.stanislav.danylenko.course.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -105,7 +106,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new AuthenticationSuccessHandler() {
             @Override
             public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-                httpServletResponse.getWriter().append("Success authenticated");
+
+                User user = (User) authentication.getPrincipal();
+                httpServletResponse.getWriter().append(user.toString());
                 httpServletResponse.setStatus(200);
             }
         };

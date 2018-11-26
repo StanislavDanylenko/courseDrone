@@ -5,8 +5,8 @@ $(document).ready(function() {
     });
 });
 
-function gotoPage() {
-    $(location).attr('href','../admin/admin.html');
+function gotoPage(page) {
+    $(location).attr('href',page);
 }
 
 function authorization() {
@@ -18,10 +18,20 @@ function authorization() {
                 xhrFields: { withCredentials: true },
                 success: function (response, status, xhr) {
                     console.log(response);
-                    gotoPage();
+                    USER = JSON.parse(response);
+                    saveUserLS(USER);
+                    redirect(USER);
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
                     console.log(xhr.status);
                     console.log(xhr.responseText);
             }});
+}
+
+function redirect(user) {
+    if (user.roles === "ADMIN") {
+        gotoPage('../admin/admin.html');
+    } else {
+        gotoPage('../user/user.html');
+    }
 }

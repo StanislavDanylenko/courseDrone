@@ -25,7 +25,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @RequiredArgsConstructor
-@ToString
 public class User extends BaseEntity implements UserDetails {
 
     @Column(nullable = false, unique = true)
@@ -117,5 +116,15 @@ public class User extends BaseEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return isActive;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "\"email\": \"" + email + "\"" +
+                ", \"defaultPopulatedPoint\": " + defaultPopulatedPoint +
+                ", \"localization\": \"" + localization + "\"" +
+                ", \"roles\": \"" + roles.toArray()[0] + "\"" +
+                '}';
     }
 }
