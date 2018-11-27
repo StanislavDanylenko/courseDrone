@@ -87,6 +87,9 @@ function renderSelectCountryItem(data, entity, countrySelect) {
         case "userOrdinal":
             html = userOrdinalEntitySelectCountryTemplate(data);
             break;
+        case "userOrdinalProposal":
+            html = userOrdinalProposalEntitySelectCountryTemplate(data);
+            break;
     }
     $(countrySelect).empty().append(html);
 }
@@ -109,6 +112,9 @@ function renderSelectRegionItem(data, entity, regionSelect) {
         case "userOrdinal":
             html = userOrdinalEntitySelectRegionTemplate(data);
             break;
+        case "userOrdinalProposal":
+            html = userOrdinalProposalEntitySelectRegionTemplate(data);
+            break;
     }
     $(regionSelect).empty().append(html);
 }
@@ -130,6 +136,9 @@ function renderSelectPopulatedPointItem(data, entity, populatedPointSelect) {
             break;
         case "userOrdinal":
             html = userOrdinalEntitySelectTemplate(data);
+            break;
+        case "userOrdinalProposal":
+            html = userOrdinalProposalEntitySelectTemplate(data);
             break;
     }
     $(populatedPointSelect).empty().append(html);

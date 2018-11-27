@@ -95,7 +95,7 @@ public class LocalProposalUserController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER')")
     public @ResponseBody
     ResponseEntity<LocalProposalUser> createLocalProposalUser(@RequestBody LocalProposalUserModel model) throws Exception {
         LocalProposalUser localProposalUser = service.createLocalProposalUser(model);

@@ -37,10 +37,11 @@ function updateOrdinalUser() {
         firstName: $('#userOrdinalFirstName').val(),
         lastName: $('#userOrdinalLastName').val(),
         patronymic: $('#userOrdinalPatronymic').val(),
-        // password: $('#userOrdinalPassword').val(),
         defaultPopulatedPoint: $('#userOrdinalPopulatedPointId').val(),
         localization: $('#userOrdinalLocalization').val()
     };
+
+    updateUserLS(user);
 
     $.ajax({
         url: "http://localhost:8080/users/" + USER.id,

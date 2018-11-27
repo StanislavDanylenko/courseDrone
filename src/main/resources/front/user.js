@@ -8,7 +8,7 @@ function loadUserLS() {
     USER = JSON.parse(localStorage.getItem('USER'));
 }
 
-function fillUser(obj) {
+function updateUserLS(obj) {
     USER.defaultPopulatedPoint = obj.defaultPopulatedPoint;
     USER.localization = obj.localization;
     saveUserLS(USER);
