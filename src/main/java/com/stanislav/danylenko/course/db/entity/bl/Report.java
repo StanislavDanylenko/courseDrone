@@ -19,5 +19,7 @@ public class Report implements Serializable {
     private double airPollution;
     private double temperature;
     private List<byte[]> photo;
+    private String description;
+
 
 }

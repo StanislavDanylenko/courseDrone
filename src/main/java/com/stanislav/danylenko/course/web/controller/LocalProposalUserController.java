@@ -17,6 +17,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -41,6 +43,22 @@ public class LocalProposalUserController {
     public @ResponseBody
     ResponseEntity<Iterable<LocalProposalUser>> getLocalProposalUserByUser(@PathVariable Long id) throws DBException {
         return new ResponseEntity<>(service.findAllByUserId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{id}/status/{status}")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
+    public @ResponseBody
+    ResponseEntity<Iterable<LocalProposalUser>> getLocalProposalUserByUserAndStatus(@PathVariable Long id,
+                                                                                    @PathVariable String status) throws DBException {
+
+        switch (status) {
+            case "FINALIZED":
+                return new ResponseEntity<>(service.findAllByUserIdAndStatus(id, OperationStatus.FINALIZED), HttpStatus.OK);
+            case "CANCELED":
+                return new ResponseEntity<>(service.findAllByUserIdAndStatus(id, OperationStatus.CANCELED), HttpStatus.OK);
+            default:
+                return new ResponseEntity<>(service.findAllByUserIdAndStatusNot(id, OperationStatus.CANCELED, OperationStatus.FINALIZED), HttpStatus.OK);
+        }
     }
 
     @GetMapping("/proposal/{id}")

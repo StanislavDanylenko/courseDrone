@@ -50,12 +50,12 @@ public class LocalProposalUser implements Serializable {
 
     @Column
     @CreationTimestamp
-    @JsonIgnore
+    /*@JsonIgnore*/
     private LocalDateTime createDateTime;
 
     @Column
     @UpdateTimestamp
-    @JsonIgnore
+   /* @JsonIgnore*/
     private LocalDateTime updateDateTime;
 
 }

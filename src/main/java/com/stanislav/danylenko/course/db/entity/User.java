@@ -122,6 +122,7 @@ public class User extends BaseEntity implements UserDetails {
     public String toString() {
         return "{" +
                 "\"email\": \"" + email + "\"" +
+                ", \"id\": " + getId() +
                 ", \"defaultPopulatedPoint\": " + defaultPopulatedPoint +
                 ", \"localization\": \"" + localization + "\"" +
                 ", \"roles\": \"" + roles.toArray()[0] + "\"" +

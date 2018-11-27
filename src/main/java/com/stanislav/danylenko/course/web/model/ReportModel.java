@@ -17,5 +17,6 @@ public class ReportModel {
     private UUID uuid;
     private OperationStatus status;
     private List<Sensor> sensors;
+    private String description;
 
 }

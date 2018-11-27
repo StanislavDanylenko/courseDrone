@@ -65,6 +65,14 @@ public class LocalProposalUserService {
         return repository.findAllByUserId(id);
     }
 
+    public Iterable<LocalProposalUser> findAllByUserIdAndStatus(Long id, OperationStatus status) {
+        return repository.findAllByUserIdAndStatus(id, status);
+    }
+
+    public Iterable<LocalProposalUser> findAllByUserIdAndStatusNot(Long id, OperationStatus status1, OperationStatus status2) {
+        return repository.findAllByUserIdAndStatusNotAndStatusNot(id, status1, status2);
+    }
+
     public Iterable<LocalProposalUser> findAllByPopulatedPointId(Long id) {
         return repository.findAllByLocalProposal_PopulatedPointId(id);
     }
