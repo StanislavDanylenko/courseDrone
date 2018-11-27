@@ -74,7 +74,7 @@ public class UserService implements GenericService<User>, UserDetailsService {
         oldUser.setFirstName(newUser.getFirstName());
         oldUser.setLastName(newUser.getLastName());
         oldUser.setPatronymic(newUser.getPatronymic());
-        oldUser.setPassword(newUser.getPassword());
+//        oldUser.setPassword(newUser.getPassword());
         oldUser.setLocalization(newUser.getLocalization());
         oldUser.setDefaultPopulatedPoint(newUser.getDefaultPopulatedPoint());
     }

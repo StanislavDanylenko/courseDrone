@@ -84,6 +84,9 @@ function renderSelectCountryItem(data, entity, countrySelect) {
         case "registration":
             html = registrationCountryListTemplate(data);
             break;
+        case "userOrdinal":
+            html = userOrdinalEntitySelectCountryTemplate(data);
+            break;
     }
     $(countrySelect).empty().append(html);
 }
@@ -103,6 +106,9 @@ function renderSelectRegionItem(data, entity, regionSelect) {
         case "registration":
             html = registrationRegionListTemplate(data);
             break;
+        case "userOrdinal":
+            html = userOrdinalEntitySelectRegionTemplate(data);
+            break;
     }
     $(regionSelect).empty().append(html);
 }
@@ -121,6 +127,9 @@ function renderSelectPopulatedPointItem(data, entity, populatedPointSelect) {
             break;
         case "registration":
             html = registrationPointListTemplate(data);
+            break;
+        case "userOrdinal":
+            html = userOrdinalEntitySelectTemplate(data);
             break;
     }
     $(populatedPointSelect).empty().append(html);

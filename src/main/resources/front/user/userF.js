@@ -2,6 +2,11 @@ var userOldOrderTemplate;
 var userReportTemplate;
 var orderList;
 
+var userOrdinalEntityTemplate;
+var userOrdinalEntitySelectTemplate;
+var userOrdinalEntitySelectCountryTemplate;
+var userOrdinalEntitySelectRegionTemplate;
+
 $(document).ready(function() {
 
     loadUserLS();
@@ -17,6 +22,18 @@ $(document).ready(function() {
     $(document).on('click', '#updateUserOrderStatusButton', getAllOrders);
 
     $(document).on('click', '.info-order', getReport);
+
+    userOrdinalEntityTemplate = Handlebars.compile($('#userOrdinalEntity').html());
+    userOrdinalEntitySelectTemplate = Handlebars.compile($('#userOrdinalSelectEntity').html());
+    userOrdinalEntitySelectCountryTemplate = Handlebars.compile($('#userOrdinalCountrySelectEntity').html());
+    userOrdinalEntitySelectRegionTemplate = Handlebars.compile($('#userOrdinalRegionSelectEntity').html());
+
+    $(document).on('change', '#userOrdinalCountryId', changeUserOrdinalRegion);
+    $(document).on('change', '#userOrdinalRegionId', changeUserOrdinalPopulatedPoint);
+
+    $(document).on('click', '#userOrdinalSubmitButton', updateOrdinalUser);
+    $(document).on('click', '#getUserProfile', getOrdinalUser);
+
 });
 
 function logout() {

@@ -1,0 +1,81 @@
+<script id="userOrdinalEntity" type="text/x-handlebars-template">
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-5">
+                <div id="userOrdinalForm">
+
+
+                    <div class="form-group">
+                        <label for="userOrdinalFirstName">First name</label>
+                        <input type="text" class="form-control" id="userOrdinalFirstName" name="name" placeholder="User first name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userOrdinalLastName">Last name</label>
+                        <input type="text" class="form-control" id="userOrdinalLastName" name="name" placeholder="User last name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userOrdinalPatronymic">Patronymic</label>
+                        <input type="text" class="form-control" id="userOrdinalPatronymic" name="name" placeholder="User patronymic">
+                    </div>
+
+                    <div class="form-group" id="userPassword">
+                        <label for="userOrdinalPassword">Password</label>
+                        <input type="password" class="form-control" id="userOrdinalPassword" name="name" placeholder="User password">
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-5">
+                <h1></h1>
+                <div class="form-group" style="margin-top: 40px">
+                    <label for="userOrdinalLocalization">Localization</label>
+                    <select class='form-control custom-select' id="userOrdinalLocalization">
+                        <option value="UKRAINIAN">UKRAINIAN</option>
+                        <option value="ENGLISH">ENGLISH</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="userOrdinalSelectCountry" style="margin-top: 40px;">
+                    <!--select list here-->
+                </div>
+                <div class="form-group" id="userOrdinalSelectRegion">
+                    <!--select list here-->
+                </div>
+                <div class="form-group" id="userOrdinalSelect">
+                    <!--select list here-->
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+            <button type="button" class="btn btn-success btn-block" id="userOrdinalSubmitButton">Save</button>
+        </div>
+    </script>
+
+    <script id="userOrdinalCountrySelectEntity" type="text/x-handlebars-template">
+        <label for="userOrdinalCountryId">Country</label>
+        <select id='userOrdinalCountryId' name="populatedPointId" class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+
+    <script id="userOrdinalRegionSelectEntity" type="text/x-handlebars-template">
+        <label for="userOrdinalRegionId">Region</label>
+        <select id='userOrdinalRegionId' name="populatedPointId" class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
+
+    <script id="userOrdinalSelectEntity" type="text/x-handlebars-template">
+        <label for="userOrdinalPopulatedPointId">Populated point</label>
+        <select id='userOrdinalPopulatedPointId' name="populatedPointId" class='form-control custom-select'>
+            {{#this}}
+            <option value="{{ id }}">{{ name }}</option>
+            {{/this}}
+        </select>
+    </script>
