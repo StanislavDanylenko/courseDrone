@@ -71,6 +71,9 @@
           <div class="btn btn-block btn-secondary btn-custom" id="getOrders">
               Order
           </div>
+          <div class="btn btn-block btn-secondary btn-custom" id="getUserProfile">
+              Profile
+          </div>
      </div>
 <!--   Main block   -->
         <div class="col-sm-10 main-edges" id="mainContainer">
@@ -80,6 +83,38 @@
     </div>
 
   
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="userOldPassword">Old password</label>
+                    <input type="password" class="form-control" id="userOldPassword" placeholder="Old password">
+                </div>
+                <div class="form-group">
+                    <label for="userNewPassword">New password</label>
+                    <input type="password" class="form-control" id="userNewPassword" placeholder="New password">
+                </div>
+                <div class="form-group">
+                    <label for="userNewPasswordRepeat">Repeat new password</label>
+                    <input type="password" class="form-control" id="userNewPasswordRepeat" placeholder="New password repeat">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="closeModal" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="submitUpdatePassword">Update</button>
+            </div>
+        </div>
+    </div>
 </div>
 
     <!--Country templates-->
@@ -900,6 +935,83 @@
     </script>
 
 
+<script id="userOrdinalEntity" type="text/x-handlebars-template">
+    <div class="row">
+        <div class="col-sm-6">
+            <div id="userOrdinalForm">
+
+                <div class="form-group">
+                    <label for="userOrdinalFirstName">First name</label>
+                    <input type="text" class="form-control" id="userOrdinalFirstName" name="name" placeholder="User first name">
+                </div>
+
+                <div class="form-group">
+                    <label for="userOrdinalLastName">Last name</label>
+                    <input type="text" class="form-control" id="userOrdinalLastName" name="name" placeholder="User last name">
+                </div>
+
+                <div class="form-group">
+                    <label for="userOrdinalPatronymic">Patronymic</label>
+                    <input type="text" class="form-control" id="userOrdinalPatronymic" name="name" placeholder="User patronymic">
+                </div>
+
+                <div class="form-group">
+                    <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-warning btn-block" id="updatePassword">Update Password</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <h1></h1>
+            <div class="form-group">
+                <label for="userOrdinalLocalization">Localization</label>
+                <select class='form-control custom-select' id="userOrdinalLocalization">
+                    <option value="UKRAINIAN">UKRAINIAN</option>
+                    <option value="ENGLISH">ENGLISH</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="userOrdinalSelectCountry" style="margin-top: 40px;">
+                <!--select list here-->
+            </div>
+            <div class="form-group" id="userOrdinalSelectRegion">
+                <!--select list here-->
+            </div>
+            <div class="form-group" id="userOrdinalSelect">
+                <!--select list here-->
+            </div>
+        </div>
+        <button type="button" class="btn btn-success btn-block" id="userOrdinalSubmitButton">Update</button>
+    </div>
+</script>
+
+<script id="userOrdinalCountrySelectEntity" type="text/x-handlebars-template">
+    <label for="userOrdinalCountryId">Country</label>
+    <select id='userOrdinalCountryId' name="populatedPointId" class='form-control custom-select'>
+        {{#this}}
+        <option value="{{ id }}">{{ name }}</option>
+        {{/this}}
+    </select>
+</script>
+
+<script id="userOrdinalRegionSelectEntity" type="text/x-handlebars-template">
+    <label for="userOrdinalRegionId">Region</label>
+    <select id='userOrdinalRegionId' name="populatedPointId" class='form-control custom-select'>
+        {{#this}}
+        <option value="{{ id }}">{{ name }}</option>
+        {{/this}}
+    </select>
+</script>
+
+<script id="userOrdinalSelectEntity" type="text/x-handlebars-template">
+    <label for="userOrdinalPopulatedPointId">Populated point</label>
+    <select id='userOrdinalPopulatedPointId' name="populatedPointId" class='form-control custom-select'>
+        {{#this}}
+        <option value="{{ id }}">{{ name }}</option>
+        {{/this}}
+    </select>
+</script>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
@@ -916,6 +1028,7 @@
     <script src="entities/location.js"></script>
     <script src="entities/localProposal.js"></script>
     <script src="entities/localProposalUser.js"></script>
+    <script src="../user/entities/userProfile.js"></script>
     <script src="../user.js"></script>
 
 </body>

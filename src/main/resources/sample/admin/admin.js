@@ -48,11 +48,6 @@ var localProposalsUserTemplate;
 var allLocation;
 var allRegions;
 
-var userOrdinalEntityTemplate;
-var userOrdinalEntitySelectTemplate;
-var userOrdinalEntitySelectCountryTemplate;
-var userOrdinalEntitySelectRegionTemplate;
-
 
 $(document).ready(function() {
 
@@ -74,11 +69,6 @@ $(document).ready(function() {
     loadLocalProposal();
     // order
     loadLocalProposalUser();
-    // profile
-    loadProfileUser();
-
-    loadUserLS();
-    console.log(USER.localization);
 });
 
 function loadCountry() {
@@ -189,21 +179,6 @@ function loadLocalProposalUser(){
 
     $(document).on('click', '#getOrders', getOrders);
     $(document).on('click', '.cancel-order', cancelOrder);
-}
-
-function loadProfileUser(){
-    userOrdinalEntityTemplate = Handlebars.compile($('#userOrdinalEntity').html());
-    userOrdinalEntitySelectTemplate = Handlebars.compile($('#userOrdinalSelectEntity').html());
-    userOrdinalEntitySelectCountryTemplate = Handlebars.compile($('#userOrdinalCountrySelectEntity').html());
-    userOrdinalEntitySelectRegionTemplate = Handlebars.compile($('#userOrdinalRegionSelectEntity').html());
-
-    $(document).on('change', '#userOrdinalCountryId', changeUserOrdinalRegion);
-    $(document).on('change', '#userOrdinalRegionId', changeUserOrdinalPopulatedPoint);
-
-    $(document).on('click', '#userOrdinalSubmitButton', updateOrdinalUser);
-    $(document).on('click', '#getUserProfile', getOrdinalUser);
-
-    $(document).on('click', '#submitUpdatePassword', updateUserPassword);
 }
 
 /////////////// service methods

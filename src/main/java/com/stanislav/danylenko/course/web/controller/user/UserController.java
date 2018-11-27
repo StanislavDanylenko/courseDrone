@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public @ResponseBody
     ResponseEntity<User> updateUser(@RequestBody User newUser, @PathVariable Long id) throws DBException {
         User user = service.find(id);
