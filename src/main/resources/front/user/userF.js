@@ -34,6 +34,8 @@ $(document).ready(function() {
     $(document).on('click', '#userOrdinalSubmitButton', updateOrdinalUser);
     $(document).on('click', '#getUserProfile', getOrdinalUser);
 
+    $(document).on('click', '#submitUpdatePassword', updateUserPassword);
+
 });
 
 function logout() {

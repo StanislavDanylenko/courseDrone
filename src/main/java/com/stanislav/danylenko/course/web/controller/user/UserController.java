@@ -6,6 +6,7 @@ import com.stanislav.danylenko.course.exception.DBException;
 import com.stanislav.danylenko.course.service.UserService;
 import com.stanislav.danylenko.course.service.location.PopulatedPointService;
 import com.stanislav.danylenko.course.web.model.location.FullLocationModel;
+import com.stanislav.danylenko.course.web.model.user.UpdatePasswordModel;
 import com.stanislav.danylenko.course.web.model.user.UserRegistrationModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -74,6 +75,18 @@ public class UserController {
         FullLocationModel model = new FullLocationModel();
         service.fillInfoAboutLocation(point);
         return model;
+    }
+
+    @PostMapping("/password")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
+    public @ResponseBody
+    ResponseEntity<User> updatePassword(@RequestBody UpdatePasswordModel userModel) throws DBException {
+        User user = service.find(userModel.getId());
+        boolean isChanged = service.changePassword(userModel);
+        if (isChanged) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(user, HttpStatus.CONFLICT);
     }
 
 }

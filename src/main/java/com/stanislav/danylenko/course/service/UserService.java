@@ -10,6 +10,7 @@ import com.stanislav.danylenko.course.service.location.CountryService;
 import com.stanislav.danylenko.course.service.location.PopulatedPointService;
 import com.stanislav.danylenko.course.service.location.RegionService;
 import com.stanislav.danylenko.course.web.model.location.FullLocationModel;
+import com.stanislav.danylenko.course.web.model.user.UpdatePasswordModel;
 import com.stanislav.danylenko.course.web.model.user.UserRegistrationModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -155,6 +156,19 @@ public class UserService implements GenericService<User>, UserDetailsService {
         }
 
         return user;
+    }
+
+    public boolean changePassword(UpdatePasswordModel model) {
+        User user = repository.findById(model.getId()).orElse(null);
+        if (user != null) {
+            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(8);
+            if (passwordEncoder.matches(model.getOldPassword(), user.getPassword())) {
+                user.setPassword(passwordEncoder.encode(model.getNewPassword()));
+                repository.save(user);
+                return true;
+            }
+        }
+        return false;
     }
 }
 

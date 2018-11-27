@@ -87,3 +87,37 @@ function changeUserOrdinalPopulatedPoint() {
     $('#userOrdinalPopulatedPointId').val(points[0].id);
     $('#userOrdinalPopulatedPointId').change();
 }
+
+function updateUserPassword() {
+
+    var newPassword = $('#userNewPassword').val();
+    var newPasswordRepeat = $('#userNewPasswordRepeat').val();
+
+    if (newPassword != newPasswordRepeat) {
+        console.log('different passwords');
+        return;
+    }
+
+    var user = {
+        id: USER.id,
+        oldPassword: $('#userOldPassword').val(),
+        newPassword: newPassword
+    };
+
+    $.ajax({
+        url: "http://localhost:8080/users/password",
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        xhrFields: { withCredentials: true },
+        data: JSON.stringify(user),
+        success: function () {
+            $('#userOldPassword').val('');
+            $('#userNewPassword').val('');
+            $('#userNewPasswordRepeat').val('');
+            $("#closeModal").click();
+        },
+        error: function(data) {
+        }
+    });
+}
