@@ -48,6 +48,47 @@ function processUserLocalProposals(data) {
 }
 
 
+function saveUserProposalOrder(e) {
+
+    var info = getInfoFromProposalPanel(e);
+
+    var order = {
+        userId: USER.id,
+        populatedPointId: info.populatedPointId,
+        proposalId: info.proposalId,
+        targetCoordinates: [info.x, info.y]
+    };
+
+    $.ajax({
+        url: "http://localhost:8080/userProposals",
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        xhrFields: { withCredentials: true },
+        data: JSON.stringify(order),
+        success: function () {
+            getAllOrders();
+        },
+        error: function(data) {
+        }
+    });
+
+}
+
+function getInfoFromProposalPanel(e) {
+    var info = {};
+
+    var coordDiv = $(e.target).parent();
+    info.x = coordDiv[0].childNodes[5].childNodes[1].childNodes[3].value;
+    info.y = coordDiv[0].childNodes[5].childNodes[3].childNodes[3].value;
+
+    var parentDiv = $(e.target).parent().parent();
+    info.populatedPointId = parentDiv[0].childNodes[1].childNodes[1].value;
+    info.proposalId = parentDiv[0].childNodes[1].childNodes[3].value;
+
+    return info;
+}
+
 
 // todo cannot do refactor
 function changeUserOrdinalProposalRegion() {

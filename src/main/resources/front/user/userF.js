@@ -84,6 +84,7 @@ function loadCurrentProposal() {
     $(document).on('change', '#userOrdinalProposalPopulatedPointId', changeUserOrdinalProposalList);
 
     $(document).on('click', '#addOrder', renderLocSelect);
+    $(document).on('click', '.buy-order', saveUserProposalOrder);
 }
 
 function setDataTeble(tableName) {
