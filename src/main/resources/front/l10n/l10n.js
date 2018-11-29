@@ -5,11 +5,11 @@ var locale;
 $(document).ready(function() {
 
     loadUserLS();
-    $(document).on('change', '#localizationSwitcher', changeLocale);
+    $(document).on('change', '#localizationSwitcher', changeLocaleIndex);
     loadJSONs();
     checkUSER();
     $.i18n.load(locale);
-    setTranslate();
+    setTranslateIndex();
 
 });
 
@@ -42,7 +42,7 @@ function setL10n(loc) {
     locale = loc;
 }
 
-function setTranslate() {
+function setTranslateIndex() {
     $('#contactsLink')._t("contacts");
     $('#footerContacts')._t("contacts");
     $('#loginLink')._t("login");
@@ -79,7 +79,7 @@ function setTranslate() {
     $('#description-block-5r')._t('description-block-5r');
 }
 
-function changeLocale() {
+function changeLocaleIndex() {
     if ($('#localizationSwitcher').val() === "EN") {
         USER.localization = "ENGLISH";
         setL10n(EN);
@@ -90,7 +90,7 @@ function changeLocale() {
     saveUserLS(USER);
     $.i18n.unload();
     $.i18n.load(locale);
-    setTranslate();
+    setTranslateIndex();
 }
 
 function loadJSONs() {
