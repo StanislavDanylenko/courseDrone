@@ -79,6 +79,8 @@ $(document).ready(function() {
 
     loadUserLS();
     console.log(USER.localization);
+    setL10n(USER.localization);
+    setTranslateUser();
 });
 
 function loadCountry() {

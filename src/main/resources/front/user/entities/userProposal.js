@@ -3,11 +3,13 @@ function renderOrdinalProposalUserEntity() {
     var select = userOrdinalProposalEntitySelectTemplate();
     $('#mainContainer').empty().append(html);
     $('#userOrdinalProposalSelect').empty().append(select);
+    setTranslateProposal();
 }
 
 function renderProposalsList(data) {
     var html = currentProposalTemplate(data);
     $('#currentProposal').empty().append(html);
+    setTranslateProposal();
 }
 
 function renderLocSelect() {
@@ -27,7 +29,7 @@ function getUserLocalProposals(id) {
                 var convertedData = processUserLocalProposals(data);
                 renderProposalsList(convertedData);
             } else {
-                $('#currentProposal').empty().append('<h1>No available proposals in this region</h1>');
+                $('#currentProposal').empty()._t("noAvailableProposal");
             }
         },
         error: function(xhr, ajaxOptions, thrownError) {

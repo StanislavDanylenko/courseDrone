@@ -2,17 +2,6 @@ var UA;
 var EN;
 var locale;
 
-$(document).ready(function() {
-
-    loadUserLS();
-    $(document).on('change', '#localizationSwitcher', changeLocaleIndex);
-    loadJSONs();
-    checkUSER();
-    $.i18n.load(locale);
-    setTranslateIndex();
-
-});
-
 /*function loadJSONs() {
     $.getJSON('json/en.json', function (json) {
         EN = json;
@@ -79,6 +68,66 @@ function setTranslateIndex() {
     $('#description-block-5r')._t('description-block-5r');
 }
 
+function setTranslateUser() {
+    $(".profile")._t("profile");
+    $(".logout")._t("logout");
+    $("#addOrder")._t("addOrder");
+    $("#getUserAllOrders")._t("getUserAllOrders");
+    $("#getUserHistory")._t("getUserHistory");
+    $("#getUserCanceled")._t("getUserCanceled");
+    $("#userGreeting")._t("userGreeting");
+
+}
+
+function setTranslateLocation() {
+    $(".country")._t("country");
+    $(".region")._t("region");
+    $(".point")._t("point");
+}
+
+function setTranslateProposal() {
+    $("#selectLocation")._t("selectLocation");
+    $(".latitude")._t("latitude");
+    $(".longitude")._t("longitude");
+}
+
+function setTranslateProposalList() {
+    $(".point")._t("point");
+    $(".proposal")._t("proposal");
+    $(".price")._t("price");
+    $(".createDate")._t("createDate");
+    $(".updateDate")._t("updateDate");
+    $(".status")._t("status");
+    $("#updateUserOrderStatusButton")._t("updateStatus");
+    $("#showReport")._t("showReport");
+}
+
+function setTranslateReport() {
+    $("#reportHeader")._t("reportHeader");
+    $("#reportTHumidity")._t("reportTHumidity");
+    $("#reportTRadiation")._t("reportTRadiation");
+    $("#reportTPressure")._t("reportTPressure");
+    $("#reportTAirPollution")._t("reportTAirPollution");
+    $("#reportTTemperature")._t("reportTTemperature");
+    $("#reportComment")._t("reportComment");
+}
+
+function setTranslateProfile() {
+    $("#changePassword")._t("changePassword");
+    $("#userOldPasswordLabel")._t("userOldPasswordLabel");
+    $("#userNewPasswordLabel")._t("userNewPasswordLabel");
+    $("#userNewPasswordRepeatLabel")._t("userNewPasswordRepeatLabel");
+    $("#submitUpdatePassword")._t("update");
+    $("#closeModal")._t("closeModal");
+
+    $("#updatePassword")._t("changePassword");
+    $("#userOrdinalFirstNameLabel")._t("userFirstName");
+    $("#userOrdinalLastNameLabel")._t("userLastName");
+    $("#userOrdinalPatronymicLabel")._t("userPatronymic");
+    $("#userOrdinalLocalizationLabel")._t("localization");
+    $("#userOrdinalSubmitButton")._t("update");
+}
+
 function changeLocaleIndex() {
     if ($('#localizationSwitcher').val() === "EN") {
         USER.localization = "ENGLISH";
@@ -91,6 +140,20 @@ function changeLocaleIndex() {
     $.i18n.unload();
     $.i18n.load(locale);
     setTranslateIndex();
+}
+
+function changeLocaleUser(user) {
+    if (user.localization === "ENGLISH") {
+        USER.localization = "ENGLISH";
+        setL10n(EN);
+    } else {
+        USER.localization = "UKRAINIAN";
+        setL10n(UA);
+    }
+    saveUserLS(USER);
+    $.i18n.unload();
+    $.i18n.load(locale);
+    setTranslateUser();
 }
 
 function loadJSONs() {
@@ -127,6 +190,56 @@ function loadJSONs() {
         "description-block-5l": "Пріоритетом нашої роботи є завжди поліпшення процесів на стороні клієнта, що виражається в фінансових або інших показниках.",
         "block-5r": "Досвідчена команда",
         "description-block-5r": "Ми - фахівці з вражаючим досвідом та знаннями у відповідних галузях.",
+        "profile": "Профіль",
+        "logout": "Вийти",
+        "addOrder": "<span><i class=\"fa fa-plus\"></i></span>  Додати замовлення",
+        "getUserAllOrders": "Список замовлень",
+        "getUserHistory": "Історія",
+        "getUserCanceled": "Відхилені",
+        "userGreeting": "Вітаємо в панелі користувача",
+
+        "changePassword": "Змінити пароль",
+        "userOldPasswordLabel": "Старий пароль",
+        "userNewPasswordLabel": "Новий пароль",
+        "userNewPasswordRepeatLabel": "Повторіть новий пароль",
+        "update": "Оновити",
+        "closeModal": "Закрити",
+
+        "userFirstName": "Ім'я",
+        "userLastName": "Прізвище",
+        "userPatronymic": "По батькові",
+        "localization": "Локалізація",
+
+        "country": "Країна",
+        "region": "Регіон",
+        "point": "Місце знаходження",
+
+        "selectLocation": "Оберіть місцезнаходження",
+        "latitude": "Широта",
+        "longitude": "Довгота",
+        "noAvailableProposal": "<h1>Відсутні будт-які пропозиції в обраному регіоні</h1>",
+
+        "reportHeader": "Звіт замовлення",
+        "reportTHumidity": "Вологість",
+        "reportTRadiation": "Рівень радіації",
+        "reportTPressure": "Атмосферний тиск",
+        "reportTAirPollution": "Забрудненість повітря",
+        "reportTTemperature": "Температура",
+        "reportComment": "Коментар:",
+
+        "proposal": "Пропозиція",
+        "price": "Ціна",
+        "createDate": "Дата створення",
+        "updateDate": "Дата оновлення",
+        "status": "Статус",
+
+        "finalizedOrders": "Виконані замовлення",
+        "canceledOrders": "Відхилені замовлення",
+        "activeOrders": "Активні замовдення",
+
+        "updateStatus": "Оновити статус  <i class=\"fa fa-refresh\"></i></button>",
+        "showReport": "Показати звіт   <i class=\"fa fa-info\"></i>",
+
         "login": "Увійти"
     };
     EN = {
@@ -162,6 +275,56 @@ function loadJSONs() {
         "description-block-5l": "The priority of our work is always the improvement of processes on the client side, which is expressed in financial or other indicators.",
         "block-5r": "Experienced team",
         "description-block-5r": "We are specialists with impressive experience and knowledge in the relevant fields.",
+        "profile": "Profile",
+        "logout": "Log out",
+        "addOrder": "<span><i class=\"fa fa-plus\"></i></span>  Add Order",
+        "getUserAllOrders": "Orders",
+        "getUserHistory": "History",
+        "getUserCanceled": "Canceled",
+        "userGreeting": "Hello in user panel",
+
+        "changePassword": "Change password",
+        "userOldPasswordLabel": "Old password",
+        "userNewPasswordLabel": "New password",
+        "userNewPasswordRepeatLabel": "Repeat new password",
+        "update": "Update",
+        "closeModal": "Close",
+
+        "userFirstName": "First name",
+        "userLastName": "Last name",
+        "userPatronymic": "Patronymic",
+        "localization": "Localization",
+
+        "country": "Country",
+        "region": "Region",
+        "point": "Populated Point",
+
+        "selectLocation": "Select Location ",
+        "latitude": "Latitude",
+        "longitude": "Longitude",
+        "noAvailableProposal": "<h1>No available proposals in this region</h1>",
+
+        "reportHeader": "Order report",
+        "reportTHumidity": "Humidity",
+        "reportTRadiation": "Radiation",
+        "reportTPressure": "Pressure",
+        "reportTAirPollution": "Air pollution",
+        "reportTTemperature": "Temperature",
+        "reportComment": "Comment:",
+
+        "proposal": "Proposal",
+        "price": "Price",
+        "createDate": "Create date",
+        "updateDate": "Update date",
+        "status": "Status",
+
+        "finalizedOrders": "Finalized orders",
+        "canceledOrders": "Canceled orders",
+        "activeOrders": "Active orders",
+
+        "updateStatus": "Update status   <i class=\"fa fa-refresh\"></i></button>",
+        "showReport": "Show report   <i class=\"fa fa-info\"></i>",
+
         "login": "Log in"
     }
 }

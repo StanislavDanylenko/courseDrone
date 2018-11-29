@@ -3,6 +3,7 @@ function renderOrdinalUserEntity() {
     var select = userOrdinalEntitySelectTemplate();
     $('#mainContainer').empty().append(html);
     $('#userOrdinalSelect').empty().append(select);
+    setTranslateProfile();
 }
 
 function getOrdinalUser() {
@@ -51,6 +52,7 @@ function updateOrdinalUser() {
         xhrFields: { withCredentials: true },
         data: JSON.stringify(user),
         success: function () {
+            changeLocaleUser(user);
             getAllOrders();
         },
         error: function(data) {

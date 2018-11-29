@@ -2,11 +2,13 @@ function renderOldOrderList(response) {
     var html = userOldOrderTemplate(response);
     $('#mainContainer').empty().append(html);
     setDataTeble('#oldProposalListTable');
+    setTranslateProposalList();
 }
 
 function renderReport(response) {
     var html = userReportTemplate(response);
     $('#mainContainer').empty().append(html);
+    setTranslateReport();
 }
 
 function getUserKindOrders(status) {
@@ -22,14 +24,14 @@ function getUserKindOrders(status) {
             switch (status) {
                 case "FINALIZED":
                     hideUserUpdateButton();
-                    $('#kindOfOrder').text('Finalized orders');
+                    $('#kindOfOrder')._t('finalizedOrders');
                     break;
                 case "CANCELED":
                     hideUserUpdateButton();
-                    $('#kindOfOrder').text('Canceled orders');
+                    $('#kindOfOrder')._t('canceledOrders');
                     break;
                 default:
-                    $('#kindOfOrder').text('Active orders');
+                    $('#kindOfOrder')._t('activeOrders');
             }
         },
         error: function(xhr, ajaxOptions, thrownError) {

@@ -18,7 +18,7 @@ function buildFullLocationSelectorForItem(populatedPointId, entity,
             } else {
                 setLocationOfItem(allLocation, populatedPointId, countryId, regionId, populatedPointHtmlId);
             }
-
+            setTranslateLocation();
         },
         error: function(xhr, ajaxOptions, thrownError) {
             console.log(xhr.status);
