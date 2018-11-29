@@ -126,16 +126,14 @@
     padding-top: 42.857%;
 }
 
-a.dropdown-item:hover {
-    color: #000;
+.select-nav:hover {
+    color: #fff!important;
+    cursor: pointer;
 }
 
-.btn-dark {
+.select-nav {
     background-color: #212529;
     border: none;
     color: #999!important;
 }
 
-.btn-dark:hover {
-    color: #fff!important;
-}

@@ -12,6 +12,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="l10n/jquery.i18n.js"></script>
     <script src="l10n/l10n.js"></script>
+    <script src="../front/user.js"></script>
 </head>
 <body>
 
@@ -20,44 +21,40 @@
             <a class="py-2" href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-block mx-auto"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg>
             </a>
-            <a class="py-2 d-none d-md-inline-block" href="#Contacts">Contacts</a>
+            <a class="py-2 d-none d-md-inline-block" href="#Contacts" id="contactsLink">Contacts</a>
 
-            <a class="py-2 d-none d-md-inline-block" href="login/login.html">Log in</a>
+            <a class="py-2 d-none d-md-inline-block" href="login/login.html" id="loginLink">Log in</a>
 
-            <div class="dropdown open">
-                <a class="btn btn-dark dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Localization
-                </a>
-
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="#">UA</a>
-                    <a class="dropdown-item" href="#">EN</a>
-                </div>
-            </div>
+            <a class="py-2 d-none d-md-inline-block">
+                <select class="select-nav" id="localizationSwitcher">
+                    <option value="EN">EN</option>
+                    <option value="UA">UA</option>
+                </select>
+            </a>
         </div>
     </nav>
 
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
         <div class="col-md-5 p-lg-5 mx-auto my-5">
             <h1 class="display-4 font-weight-normal">Speeer</h1>
-            <p class="lead font-weight-normal">
+            <p class="lead font-weight-normal" id="mainDescription">
                 New, no alternative system for instant response to emergency situations. Speed, reliability, accuracy - our main qualities.
             </p>
-            <a class="btn btn-outline-secondary" href="registration/registration.html">Register now!</a>
+            <a class="btn btn-outline-secondary" href="registration/registration.html" id="indexRegistrationButton">Register now!</a>
         </div>
     </div>
 
     <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
         <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden img1">
             <div class="my-3 py-3">
-                <h2 class="display-5">Ecology</h2>
-                <p class="lead">Ecological disasters, natural disasters, fires, flora, fauna.</p>
+                <h2 class="display-5" id="block-1l">Ecology</h2>
+                <p class="lead" id="description-block-1l">Ecological disasters, natural disasters, fires, flora, fauna.</p>
             </div>
         </div>
         <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-white text-center overflow-hidden img2">
             <div class="my-3 p-3">
-                <h2 class="display-5">Agriculture</h2>
-                <p class="lead">Assistance to farmers, site research, state supervision.</p>
+                <h2 class="display-5" id="block-1r">Agriculture</h2>
+                <p class="lead" id="description-block-1r">Assistance to farmers, site research, state supervision.</p>
             </div>
         </div>
     </div>
@@ -65,14 +62,14 @@
     <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
         <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden img3">
             <div class="my-3 p-3">
-                <h2 class="display-5">Mining industry</h2>
-                <p class="lead">Control in complex technological processes, exploration.</p>
+                <h2 class="display-5" id="block-2l">Mining industry</h2>
+                <p class="lead" id="description-block-2l">Control in complex technological processes, exploration.</p>
             </div>
         </div>
         <div class="bg-primary mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden img4">
             <div class="my-3 py-3">
-                <h2 class="display-5">Oil and gas industry</h2>
-                <p class="lead text-white">Control in complex technological processes.</p>
+                <h2 class="display-5" id="block-2r">Oil and gas industry</h2>
+                <p class="lead text-white" id="description-block-2r">Control in complex technological processes.</p>
             </div>
         </div>
     </div>
@@ -80,29 +77,29 @@
     <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3 text-white">
         <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden img5">
             <div class="my-3 p-3">
-                <h2 class="display-5">Emergency</h2>
-                <p class="lead">Quick response to all emergencies.</p>
+                <h2 class="display-5" id="block-3l">Emergency</h2>
+                <p class="lead"  id="description-block-3l">Quick response to all emergencies.</p>
             </div>
         </div>
         <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden img6">
             <div class="my-3 py-3">
-                <h2 class="display-5">Photo and video</h2>
-                <p class="lead">Photo video of any events.</p>
+                <h2 class="display-5" id="block-3r">Photo and video</h2>
+                <p class="lead" id="description-block-3r">Photo video of any events.</p>
             </div>
         </div>
     </div>
 
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 bg-light">
         <div class="col-md-9 p-lg-9 mx-auto">
-            <h1 class="text-center">Major features</h1>
+            <h1 class="text-center" id="majorFeatures">Major features</h1>
             <ul>
-                <li class="m-2">Publication of available services by the company.</li>
-                <li class="m-2">Registration of users and ordering of necessary services for them.</li>
-                <li class="m-2">Call the drones to the place of the emergency and get information quickly from them</li>
-                <li class="m-2">Track the location of drones and view their current status</li>
-                <li class="m-2">Real-time information transfer for devices with continuous monitoring of the status of objects.</li>
-                <li class="m-2">The safety and health of smart devices.</li>
-                <li class="m-2">Full confidentiality and security of information stored on servers.</li>
+                <li class="m-2" id="list1">Publication of available services by the company.</li>
+                <li class="m-2" id="list2">Registration of users and ordering of necessary services for them.</li>
+                <li class="m-2" id="list3">Call the drones to the place of the emergency and get information quickly from them</li>
+                <li class="m-2" id="list4">Track the location of drones and view their current status</li>
+                <li class="m-2" id="list5">Real-time information transfer for devices with continuous monitoring of the status of objects.</li>
+                <li class="m-2" id="list6">The safety and health of smart devices.</li>
+                <li class="m-2" id="list7">Full confidentiality and security of information stored on servers.</li>
             </ul>
         </div>
     </div>
@@ -111,15 +108,15 @@
         <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
             <div class="my-3 p-3">
                 <img src="img/musicShuffle.png" alt="musicShuffle" width="100" height="100" style="padding-bottom: 5px;">
-                <h2 class="display-5">Flexible solutions</h2>
-                <p class="lead">We provide not only industry solutions, but also comprehensive services for solving the problems of our clients..</p>
+                <h2 class="display-5" id="block-4l">Flexible solutions</h2>
+                <p class="lead" id="description-block-4l">We provide not only industry solutions, but also comprehensive services for solving the problems of our clients.</p>
             </div>
         </div>
         <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
             <div class="my-3 py-3">
                 <img src="img/arrow-check.png" alt="arrowCheck" width="100" height="100" style="padding-bottom: 5px;">
-                <h2 class="display-5">Quality</h2>
-                <p class="lead">All services and solutions are provided exclusively using high-quality components and materials.</p>
+                <h2 class="display-5" id="block-4r">Quality</h2>
+                <p class="lead" id="description-block-4r">All services and solutions are provided exclusively using high-quality components and materials.</p>
             </div>
         </div>
     </div>
@@ -128,15 +125,15 @@
         <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
             <div class="my-3 p-3">
                 <img src="img/basic_elaboration_calendar.png" alt="calendar" width="100" height="100" style="padding-bottom: 5px;">
-                <h2 class="display-5">Focus on results</h2>
-                <p class="lead">The priority of our work is always the improvement of processes on the client side, which is expressed in financial or other indicators.</p>
+                <h2 class="display-5" id="block-5l">Focus on results</h2>
+                <p class="lead" id="description-block-5l">The priority of our work is always the improvement of processes on the client side, which is expressed in financial or other indicators.</p>
             </div>
         </div>
         <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
             <div class="my-3 py-3">
                 <img src="img/lightbulb.png" alt="light" width="75" height="100" style="padding-bottom: 5px;">
-                <h2 class="display-5">Experienced team</h2>
-                <p class="lead">We are specialists with impressive experience and knowledge in the relevant fields.</p>
+                <h2 class="display-5" id="block-5r">Experienced team</h2>
+                <p class="lead" id="description-block-5r">We are specialists with impressive experience and knowledge in the relevant fields.</p>
             </div>
         </div>
     </div>
@@ -151,9 +148,9 @@
     <footer class="container py-5">
         <div class="row">
             <div class="col-6 col-md">
-                <h5>Contacts</h5>
+                <h5 id="footerContacts">Contacts</h5>
                 <ul class="list-unstyled text-small">
-                    <li>Ukraine, Kharkiv, XXX street</li>
+                    <li id="footerLocation">Ukraine, Kharkiv, XXX street</li>
                     <li>+380XXXXXXXXX</li>
                     <li>email@email.email</li>
                     <li><a name="Contacts"></a></li>
