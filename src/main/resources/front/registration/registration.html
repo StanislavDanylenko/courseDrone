@@ -15,8 +15,19 @@
 <body>
 
     <div class="border border-primary rounded p-5" style="background-color: white">
-        <div class="text-center">
-            <h3 id="userOperation">Registration</h3>
+
+        <div>
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-primary">Back</button>
+                <h3 class="text-center" id="userOperation" style="margin-left: -55px;">Registration</h3>
+                <p></p>
+            </div>
+            <div class="text-center">
+                <select class="select custom-select" id="localizationSwitcherLogin">
+                    <option value="EN">EN</option>
+                    <option value="UA">УКР</option>
+                </select>
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-6">
@@ -28,27 +39,27 @@
 
                     <div class="form-group">
                         <label for="userFirstName">First name</label>
-                        <input type="text" class="form-control" id="userFirstName" name="name" placeholder="User first name">
+                        <input type="text" class="form-control" id="userFirstName">
                     </div>
 
                     <div class="form-group">
                         <label for="userLastName">Last name</label>
-                        <input type="text" class="form-control" id="userLastName" name="name" placeholder="User last name">
+                        <input type="text" class="form-control" id="userLastName">
                     </div>
 
                     <div class="form-group">
                         <label for="userPatronymic">Patronymic</label>
-                        <input type="text" class="form-control" id="userPatronymic" name="name" placeholder="User patronymic">
+                        <input type="text" class="form-control" id="userPatronymic">
                     </div>
 
                     <div class="form-group" id="hideUserEmail">
                         <label for="userEmail">Email</label>
-                        <input type="email" class="form-control" id="userEmail" name="name" placeholder="User email">
+                        <input type="email" class="form-control" id="userEmail">
                     </div>
 
                     <div class="form-group" id="hideUserPassword">
                         <label for="userPassword">Password</label>
-                        <input type="password" class="form-control" id="userPassword" name="name" placeholder="User password">
+                        <input type="password" class="form-control" id="userPassword">
                     </div>
 
             </div>
@@ -83,7 +94,7 @@
             </div>
         </div>
         <div class="row">
-            <button type="button" class="btn btn-success btn-block mt-2" id="submitRegistrationButton">Register me</button>
+            <button type="button" class="btn btn-success btn-block mt-4" id="submitRegistrationButton">Register me</button>
         </div>
     </div>
 
