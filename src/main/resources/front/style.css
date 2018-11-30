@@ -132,8 +132,11 @@
 }
 
 .select-nav {
-    background-color: #212529;
+    background-color: /*#212529*/transparent;
     border: none;
     color: #999!important;
 }
 
+.select-nav option {
+    background-color: #212529;
+}
