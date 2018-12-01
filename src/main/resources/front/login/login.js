@@ -3,6 +3,17 @@ $(document).ready(function() {
     $(document).on('click', '#registrationButton', function () {
         $(location).attr('href','../registration/registration.html');
     });
+    $(document).on('change', '#localizationSwitcherLogin', function () {
+        if ($('#localizationSwitcherLogin').val() == "EN") {
+            $('#passwordLabel').text('Password');
+            $('#loginButton').text('Sign in');
+            $('#registrationButton').text('Registration');
+        } else {
+            $('#passwordLabel').text('Пароль');
+            $('#loginButton').text('Увійти');
+            $('#registrationButton').text('Зареєструватися');
+        }
+    });
 });
 
 function gotoPage(page) {

@@ -27,7 +27,7 @@
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav w-100 nav-justified">
       <li class="nav-item">
-        <a class="nav-link hov-link" href="#">Profile</a>
+        <a class="nav-link hov-link profile" href="#">Profile</a>
       </li>
       <!--<li class="nav-item">
         <a class="nav-link hov-link" href="#">Link</a>
@@ -35,7 +35,7 @@
       <li class="nav-item">
         <a class="nav-link hov-link" href="#">Link</a>
       </li> -->
-        <div class="btn btn-secondary ml-3" id="logout">
+        <div class="btn btn-secondary ml-3 logout" id="logout">
             Log out
         </div>
     </ul>
@@ -77,7 +77,7 @@
      </div>
 <!--   Main block   -->
         <div class="col-sm-10 main-edges" id="mainContainer">
-            <h3>Hello in administrator panel</h3>
+            <h3 id="adminGreeting">Hello in administrator panel</h3>
         </div>
       
     </div>
@@ -86,26 +86,26 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="changePassword" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Change password</h5>
+                <h5 class="modal-title change-password" id="changePassword">Change password</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="userOldPassword">Old password</label>
+                    <label for="userOldPassword" id="userOldPasswordLabel">Old password</label>
                     <input type="password" class="form-control" id="userOldPassword">
                 </div>
                 <div class="form-group">
-                    <label for="userNewPassword">New password</label>
+                    <label for="userNewPassword" id="userNewPasswordLabel">New password</label>
                     <input type="password" class="form-control" id="userNewPassword">
                 </div>
                 <div class="form-group">
-                    <label for="userNewPasswordRepeat">Repeat new password</label>
+                    <label for="userNewPasswordRepeat" id="userNewPasswordRepeatLabel">Repeat new password</label>
                     <input type="password" class="form-control" id="userNewPasswordRepeat">
                 </div>
             </div>
@@ -120,15 +120,15 @@
     <!--Country templates-->
     <script id="countryListTemplate" type="text/x-handlebars-template">
         <div class="d-flex">
-            <div><h3>Country</h3></div>
-            <div><button class="btn btn-primary ml-3" type="button" id="addCountry">Add <i class="fa fa-plus"></i></button></div>
+            <div><h3 class="country">Country</h3></div>
+            <div><button class="btn btn-primary ml-3 add" type="button" id="addCountry">Add <i class="fa fa-plus"></i></button></div>
         </div>
             <div class="table-wrapper">
                 <table id="countryListTable" class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
+                            <th class="title">Name</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -138,8 +138,8 @@
                         <tr>
                             <td>{{ id }}</td>
                             <td>{{ name }}</td>
-                            <td><button class="btn btn-warning edit-country text-td" type="button">Edit <i class="fa fa-edit"></i></button></td>
-                            <td><button class="btn btn-danger delete-county text-td" type="button">Delete <i class="fa fa-close"></i> </button></td>
+                            <td><button class="btn btn-warning edit-country text-td edit" type="button">Edit <i class="fa fa-edit"></i></button></td>
+                            <td><button class="btn btn-danger delete-county text-td delete" type="button">Delete <i class="fa fa-close"></i> </button></td>
                         </tr>
                         {{/this}}
                     </tbody>
@@ -159,11 +159,11 @@
                         </div>
                 
                         <div class="form-group">
-                            <label for="countryName">Title</label>
+                            <label for="countryName" class="title" >Title</label>
                             <input type="text" class="form-control" id="countryName" name="name">
                         </div>
 
-                        <button type="button" class="btn btn-success btn-block" id="countrySubmitButton">Save</button>
+                        <button type="button" class="btn btn-success btn-block save" id="countrySubmitButton">Save</button>
             
                     </form>
                 </div>
@@ -175,15 +175,15 @@
     <!--Region templates-->
     <script id="regionListTemplate" type="text/x-handlebars-template">
         <div class="d-flex">
-            <div><h3>Region</h3></div>
-            <div><button class="btn btn-primary ml-3" type="button" id="addRegion">Add <i class="fa fa-plus"></i></button></div>
+            <div><h3 class="region">Region</h3></div>
+            <div><button class="btn btn-primary ml-3 add" type="button" id="addRegion">Add <i class="fa fa-plus"></i></button></div>
         </div>
         <div class="table-wrapper">
             <table id="regionListTable" class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
+                    <th class="title">Name</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -193,8 +193,8 @@
                 <tr>
                     <td>{{ id }}</td>
                     <td>{{ name }}</td>
-                    <td><button class="btn btn-warning edit-region text-td" type="button">Edit <i class="fa fa-edit"></i></button></td>
-                    <td><button class="btn btn-danger delete-region text-td" type="button">Delete <i class="fa fa-close"></i> </button></td>
+                    <td><button class="btn btn-warning edit-region text-td edit" type="button">Edit <i class="fa fa-edit"></i></button></td>
+                    <td><button class="btn btn-danger delete-region text-td delete" type="button">Delete <i class="fa fa-close"></i> </button></td>
                 </tr>
                 {{/this}}
                 </tbody>
@@ -214,7 +214,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="regionName">Title</label>
+                        <label for="regionName" class="title">Title</label>
                         <input type="text" class="form-control" id="regionName" name="name">
                     </div>
 
@@ -222,7 +222,7 @@
 
                     </div>
 
-                    <button type="button" class="btn btn-success btn-block" id="regionSubmitButton">Save</button>
+                    <button type="button" class="btn btn-success btn-block save" id="regionSubmitButton">Save</button>
 
                 </form>
             </div>
@@ -231,7 +231,7 @@
     </script>
 
     <script id="regionSelectEntity" type="text/x-handlebars-template">
-        <label for="regionCountryId">Country</label>
+        <label for="regionCountryId" class="country">Country</label>
         <select id='regionCountryId' name="countryId" class='form-control custom-select'>
             {{#this}}
             <option value="{{ id }}">{{ name }}</option>
@@ -243,15 +243,15 @@
     <!--Populated points templates-->
     <script id="populatedPointListTemplate" type="text/x-handlebars-template">
         <div class="d-flex">
-            <div><h3>Populated point</h3></div>
-            <div><button class="btn btn-primary ml-3" type="button" id="addPopulatedPoint">Add <i class="fa fa-plus"></i></button></div>
+            <div><h3 class="point">Populated point</h3></div>
+            <div><button class="btn btn-primary ml-3 add" type="button" id="addPopulatedPoint">Add <i class="fa fa-plus"></i></button></div>
         </div>
         <div class="table-wrapper">
             <table id="populatedPointListTable" class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
+                    <th class="title">Name</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -261,8 +261,8 @@
                 <tr>
                     <td>{{ id }}</td>
                     <td>{{ name }}</td>
-                    <td><button class="btn btn-warning edit-point text-td" type="button">Edit <i class="fa fa-edit"></i></button></td>
-                    <td><button class="btn btn-danger delete-point text-td" type="button">Delete <i class="fa fa-close"></i> </button></td>
+                    <td><button class="btn btn-warning edit-point text-td edit" type="button">Edit <i class="fa fa-edit"></i></button></td>
+                    <td><button class="btn btn-danger delete-point text-td delete" type="button">Delete <i class="fa fa-close"></i> </button></td>
                 </tr>
                 {{/this}}
                 </tbody>
@@ -282,7 +282,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="populatedPointName">Title</label>
+                        <label for="populatedPointName" class="title">Title</label>
                         <input type="text" class="form-control" id="populatedPointName" name="name">
                     </div>
 
@@ -290,7 +290,7 @@
 
                     </div>
 
-                    <button type="button" class="btn btn-success btn-block" id="populatedPointSubmitButton">Save</button>
+                    <button type="button" class="btn btn-success btn-block save" id="populatedPointSubmitButton">Save</button>
 
                 </form>
             </div>
@@ -299,7 +299,7 @@
     </script>
 
     <script id="populatedPointSelectEntity" type="text/x-handlebars-template">
-        <label for="populatedPointRegionId">Region</label>
+        <label for="populatedPointRegionId" class="region">Region</label>
         <select id='populatedPointRegionId' name="regionId" class='form-control custom-select'>
             {{#this}}
             <option value="{{ id }}">{{ name }}</option>
@@ -311,17 +311,17 @@
     <!--Proposal templates-->
     <script id="proposalListTemplate" type="text/x-handlebars-template">
         <div class="d-flex">
-            <div><h3>Proposal</h3></div>
-            <div><button class="btn btn-primary ml-3" type="button" id="addProposal">Add <i class="fa fa-plus"></i></button></div>
+            <div><h3 class="proposal">Proposal</h3></div>
+            <div><button class="btn btn-primary ml-3 add" type="button" id="addProposal">Add <i class="fa fa-plus"></i></button></div>
         </div>
         <div class="table-wrapper">
             <table id="proposalListTable" class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Sensors</th>
+                    <th class="title">Name</th>
+                    <th class="description">Description</th>
+                    <th class="sensors">Sensors</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -333,8 +333,8 @@
                     <td>{{ name }}</td>
                     <td>{{ description }}</td>
                     <td>{{ sensorsList }}</td>
-                    <td><button class="btn btn-warning edit-proposal text-td" type="button">Edit <i class="fa fa-edit"></i></button></td>
-                    <td><button class="btn btn-danger delete-proposal text-td" type="button">Delete <i class="fa fa-close"></i> </button></td>
+                    <td><button class="btn btn-warning edit-proposal text-td edit" type="button">Edit <i class="fa fa-edit"></i></button></td>
+                    <td><button class="btn btn-danger delete-proposal text-td delete" type="button">Delete <i class="fa fa-close"></i> </button></td>
                 </tr>
                 {{/this}}
                 </tbody>
@@ -354,46 +354,46 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="proposalName">Title</label>
+                        <label for="proposalName" class="title">Title</label>
                         <input type="text" class="form-control" id="proposalName" name="name">
                     </div>
 
                     <div class="form-group">
-                        <label for="proposalDescription">Description</label>
+                        <label for="proposalDescription" class="description">Description</label>
                         <textarea class="form-control" rows="5" id="proposalDescription" name="proposalDescription"></textarea>
                     </div>
 
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="HUMIDITY" name="HUMIDITY">
-                        <label class="custom-control-label" for="HUMIDITY">HUMIDITY</label>
+                        <label class="custom-control-label HUMIDITY" for="HUMIDITY">HUMIDITY</label>
                     </div>
 
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="RADIATION" name="RADIATION">
-                        <label class="custom-control-label" for="RADIATION">RADIATION</label>
+                        <label class="custom-control-label RADIATION" for="RADIATION">RADIATION</label>
                     </div>
 
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="PRESSURE" name="PRESSURE">
-                        <label class="custom-control-label" for="PRESSURE">PRESSURE</label>
+                        <label class="custom-control-label PRESSURE" for="PRESSURE">PRESSURE</label>
                     </div>
 
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="AIR_POLLUTION" name="AIR_POLLUTION">
-                        <label class="custom-control-label" for="AIR_POLLUTION">AIR_POLLUTION</label>
+                        <label class="custom-control-label AIR_POLLUTION" for="AIR_POLLUTION">AIR_POLLUTION</label>
                     </div>
 
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="CAMERA" name="CAMERA">
-                        <label class="custom-control-label" for="CAMERA">CAMERA</label>
+                        <label class="custom-control-label CAMERA" for="CAMERA">CAMERA</label>
                     </div>
 
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="TEMPERATURE" name="TEMPERATURE">
-                        <label class="custom-control-label" for="TEMPERATURE">TEMPERATURE</label>
+                        <label class="custom-control-label TEMPERATURE" for="TEMPERATURE">TEMPERATURE</label>
                     </div>
 
-                    <button type="button" class="btn btn-success btn-block" id="proposalSubmitButton" style="margin-top: 10px">Save</button>
+                    <button type="button" class="btn btn-success btn-block save" id="proposalSubmitButton" style="margin-top: 10px">Save</button>
 
                 </form>
             </div>
@@ -405,21 +405,21 @@
     <!--Drone templates-->
     <script id="droneListTemplate" type="text/x-handlebars-template">
         <div class="d-flex">
-            <div><h3>Drone</h3></div>
-            <div><button class="btn btn-primary ml-3" type="button" id="addDrone">Add <i class="fa fa-plus"></i></button></div>
+            <div><h3 class="drone">Drone</h3></div>
+            <div><button class="btn btn-primary ml-3 add" type="button" id="addDrone">Add <i class="fa fa-plus"></i></button></div>
         </div>
         <div class="table-wrapper">
             <table id="droneListTable" class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Current operation UUID</th>
-                    <th>Battery level</th>
-                    <th>Current location</th>
-                    <th>Availability</th>
-                    <th>Sensors</th>
-                    <th>Populated point</th>
+                    <th class="title">Name</th>
+                    <th class="uuid">Current operation UUID</th>
+                    <th class="batteryLevel">Battery level</th>
+                    <th class="currentLocation">Current location</th>
+                    <th class="availability">Availability</th>
+                    <th class="sensors">Sensors</th>
+                    <th class="point">Populated point</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -435,8 +435,8 @@
                     <td>{{ isAvailable }}</td>
                     <td>{{ sensorsList }}</td>
                     <td>{{ location }}</td>
-                    <td><button class="btn btn-warning edit-drone text-td" type="button">Edit <i class="fa fa-edit"></i></button></td>
-                    <td><button class="btn btn-danger delete-drone text-td" type="button">Delete <i class="fa fa-close"></i> </button></td>
+                    <td><button class="btn btn-warning edit-drone text-td edit" type="button">Edit <i class="fa fa-edit"></i></button></td>
+                    <td><button class="btn btn-danger delete-drone text-td delete" type="button">Delete <i class="fa fa-close"></i> </button></td>
                 </tr>
                 {{/this}}
                 </tbody>
@@ -456,13 +456,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="droneName">Title</label>
+                        <label for="droneName" class="title">Title</label>
                         <input type="text" class="form-control" id="droneName" name="name">
                     </div>
 
                     <!--range -->
                     <div class="form-group" id="hideDroneBattery">
-                        <label for="droneBattery">Battery level</label><b><span class="span-slider" id="droneBatteryLevel">100</span><span>%</span></b>
+                        <label for="droneBattery" class="batteryLevel">Battery level</label><b><span class="span-slider" id="droneBatteryLevel">100</span><span>%</span></b>
                         <input type="range" class="custom-range" id="droneBattery" name="name" step="1">
                     </div>
 
@@ -470,22 +470,22 @@
                     <div class="form-group">
                         <div class="custom-control custom-radio custom-control-inline">
                             <input type="radio" class="custom-control-input" id="droneAvailable" name="droneAvailable" value="customEx" checked>
-                            <label class="custom-control-label" for="droneAvailable">Drone available</label>
+                            <label class="custom-control-label droneAvailable" for="droneAvailable">Drone available</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
                             <input type="radio" class="custom-control-input" id="droneUnavailable" name="droneAvailable" value="customEx">
-                            <label class="custom-control-label" for="droneUnavailable">Drone unavailable</label>
+                            <label class="custom-control-label droneUnavailable" for="droneUnavailable">Drone unavailable</label>
                         </div>
                     </div>
 
                     <!--coords-->
                     <div class="form-group" id="hideDroneCoordinates">
                         <div class="form-group">
-                            <label for="droneX" >Latitude</label>
+                            <label for="droneX" class="latitude">Latitude</label>
                             <input type="number" class="form-control"  value="-1000000" id="droneX" name="droneX">
                         </div>
                         <div class="form-group">
-                            <label for="droneY" >Longitude</label>
+                            <label for="droneY" class="longitude">Longitude</label>
                             <input type="number" class="form-control" value="-1000000" id="droneY" name="droneY">
                         </div>
                     </div>
@@ -507,19 +507,19 @@
 
                     </div>
 
-                    <button type="button" class="btn btn-success btn-block" id="droneSubmitButton">Save</button>
+                    <button type="button" class="btn btn-success btn-block save" id="droneSubmitButton">Save</button>
 
                 </form>
             </div>
             <div class="col-sm-1"></div>
             <div class="col-sm-4" id="sensorList">
-                <button type="button" class="btn btn-primary btn-block" id="addDroneSensor">Add sensor <i class="fa fa-plus"></i></button>
+                <button type="button" class="btn btn-primary btn-block addSensor" id="addDroneSensor">Add sensor <i class="fa fa-plus"></i></button>
             </div>
         </div>
     </script>
 
     <script id="droneSelectEntity" type="text/x-handlebars-template">
-        <label for="dronePopulatedPointId">Populated point</label>
+        <label for="dronePopulatedPointId" class="point">Populated point</label>
         <select id='dronePopulatedPointId' name="populatedPointId" class='form-control custom-select'>
             {{#this}}
             <option value="{{ id }}">{{ name }}</option>
@@ -528,7 +528,7 @@
     </script>
 
     <script id="droneCountrySelectEntity" type="text/x-handlebars-template">
-        <label for="droneCountryId">Country</label>
+        <label for="droneCountryId" class="country">Country</label>
         <select id='droneCountryId' name="populatedPointId" class='form-control custom-select'>
             {{#this}}
             <option value="{{ id }}">{{ name }}</option>
@@ -537,7 +537,7 @@
     </script>
 
     <script id="droneRegionSelectEntity" type="text/x-handlebars-template">
-        <label for="droneRegionId">Region</label>
+        <label for="droneRegionId" class="region">Region</label>
         <select id='droneRegionId' name="populatedPointId" class='form-control custom-select'>
             {{#this}}
             <option value="{{ id }}">{{ name }}</option>
@@ -552,30 +552,30 @@
             <button type="button" class="btn btn-sm btn-danger delete-parent-form pull-right" style="margin-bottom: 10px;"><i class="fa fa-close"></i></button>
 
             <div class="form-group">
-                <label for="droneName">Sensor title</label>
+                <label for="droneName" class="title">Sensor title</label>
                 <input type="text" class="form-control">
             </div>
 
-            <label for="dronePopulatedPointId">Sensor type</label>
+            <label for="dronePopulatedPointId" class="sensorType">Sensor type</label>
             <select class='form-control custom-select'>
-                <option value="HUMIDITY">HUMIDITY</option>
-                <option value="RADIATION">RADIATION</option>
-                <option value="PRESSURE">PRESSURE</option>
-                <option value="AIR_POLLUTION">AIR_POLLUTION</option>
-                <option value="CAMERA">CAMERA</option>
-                <option value="TEMPERATURE">TEMPERATURE</option>
+                <option class="HUMIDITY" value="HUMIDITY">HUMIDITY</option>
+                <option class="RADIATION" value="RADIATION">RADIATION</option>
+                <option class="PRESSURE" value="PRESSURE">PRESSURE</option>
+                <option class="AIR_POLLUTION" value="AIR_POLLUTION">AIR_POLLUTION</option>
+                <option class="CAMERA" value="CAMERA">CAMERA</option>
+                <option class="TEMPERATURE" value="TEMPERATURE">TEMPERATURE</option>
             </select>
         </div>
     </script>
 
     <script id="droneSensorList" type="text/x-handlebars-template">
-        <h2>Sensors</h2>
+        <h2 class="sensors">Sensors</h2>
         <table id="droneSensorListTable" class="table table-striped table-bordered table-hover">
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>Type</th>
+                <th class="title">Name</th>
+                <th class="sensorType">Type</th>
                 <th></th>
             </tr>
             </thead>
@@ -585,7 +585,7 @@
                 <td>{{ id }}</td>
                 <td>{{ name }}</td>
                 <td>{{ type }}</td>
-                <td><button class="btn btn-danger delete-sensor text-td" type="button">Delete <i class="fa fa-close"></i> </button></td>
+                <td><button class="btn btn-danger delete-sensor text-td delete" type="button">Delete <i class="fa fa-close"></i> </button></td>
             </tr>
             {{/this}}
             </tbody>
@@ -596,8 +596,8 @@
     <!--User template-->
     <script id="userListTemplate" type="text/x-handlebars-template">
         <div class="d-flex">
-            <div><h3>User</h3></div>
-            <div><button class="btn btn-primary ml-3" type="button" id="addUser">Add <i class="fa fa-plus"></i></button></div>
+            <div><h3 class="user">User</h3></div>
+            <div><button class="btn btn-primary ml-3 add" type="button" id="addUser">Add <i class="fa fa-plus"></i></button></div>
         </div>
         <div class="table-wrapper">
             <table id="userListTable" class="table table-striped table-bordered table-hover">
@@ -605,16 +605,16 @@
                 <tr>
                     <th>ID</th>
                     <th>Email</th>
-                    <th>Roles</th>
-                    <th>First name</th>
-                    <th>Last name</th>
-                    <th>Patronymic</th>
-                    <th>Is Active</th>
-                    <th>Default populated point</th>
-                    <th>Localization</th>
-                    <th>Type</th>
-                    <th>Date of registration</th>
-                    <th>Date of change</th>
+                    <th class="roles">Roles</th>
+                    <th class="userFirstName">First name</th>
+                    <th class="userLastName">Last name</th>
+                    <th class="userPatronymic">Patronymic</th>
+                    <th class="isActive">Is Active</th>
+                    <th class="defaultPP">Default populated point</th>
+                    <th class="localization">Localization</th>
+                    <th class="userType">Type</th>
+                    <th class="regDate">Date of registration</th>
+                    <th class="changeDate">Date of change</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -635,8 +635,8 @@
                     <td>{{ createDateTime }}</td>
                     <td>{{ updateDateTime }}</td>
 
-                    <td><button class="btn btn-warning edit-user text-td" type="button">Edit <i class="fa fa-edit"></i></button></td>
-                    <td><button class="btn btn-danger delete-user text-td" type="button">Delete <i class="fa fa-close"></i> </button></td>
+                    <td><button class="btn btn-warning edit-user text-td edit" type="button">Edit <i class="fa fa-edit"></i></button></td>
+                    <td><button class="btn btn-danger delete-user text-td delete" type="button">Delete <i class="fa fa-close"></i> </button></td>
                 </tr>
                 {{/this}}
                 </tbody>
@@ -656,17 +656,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="userFirstName">First name</label>
+                        <label for="userFirstName" class="userFirstName">First name</label>
                         <input type="text" class="form-control" id="userFirstName" name="name">
                     </div>
 
                     <div class="form-group">
-                        <label for="userLastName">Last name</label>
+                        <label for="userLastName" class="userLastName">Last name</label>
                         <input type="text" class="form-control" id="userLastName" name="name">
                     </div>
 
                     <div class="form-group">
-                        <label for="userPatronymic">Patronymic</label>
+                        <label for="userPatronymic" class="userPatronymic">Patronymic</label>
                         <input type="text" class="form-control" id="userPatronymic" name="name">
                     </div>
 
@@ -676,7 +676,7 @@
                     </div>
 
                     <div class="form-group" id="hideUserPassword">
-                        <label for="userPassword">Password</label>
+                        <label for="userPassword" class="password">Password</label>
                         <input type="password" class="form-control" id="userPassword" name="name">
                     </div>
 
@@ -684,29 +684,29 @@
                     <div class="form-group">
                         <div class="custom-control custom-radio custom-control-inline">
                             <input type="radio" class="custom-control-input" id="userAvailable" name="userAvailable" value="customEx" checked>
-                            <label class="custom-control-label" for="userAvailable">User active</label>
+                            <label class="custom-control-label userAvailable" for="userAvailable">User active</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
                             <input type="radio" class="custom-control-input" id="userUnavailable" name="userAvailable" value="customEx">
-                            <label class="custom-control-label" for="userUnavailable">User blocked</label>
+                            <label class="custom-control-label userUnavailable" for="userUnavailable">User blocked</label>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-success btn-block" id="userSubmitButton">Save</button>
+                    <button type="button" class="btn btn-success btn-block save" id="userSubmitButton">Save</button>
                 </div>
             </div>
             <div class="col-sm-1"></div>
             <div class="col-sm-5">
                 <h1></h1>
                 <div class="form-group" style="margin-top: 40px">
-                    <label for="userLocalization">Localization</label>
+                    <label for="userLocalization" class="localization">Localization</label>
                     <select class='form-control custom-select' id="userLocalization">
-                        <option value="UKRAINIAN">UKRAINIAN</option>
+                        <option value="UKRAINIAN">УКРАЇНСЬКА</option>
                         <option value="ENGLISH">ENGLISH</option>
                     </select>
                 </div>
 
                 <div class="form-group" id="hideUserType">
-                    <label for="userType">Type of user</label>
+                    <label for="userType" class="userType">Type of user</label>
                     <select class='form-control custom-select' id="userType">
                         <option value="BUSINESS">BUSINESS</option>
                         <option value="CLIENT">CLIENT</option>
@@ -729,7 +729,7 @@
     </script>
 
     <script id="userCountrySelectEntity" type="text/x-handlebars-template">
-        <label for="userCountryId">Country</label>
+        <label for="userCountryId" class="country">Country</label>
         <select id='userCountryId' name="populatedPointId" class='form-control custom-select'>
             {{#this}}
             <option value="{{ id }}">{{ name }}</option>
@@ -738,7 +738,7 @@
     </script>
 
     <script id="userRegionSelectEntity" type="text/x-handlebars-template">
-        <label for="userRegionId">Region</label>
+        <label for="userRegionId" class="region">Region</label>
         <select id='userRegionId' name="populatedPointId" class='form-control custom-select'>
             {{#this}}
             <option value="{{ id }}">{{ name }}</option>
@@ -747,7 +747,7 @@
     </script>
 
     <script id="userSelectEntity" type="text/x-handlebars-template">
-        <label for="userPopulatedPointId">Populated point</label>
+        <label for="userPopulatedPointId" class="point">Populated point</label>
         <select id='userPopulatedPointId' name="populatedPointId" class='form-control custom-select'>
             {{#this}}
             <option value="{{ id }}">{{ name }}</option>
@@ -759,17 +759,17 @@
     <!--Local proposal templates-->
     <script id="localProposalListTemplate" type="text/x-handlebars-template">
         <div class="d-flex">
-            <div><h3>LocalProposal</h3></div>
-            <div><button class="btn btn-primary ml-3" type="button" id="addLocalProposal">Add <i class="fa fa-plus"></i></button></div>
+            <div><h3 class="localProposal">LocalProposal</h3></div>
+            <div><button class="btn btn-primary ml-3 add" type="button" id="addLocalProposal">Add <i class="fa fa-plus"></i></button></div>
         </div>
         <div class="table-wrapper">
             <table id="localProposalListTable" class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th>Proposal(ID)</th>
-                    <th>Populated point(ID)</th>
-                    <th>Price</th>
-                    <th>Is active</th>
+                    <th class="proposalID">Proposal(ID)</th>
+                    <th class="pointID">Populated point(ID)</th>
+                    <th class="price">Price</th>
+                    <th class="isActive">Is active</th>
 
                     <th></th>
                     <th></th>
@@ -783,8 +783,8 @@
                     <td>{{ price }}</td>
                     <td>{{ isActive }}</td>
 
-                    <td><button class="btn btn-warning edit-localProposal text-td" type="button">Edit <i class="fa fa-edit"></i></button></td>
-                    <td><button class="btn delete-localProposal text-td" type="button" style='background-color: #cc00ff;'>Change status <i class="fa fa-arrows-h"></i> </button></td>
+                    <td><button class="btn btn-warning edit-localProposal text-td edit" type="button">Edit <i class="fa fa-edit"></i></button></td>
+                    <td><button class="btn delete-localProposal text-td changeStatus" type="button" style='background-color: #cc00ff;'>Change status <i class="fa fa-arrows-h"></i> </button></td>
                 </tr>
                 {{/this}}
                 </tbody>
@@ -816,16 +816,16 @@
                     <div class="form-group">
                         <div class="custom-control custom-radio custom-control-inline">
                             <input type="radio" class="custom-control-input" id="localProposalAvailable" name="localProposalAvailable" value="customEx" checked>
-                            <label class="custom-control-label" for="localProposalAvailable">Local proposal available</label>
+                            <label class="custom-control-label localProposalAvailable" for="localProposalAvailable">Local proposal available</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
                             <input type="radio" class="custom-control-input" id="localProposalUnavailable" name="localProposalAvailable" value="customEx">
-                            <label class="custom-control-label" for="localProposalUnavailable">Local proposal blocked</label>
+                            <label class="custom-control-label localProposalUnavailable" for="localProposalUnavailable">Local proposal blocked</label>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="droneX" >Price</label>
+                        <label for="droneX" class="price">Price</label>
                         <input type="number" min="0.1" step="0.1" class="form-control"  id="localProposalPriceId">
                     </div>
 
@@ -855,14 +855,14 @@
         <div class="row">
             <div class="col-sm-1"></div>
             <div class="col-sm-11" style="margin-top: 45px;">
-                <button type="button" class="btn btn-success btn-block" id="localProposalSubmitButton">Save</button>
+                <button type="button" class="btn btn-success btn-block save" id="localProposalSubmitButton">Save</button>
             </div>
             <div class="col-sm-1"></div>
         </div>
     </script>
     <!--location-->
     <script id="localProposalCountrySelectEntity" type="text/x-handlebars-template">
-        <label for="localProposalCountryId">Country</label>
+        <label for="localProposalCountryId" class="country">Country</label>
         <select id='localProposalCountryId' name="populatedPointId" class='form-control custom-select'>
             {{#this}}
             <option value="{{ id }}">{{ name }}</option>
@@ -871,7 +871,7 @@
     </script>
 
     <script id="localProposalRegionSelectEntity" type="text/x-handlebars-template">
-        <label for="localProposalRegionId">Region</label>
+        <label for="localProposalRegionId" class="region">Region</label>
         <select id='localProposalRegionId' name="populatedPointId" class='form-control custom-select'>
             {{#this}}
             <option value="{{ id }}">{{ name }}</option>
@@ -880,7 +880,7 @@
     </script>
 
     <script id="localProposalSelectEntity" type="text/x-handlebars-template">
-        <label for="localProposalPopulatedPointId">Populated point</label>
+        <label for="localProposalPopulatedPointId" class="point">Populated point</label>
         <select id='localProposalPopulatedPointId' name="populatedPointId" class='form-control custom-select'>
             {{#this}}
             <option value="{{ id }}">{{ name }}</option>
@@ -889,7 +889,7 @@
     </script>
     <!--proposal-->
     <script id="localProposalProposalSelectEntity" type="text/x-handlebars-template">
-        <label for="localProposalPopulatedPointId">Populated point</label>
+        <label for="localProposalPopulatedPointId" class="proposal">Populated point</label>
         <select id='localProposalProposalId' name="populatedPointId" class='form-control custom-select'>
             {{#this}}
             <option value="{{ id }}">{{ name }}</option>
@@ -900,18 +900,18 @@
     <!--Local Proposal User-->
     <script id="orderListTemplate" type="text/x-handlebars-template">
         <div class="d-flex">
-            <div><h3>Orders</h3></div>
+            <div><h3 class="order">Orders</h3></div>
         </div>
         <div class="table-wrapper">
             <table id="orderListTable" class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th>UUID</th>
-                    <th>Status</th>
-                    <th>DroneID</th>
-                    <th>User email (ID)</th>
-                    <th>Price</th>
-                    <th>Target coordinates</th>
+                    <th class="uuid">UUID</th>
+                    <th class="status">Status</th>
+                    <th class="droneID">DroneID</th>
+                    <th class="userEmailID">User email (ID)</th>
+                    <th class="price">Price</th>
+                    <th class="tCoord">Target coordinates</th>
 
                     <th></th>
                 </tr>
@@ -926,7 +926,7 @@
                     <td>{{ price }}</td>
                     <td>{{ targetCoordinates }}</td>
 
-                    <td><button class="btn btn-danger cancel-order text-td" type="button">Delete <i class="fa fa-close"></i> </button></td>
+                    <td><button class="btn btn-danger cancel-order text-td delete" type="button">Delete <i class="fa fa-close"></i> </button></td>
                 </tr>
                 {{/this}}
                 </tbody>
@@ -935,27 +935,30 @@
     </script>
 
 
+<!--User ordinal templates-->
 <script id="userOrdinalEntity" type="text/x-handlebars-template">
     <div class="row">
         <div class="col-sm-6">
             <div id="userOrdinalForm">
 
                 <div class="form-group">
-                    <label for="userOrdinalFirstName">First name</label>
+                    <label for="userOrdinalFirstName" id="userOrdinalFirstNameLabel">First name</label>
                     <input type="text" class="form-control" id="userOrdinalFirstName" name="name">
                 </div>
 
                 <div class="form-group">
-                    <label for="userOrdinalLastName">Last name</label>
+                    <label for="userOrdinalLastName" id="userOrdinalLastNameLabel">Last name</label>
                     <input type="text" class="form-control" id="userOrdinalLastName" name="name">
                 </div>
 
                 <div class="form-group">
-                    <label for="userOrdinalPatronymic">Patronymic</label>
+                    <label for="userOrdinalPatronymic" id="userOrdinalPatronymicLabel">Patronymic</label>
                     <input type="text" class="form-control" id="userOrdinalPatronymic" name="name">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="userPasswordd">
+                    <!--<label for="userOrdinalPassword">Password</label>
+                    <input type="password" class="form-control" id="userOrdinalPassword" name="name" >-->
                     <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-warning btn-block" id="updatePassword">Update Password</button>
                 </div>
 
@@ -964,14 +967,14 @@
         <div class="col-sm-6">
             <h1></h1>
             <div class="form-group">
-                <label for="userOrdinalLocalization">Localization</label>
+                <label for="userOrdinalLocalization" id="userOrdinalLocalizationLabel">Localization</label>
                 <select class='form-control custom-select' id="userOrdinalLocalization">
-                    <option value="UKRAINIAN">UKRAINIAN</option>
+                    <option value="UKRAINIAN">УКРАЇНСЬКА</option>
                     <option value="ENGLISH">ENGLISH</option>
                 </select>
             </div>
 
-            <div class="form-group" id="userOrdinalSelectCountry" style="margin-top: 40px;">
+            <div class="form-group" id="userOrdinalSelectCountry" style="margin-top: 25px;">
                 <!--select list here-->
             </div>
             <div class="form-group" id="userOrdinalSelectRegion">
@@ -981,12 +984,14 @@
                 <!--select list here-->
             </div>
         </div>
-        <button type="button" class="btn btn-success btn-block" id="userOrdinalSubmitButton">Update</button>
+        <div class="m-3 mt-5 w-100 text-center">
+            <button type="button" class="btn btn-success w-75" id="userOrdinalSubmitButton">Update</button>
+        </div>
     </div>
 </script>
 
 <script id="userOrdinalCountrySelectEntity" type="text/x-handlebars-template">
-    <label for="userOrdinalCountryId">Country</label>
+    <label for="userOrdinalCountryId" class="country">Country</label>
     <select id='userOrdinalCountryId' name="populatedPointId" class='form-control custom-select'>
         {{#this}}
         <option value="{{ id }}">{{ name }}</option>
@@ -995,7 +1000,7 @@
 </script>
 
 <script id="userOrdinalRegionSelectEntity" type="text/x-handlebars-template">
-    <label for="userOrdinalRegionId">Region</label>
+    <label for="userOrdinalRegionId" class="region">Region</label>
     <select id='userOrdinalRegionId' name="populatedPointId" class='form-control custom-select'>
         {{#this}}
         <option value="{{ id }}">{{ name }}</option>
@@ -1004,7 +1009,7 @@
 </script>
 
 <script id="userOrdinalSelectEntity" type="text/x-handlebars-template">
-    <label for="userOrdinalPopulatedPointId">Populated point</label>
+    <label for="userOrdinalPopulatedPointId" class="point">Populated point</label>
     <select id='userOrdinalPopulatedPointId' name="populatedPointId" class='form-control custom-select'>
         {{#this}}
         <option value="{{ id }}">{{ name }}</option>
@@ -1019,6 +1024,8 @@
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
+    <script src="../l10n/l10n.js"></script>
+    <script src="../l10n/jquery.i18n.js"></script>
     <script src="entities/country.js"></script>
     <script src="entities/region.js"></script>
     <script src="entities/populatedPoint.js"></script>

@@ -4,7 +4,12 @@ var registrationPointListTemplate;
 
 $(document).ready(function() {
 
+    loadJSONs();
+    $.i18n.load(EN);
+    setTranslateRegistration();
+
     $(document).on('click', '#submitRegistrationButton', registerUser);
+    $(document).on('click', '#gotoLogin', gotoPage);
 
     registrationCountryListTemplate =  Handlebars.compile($('#userCountrySelectEntity').html());
     registrationRegionListTemplate =  Handlebars.compile($('#userRegionSelectEntity').html());
@@ -18,6 +23,17 @@ $(document).ready(function() {
         '#userCountryId','#userRegionId', '#userPopulatedPointId',
         '#registrationUserSelectCountry', '#registrationUserSelectRegion', '#registrationUserSelect');
 
+    $(document).on('change', '#localizationSwitcherRegistration', function () {
+        if ($('#localizationSwitcherRegistration').val() == "EN") {
+            $.i18n.unload();
+            $.i18n.load(EN);
+            setTranslateRegistration();
+        } else {
+            $.i18n.unload();
+            $.i18n.load(UA);
+            setTranslateRegistration();
+        }
+    });
 
 });
 

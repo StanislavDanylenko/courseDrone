@@ -2,6 +2,7 @@ function renderLocalProposalList(response) {
     var html = localProposalsTemplate(response);
     $('#mainContainer').empty().append(html);
     setDataTeble('#localProposalListTable');
+    setTranslateLocalProposal();
 }
 
 function renderLocalProposalEntity() {
@@ -12,8 +13,9 @@ function renderLocalProposalEntity() {
 }
 
 function renderSelectProposalLocalProposal(data) {
-    var html = localProposalEntitySelectProposalTemplate(data)
+    var html = localProposalEntitySelectProposalTemplate(data);
     $('#localProposalProposalSelect').empty().append(html);
+    setTranslateLocalProposalEntity();
 }
 
 function getLocalProposals() {
@@ -53,13 +55,14 @@ function getLocalProposal(e) {
             renderLocalProposalEntity();
             var button = $('#localProposalSubmitButton');
             button.bind('click', updateLocalProposal);
-            $('#localProposalOperation').text('Update Local Proposal');
+            $('#localProposalOperation')._t('editLocalProposal');
             hideLocalProposalEditFields();
             $('#localProposalId').val(data.id);
             $('#localProposalPriceId').val(data.price);
             $('#editedLocalProposalProposalId').val(data.proposal.id);
             $('#editedLocalProposalPopulatedPointId').val(data.populatedPoint.id);
             setIsLocalProposalNonBlocked(data.isActive);
+            setTranslateLocalProposalEntity();
         },
         error: function(xhr, ajaxOptions, thrownError) {
             console.log(xhr.status);
@@ -86,7 +89,7 @@ function createLocalProposal() {
     renderLocalProposalEntity();
     var button = $('#localProposalSubmitButton');
     button.bind('click', saveLocalProposal);
-    $('#localProposalOperation').text('Add Local Proposal');
+    $('#localProposalOperation')._t('addLocalProposal');
     buildFullLocationSelectorForItem(null, "localProposal",
         '#localProposalCountryId','#localProposalRegionId', '#localProposalPopulatedPointId',
         '#localProposalSelectCountry', '#localProposalSelectRegion', '#localProposalSelect');

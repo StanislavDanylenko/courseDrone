@@ -68,6 +68,41 @@ function setTranslateIndex() {
     $('#description-block-5r')._t('description-block-5r');
 }
 
+function changeLocaleIndex() {
+    if ($('#localizationSwitcher').val() === "EN") {
+        USER.localization = "ENGLISH";
+        setL10n(EN);
+    } else {
+        USER.localization = "UKRAINIAN";
+        setL10n(UA);
+    }
+    saveUserLS(USER);
+    $.i18n.unload();
+    $.i18n.load(locale);
+    setTranslateIndex();
+}
+
+///////////////
+
+function setTranslateRegistration() {
+    $(".userFirstName")._t("userFirstName");
+    $(".userLastName")._t("userLastName");
+    $(".userPatronymic")._t("userPatronymic");
+    $(".localization")._t("localization");
+    $(".userType")._t("userType");
+    $(".country")._t("country");
+    $(".region")._t("region");
+    $(".point")._t("point");
+    $(".password")._t("password");
+
+    $(".back")._t("back");
+    $(".registration")._t("registration");
+    $(".registerMe")._t("registerMe");
+}
+
+
+//////////////////////
+
 function setTranslateUser() {
     $(".profile")._t("profile");
     $(".logout")._t("logout");
@@ -76,7 +111,6 @@ function setTranslateUser() {
     $("#getUserHistory")._t("getUserHistory");
     $("#getUserCanceled")._t("getUserCanceled");
     $("#userGreeting")._t("userGreeting");
-
 }
 
 function setTranslateLocation() {
@@ -85,7 +119,7 @@ function setTranslateLocation() {
     $(".point")._t("point");
 }
 
-function setTranslateProposal() {
+function setTranslateProposalUser() {
     $("#selectLocation")._t("selectLocation");
     $(".latitude")._t("latitude");
     $(".longitude")._t("longitude");
@@ -121,6 +155,7 @@ function setTranslateProfile() {
     $("#closeModal")._t("closeModal");
 
     $("#updatePassword")._t("changePassword");
+    $("#updatePasswordd")._t("changePassword");
     $("#userOrdinalFirstNameLabel")._t("userFirstName");
     $("#userOrdinalLastNameLabel")._t("userLastName");
     $("#userOrdinalPatronymicLabel")._t("userPatronymic");
@@ -128,19 +163,6 @@ function setTranslateProfile() {
     $("#userOrdinalSubmitButton")._t("update");
 }
 
-function changeLocaleIndex() {
-    if ($('#localizationSwitcher').val() === "EN") {
-        USER.localization = "ENGLISH";
-        setL10n(EN);
-    } else {
-        USER.localization = "UKRAINIAN";
-        setL10n(UA);
-    }
-    saveUserLS(USER);
-    $.i18n.unload();
-    $.i18n.load(locale);
-    setTranslateIndex();
-}
 
 function changeLocaleUser(user) {
     if (user.localization === "ENGLISH") {
@@ -154,6 +176,180 @@ function changeLocaleUser(user) {
     $.i18n.unload();
     $.i18n.load(locale);
     setTranslateUser();
+    setTranslateAdmin();
+}
+
+/////////////////////////////
+
+function setTranslateAdmin() {
+    $(".profile")._t("profile");
+    $(".logout")._t("logout");
+    $("#getCountries")._t("country");
+    $("#getRegions")._t("region");
+    $("#getPopulatedPoints")._t("point");
+    $("#getProposals")._t("proposal");
+    $("#getDrones")._t("drone");
+    $("#getUsers")._t("user");
+    $("#getOrders")._t("order");
+    $("#getUserProfile")._t("profile");
+    $("#getLocalProposals")._t("localProposal");
+    $("#adminGreeting")._t("adminGreeting");
+}
+
+function setTranslateCountry() {
+    $(".country")._t("country");
+    $(".title")._t("title");
+    translateOperations();
+}
+
+function setTranslateCountryEntity() {
+    $(".title")._t("title");
+    $(".save")._t("save");
+}
+
+
+function setTranslateRegion() {
+    $(".region")._t("region");
+    $(".title")._t("title");
+    translateOperations();
+}
+
+function setTranslateRegionEntity() {
+    $(".title")._t("title");
+    $(".country")._t("country");
+    $(".save")._t("save");
+}
+
+
+function setTranslatePoint() {
+    $(".point")._t("point");
+    $(".title")._t("title");
+    translateOperations();
+}
+
+function setTranslatePointEntity() {
+    $(".title")._t("title");
+    $(".region")._t("region");
+    $(".save")._t("save");
+}
+
+
+function setTranslateProposal() {
+    $(".proposal")._t("proposal");
+    $(".description")._t("description");
+    $(".sensors")._t("sensors");
+    $(".title")._t("title");
+    translateOperations();
+}
+
+function setTranslateProposalEntity() {
+    $(".title")._t("title");
+    $(".description")._t("description");
+    $(".save")._t("save");
+    setTranslateSensorType();
+}
+
+
+function setTranslateDrone() {
+    $(".drone")._t("drone");
+    $(".title")._t("title");
+    $(".sensors")._t("sensors");
+    $(".point")._t("point");
+    $(".uuid")._t("uuid");
+    $(".batteryLevel")._t("batteryLevel");
+    $(".currentLocation")._t("currentLocation");
+    $(".availability")._t("availability");
+    translateOperations();
+}
+
+function setTranslateDroneEntity() {
+    $(".title")._t("title");
+    $(".batteryLevel")._t("batteryLevel");
+    $(".latitude")._t("latitude");
+    $(".longitude")._t("longitude");
+    $(".save")._t("save");
+    $(".droneAvailable")._t("droneAvailable");
+    $(".droneUnavailable")._t("droneUnavailable");
+    $(".sensorType")._t("sensorType");
+    $(".sensors")._t("sensors");
+    $(".addSensor")._t("addSensor");
+    setTranslateSensorType();
+}
+
+function setTranslateUserAdmin() {
+    $(".user")._t("user");
+    $(".roles")._t("roles");
+    $(".isActive")._t("isActive");
+    $(".defaultPP")._t("defaultPP");
+    $(".regDate")._t("regDate");
+    $(".changeDate")._t("changeDate");
+    $(".userFirstName")._t("userFirstName");
+    $(".userLastName")._t("userLastName");
+    $(".userPatronymic")._t("userPatronymic");
+    $(".localization")._t("localization");
+    $(".userType")._t("userType");
+    translateOperations();
+}
+
+function setTranslateUserAdminEntity() {
+    $(".isActive")._t("isActive");
+    $(".userFirstName")._t("userFirstName");
+    $(".userLastName")._t("userLastName");
+    $(".userPatronymic")._t("userPatronymic");
+    $(".localization")._t("userPatronymic");
+    $(".userType")._t("userType");
+    $(".password")._t("password");
+    $(".save")._t("save");
+    $(".userAvailable")._t("userAvailable");
+    $(".userUnavailable")._t("userUnavailable");
+}
+
+
+function setTranslateLocalProposal() {
+    $(".isActive")._t("isActive");
+    $(".price")._t("price");
+    $(".proposalID")._t("proposalID");
+    $(".pointID")._t("pointID");
+    $(".localProposal")._t("localProposal");
+    $(".changeStatus")._t("changeStatus");
+    translateOperations();
+}
+
+function setTranslateLocalProposalEntity() {
+    $(".price")._t("price");
+    $(".proposal")._t("proposal");
+    $(".save")._t("save");
+    $(".localProposalAvailable")._t("localProposalAvailable");
+    $(".localProposalUnavailable")._t("localProposalUnavailable");
+}
+
+
+function setTranslateLocalProposalUser() {
+    $(".price")._t("price");
+    $(".status")._t("status");
+    $(".uuid")._t("uuid");
+    $(".droneID")._t("droneID");
+    $(".userEmailID")._t("userEmailID");
+    $(".tCoord")._t("tCoord");
+    $(".order")._t("order");
+
+    translateOperations();
+}
+
+
+function setTranslateSensorType() {
+    $(".HUMIDITY")._t("HUMIDITY");
+    $(".RADIATION")._t("RADIATION");
+    $(".PRESSURE")._t("PRESSURE");
+    $(".AIR_POLLUTION")._t("AIR_POLLUTION");
+    $(".CAMERA")._t("CAMERA");
+    $(".TEMPERATURE")._t("TEMPERATURE");
+}
+
+function translateOperations() {
+    $(".add")._t("add");
+    $(".edit")._t("edit");
+    $(".delete")._t("delete");
 }
 
 function loadJSONs() {
@@ -190,6 +386,7 @@ function loadJSONs() {
         "description-block-5l": "Пріоритетом нашої роботи є завжди поліпшення процесів на стороні клієнта, що виражається в фінансових або інших показниках.",
         "block-5r": "Досвідчена команда",
         "description-block-5r": "Ми - фахівці з вражаючим досвідом та знаннями у відповідних галузях.",
+
         "profile": "Профіль",
         "logout": "Вийти",
         "addOrder": "<span><i class=\"fa fa-plus\"></i></span>  Додати замовлення",
@@ -197,6 +394,7 @@ function loadJSONs() {
         "getUserHistory": "Історія",
         "getUserCanceled": "Відхилені",
         "userGreeting": "Вітаємо в панелі користувача",
+        "adminGreeting": "Вітаємо в панелі адміністратора",
 
         "changePassword": "Змінити пароль",
         "userOldPasswordLabel": "Старий пароль",
@@ -212,7 +410,7 @@ function loadJSONs() {
 
         "country": "Країна",
         "region": "Регіон",
-        "point": "Місце знаходження",
+        "point": "Населений пункт",
 
         "selectLocation": "Оберіть місцезнаходження",
         "latitude": "Широта",
@@ -239,6 +437,82 @@ function loadJSONs() {
 
         "updateStatus": "Оновити статус  <i class=\"fa fa-refresh\"></i></button>",
         "showReport": "Показати звіт   <i class=\"fa fa-info\"></i>",
+
+
+        "drone": "Дрон",
+        "user": "Користувач",
+        "order": "Замовлення",
+        "localProposal": "Місцева пропозиція",
+
+        "add": "Додати <i class=\"fa fa-plus\">",
+        "edit": "Редагувати <i class=\"fa fa-edit\"></i>",
+        "delete": "Видалити <i class=\"fa fa-close\"></i>",
+        "save": "Зберігти",
+
+        "addCountry": "Додати країну",
+        "editCountry": "Редагувати країну",
+
+        "addRegion": "Додати регіон",
+        "editRegion": "Редагувати регіон",
+
+        "addPoint": "Додати населений пункт",
+        "editPoint": "Редагувати населений пункт",
+
+        "addProposal": "Додати пропозицію",
+        "editProposal": "Редагувати пропозицію",
+
+        "addDrone": "Додати дрона",
+        "editDrone": "Редагувати дрона",
+
+        "addUser": "Додати користувача",
+        "editUser": "Редагувати користувача",
+
+        "addLocalProposal": "Додати місцеву пропозицію",
+        "editLocalProposal": "Редагувати місцеву пропозицію",
+
+        "title": "Назва",
+        "description": "Описання",
+        "sensors": "Датчики",
+
+        "uuid": "UUID Поточної операції",
+        "batteryLevel": "Рівень заряду батареї",
+        "currentLocation": "Поточне місце знаходження",
+        "availability": "Доступність",
+        "droneAvailable": "Дрон доступний",
+        "droneUnavailable": "Дрон недоступний",
+        "sensorType": "Тип датчика",
+        "addSensor": "Додати датчик <i class=\"fa fa-plus\"></i>",
+
+        "roles": "Ролі",
+        "isActive": "Чи активний",
+        "defaultPP": "Населений пунк за замовчуванням",
+        "regDate": "Дата реєстрації",
+        "changeDate": "Дата оновлення данних",
+        "userType": "Тип користувача",
+        "password": "Пароль",
+        "userAvailable": "Користувач активний",
+        "userUnavailable": "Користувач заблокований",
+
+        "proposalID": "Пропозиція(ID)",
+        "pointID": "Населений пункт(ID)",
+        "localProposalAvailable": "Місцева пропозиція активна",
+        "localProposalUnavailable": "Місцева пропозиція призупинена",
+        "changeStatus": "Змінити статус <i class=\"fa fa-arrows-h\"></i>",
+
+        "droneID": "ID дрона",
+        "userEmailID": "Еmail користувача (ID)",
+        "tCoord": "Цілові координати",
+
+        "HUMIDITY": "ВОЛОГІСТЬ",
+        "RADIATION": "РАДІАЦІЯ",
+        "PRESSURE": "АТМОСФЕРНИЙ ТИСК",
+        "AIR_POLLUTION": "ЗАБРУДНЕНІСТЬ ПОВІТРЯ",
+        "CAMERA": "КАМЕРА",
+        "TEMPERATURE": "ТЕМПЕРАТУРА",
+
+        "back": "Назад",
+        "registration": "Реєстрація",
+        "registerMe": "Зареєструвати мене",
 
         "login": "Увійти"
     };
@@ -275,6 +549,7 @@ function loadJSONs() {
         "description-block-5l": "The priority of our work is always the improvement of processes on the client side, which is expressed in financial or other indicators.",
         "block-5r": "Experienced team",
         "description-block-5r": "We are specialists with impressive experience and knowledge in the relevant fields.",
+
         "profile": "Profile",
         "logout": "Log out",
         "addOrder": "<span><i class=\"fa fa-plus\"></i></span>  Add Order",
@@ -282,6 +557,7 @@ function loadJSONs() {
         "getUserHistory": "History",
         "getUserCanceled": "Canceled",
         "userGreeting": "Hello in user panel",
+        "adminGreeting": "Hello in admin panel",
 
         "changePassword": "Change password",
         "userOldPasswordLabel": "Old password",
@@ -324,6 +600,85 @@ function loadJSONs() {
 
         "updateStatus": "Update status   <i class=\"fa fa-refresh\"></i></button>",
         "showReport": "Show report   <i class=\"fa fa-info\"></i>",
+
+
+        "drone": "Drone",
+        "user": "User",
+        "order": "Order",
+        "localProposal": "Local proposal",
+
+        "add": "Add <i class=\"fa fa-plus\">",
+        "edit": "Edit <i class=\"fa fa-edit\"></i>",
+        "delete": "Delete <i class=\"fa fa-close\"></i>",
+        "save": "Save",
+
+        "addCountry": "Add country",
+        "editCountry": "Edit country",
+
+        "addRegion": "Add region",
+        "editRegion": "Edit region",
+
+        "addPoint": "Add populated point",
+        "editPoint": "Edit populated point",
+
+        "addDrone": "Add drone",
+        "editDrone": "Edit drone",
+
+        "addProposal": "Add proposal",
+        "editProposal": "Edit proposal",
+
+        "addUser": "Add user",
+        "editUser": "Edit user",
+
+        "addLocalProposal": "Add local proposal",
+        "editLocalProposal": "Edit local proposal",
+
+
+        "title": "Title",
+
+        "description": "Description",
+        "sensors": "Sensors",
+
+        "uuid": "Current operation UUID",
+        "batteryLevel": "Battery level",
+        "currentLocation": "Current location",
+        "availability": "Availability",
+        "droneAvailable": "Drone available",
+        "droneUnavailable": "Drone unavailable",
+        "sensorType": "Sensor type",
+        "addSensor": "Add sensor <i class=\"fa fa-plus\"></i>",
+
+        "roles": "Roles",
+        "isActive": "Is active",
+        "defaultPP": "Default populated point",
+        "regDate": "Date of registration",
+        "changeDate": "Date of change",
+        "userType": "Type of user",
+        "password": "Password",
+        "userAvailable": "User available",
+        "userUnavailable": "User unavailable",
+
+        "proposalID": "Proposal(ID)",
+        "pointID": "Populated point(ID)",
+        "localProposalAvailable": "Local proposal available",
+        "localProposalUnavailable": "Local proposal blocked",
+        "changeStatus": "Change status <i class=\"fa fa-arrows-h\"></i>",
+
+        "droneID": "DroneID",
+        "userEmailID": "User email (ID)",
+        "tCoord": "Target coordinates",
+
+
+        "HUMIDITY": "HUMIDITY",
+        "RADIATION": "RADIATION",
+        "PRESSURE": "PRESSURE",
+        "AIR_POLLUTION": "AIR POLLUTION",
+        "CAMERA": "CAMERA",
+        "TEMPERATURE": "TEMPERATURE",
+
+        "back": "Back",
+        "registration": "Registration",
+        "registerMe": "Register me",
 
         "login": "Log in"
     }

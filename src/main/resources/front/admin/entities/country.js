@@ -2,11 +2,13 @@ function renderCountryList(response) {
     var html = countriesTemplate(response);
     $('#mainContainer').empty().append(html);
     setDataTeble('#countryListTable');
+    setTranslateCountry();
 }
 
 function renderCountryEntity() {
     var html = countryEntityTemplate();
     $('#mainContainer').empty().append(html);
+    setTranslateCountryEntity();
 }
 
 
@@ -46,7 +48,7 @@ function createCountry() {
      renderCountryEntity();
      var button = $('#countrySubmitButton');
      button.bind('click', saveCountry);
-     $('#countryOperation').text('Add country');
+     $('#countryOperation')._t('addCountry');
 
 }
 
@@ -55,7 +57,7 @@ function editCountry(e) {
     renderCountryEntity();
     var button = $('#countrySubmitButton');
     button.bind('click', updateCountry);
-    $('#countryOperation').text('Update country');
+    $('#countryOperation')._t('editCountry');
     getCountry(id);
 }
 

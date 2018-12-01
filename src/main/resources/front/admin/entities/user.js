@@ -2,6 +2,7 @@ function renderUserList(response) {
     var html = usersTemplate(response);
     $('#mainContainer').empty().append(html);
     setDataTeble('#userListTable');
+    setTranslateUserAdmin();
 }
 
 function renderUserEntity() {
@@ -9,6 +10,7 @@ function renderUserEntity() {
     var select = userEntitySelectTemplate();
     $('#mainContainer').empty().append(html);
     $('#userSelect').empty().append(select);
+    setTranslateUserAdminEntity();
 }
 
 
@@ -56,7 +58,7 @@ function createUser() {
     renderUserEntity();
     var button = $('#userSubmitButton');
     button.bind('click', saveUser);
-    $('#userOperation').text('Add admin user');
+    $('#userOperation')._t('addUser');
     buildFullLocationSelectorForItem(null, "user",
                         '#userCountryId','#userRegionId', '#userPopulatedPointId',
                         '#userSelectCountry', '#userSelectRegion', '#userSelect');
@@ -67,7 +69,7 @@ function editUser(e) {
     renderUserEntity();
     var button = $('#userSubmitButton');
     button.bind('click', updateUser);
-    $('#userOperation').text('Update admin user');
+    $('#userOperation')._t('editUser');
     getUser(id);
 }
 

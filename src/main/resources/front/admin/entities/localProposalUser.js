@@ -2,6 +2,7 @@ function renderOrderList(response) {
     var html = localProposalsUserTemplate(response);
     $('#mainContainer').empty().append(html);
     setDataTeble('#orderListTable');
+    setTranslateLocalProposalUser();
 }
 
 function getOrders() {

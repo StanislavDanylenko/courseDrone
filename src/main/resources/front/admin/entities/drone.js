@@ -2,6 +2,7 @@ function renderDroneList(response) {
     var html = dronesTemplate(response);
     $('#mainContainer').empty().append(html);
     setDataTeble('#droneListTable');
+    setTranslateDrone();
 }
 
 function renderDroneEntity() {
@@ -9,6 +10,7 @@ function renderDroneEntity() {
     var select = droneEntitySelectTemplate();
     $('#mainContainer').empty().append(html);
     $('#droneSelect').empty().append(select);
+    setTranslateDroneEntity();
 }
 //
 function renderSelectPopulatedPoint(data) {
@@ -19,11 +21,13 @@ function renderSelectPopulatedPoint(data) {
 function renderSensor() {
     var html = droneSensorTemplate();
     $('#sensorList').append(html);
+    setTranslateDroneEntity();
 }
 
 function renderSensorList(data) {
     var html = droneSensorListTemplate(data);
     $('#droneSensorListPlace').empty().append(html);
+    setTranslateDroneEntity();
 }
 
 function deleteForm(e) {
@@ -103,7 +107,7 @@ function createDrone() {
     renderDroneEntity();
     var button = $('#droneSubmitButton');
     button.bind('click', saveDrone);
-    $('#droneOperation').text('Add drone');
+    $('#droneOperation')._t('addDrone');
     // getPopulatedPointForSelect();
     buildFullLocationSelectorForItem(null, "drone",
         '#droneCountryId','#droneRegionId', '#dronePopulatedPointId',
@@ -118,7 +122,7 @@ function editDrone(e) {
     renderDroneEntity();
     var button = $('#droneSubmitButton');
     button.bind('click', updateDrone);
-    $('#droneOperation').text('Update drone');
+    $('#droneOperation')._t('editDrone');
     getDrone(id);
 }
 

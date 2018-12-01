@@ -2,11 +2,13 @@ function renderProposalList(response) {
     var html = proposalsTemplate(response);
     $('#mainContainer').empty().append(html);
     setDataTeble('#proposalListTable');
+    setTranslateProposal();
 }
 
 function renderProposalEntity() {
     var html = proposalEntityTemplate();
     $('#mainContainer').empty().append(html);
+    setTranslateProposalEntity();
 }
 
 
@@ -48,7 +50,7 @@ function createProposal() {
     renderProposalEntity();
     var button = $('#proposalSubmitButton');
     button.bind('click', saveProposal);
-    $('#proposalOperation').text('Add proposal');
+    $('#proposalOperation')._t('addProposal');
 
 }
 
@@ -57,7 +59,7 @@ function editProposal(e) {
     renderProposalEntity();
     var button = $('#proposalSubmitButton');
     button.bind('click', updateProposal);
-    $('#proposalOperation').text('Update proposal');
+    $('#proposalOperation')._t('editProposal');
     getProposal(id);
 }
 

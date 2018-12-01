@@ -2,6 +2,7 @@ function renderRegionList(response) {
     var html = regionsTemplate(response);
     $('#mainContainer').empty().append(html);
     setDataTeble('#regionListTable');
+    setTranslateRegion();
 }
 
 function renderRegionEntity() {
@@ -14,6 +15,7 @@ function renderRegionEntity() {
 function renderSelectCountry(data) {
     var html = regionEntitySelectTemplate(data)
     $('#regionSelect').empty().append(html);
+    setTranslateRegionEntity();
 }
 
 function getRegions() {
@@ -68,7 +70,7 @@ function createRegion() {
     renderRegionEntity();
     var button = $('#regionSubmitButton');
     button.bind('click', saveRegion);
-    $('#regionOperation').text('Add region');
+    $('#regionOperation')._t('addRegion');
     getCountryForSelect();
 }
 
@@ -77,7 +79,7 @@ function editRegion(e) {
     renderRegionEntity();
     var button = $('#regionSubmitButton');
     button.bind('click', updateRegion);
-    $('#regionOperation').text('Update region');
+    $('#regionOperation')._t('editRegion');
     getRegion(id);
 }
 

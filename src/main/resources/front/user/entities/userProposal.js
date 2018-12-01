@@ -3,13 +3,13 @@ function renderOrdinalProposalUserEntity() {
     var select = userOrdinalProposalEntitySelectTemplate();
     $('#mainContainer').empty().append(html);
     $('#userOrdinalProposalSelect').empty().append(select);
-    setTranslateProposal();
+    setTranslateProposalUser();
 }
 
 function renderProposalsList(data) {
     var html = currentProposalTemplate(data);
     $('#currentProposal').empty().append(html);
-    setTranslateProposal();
+    setTranslateProposalUser();
 }
 
 function renderLocSelect() {

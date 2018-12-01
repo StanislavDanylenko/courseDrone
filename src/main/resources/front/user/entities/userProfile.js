@@ -53,7 +53,11 @@ function updateOrdinalUser() {
         data: JSON.stringify(user),
         success: function () {
             changeLocaleUser(user);
-            getAllOrders();
+            if (USER.roles == "USER") {
+                getAllOrders();
+            } else {
+                getDrones();
+            }
         },
         error: function(data) {
         }

@@ -18,12 +18,12 @@
 
         <div>
             <div class="d-flex justify-content-between">
-                <button class="btn btn-primary">Back</button>
-                <h3 class="text-center" id="userOperation" style="margin-left: -55px;">Registration</h3>
+                <button class="btn btn-primary back" id="gotoLogin" >Back</button>
+                <h3 class="text-center registration" id="userOperation" style="margin-left: -55px;" >Registration</h3>
                 <p></p>
             </div>
             <div class="text-center">
-                <select class="select custom-select" id="localizationSwitcherLogin">
+                <select class="select custom-select" id="localizationSwitcherRegistration">
                     <option value="EN">EN</option>
                     <option value="UA">УКР</option>
                 </select>
@@ -38,17 +38,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="userFirstName">First name</label>
+                        <label for="userFirstName" class="userFirstName">First name</label>
                         <input type="text" class="form-control" id="userFirstName">
                     </div>
 
                     <div class="form-group">
-                        <label for="userLastName">Last name</label>
+                        <label for="userLastName" class="userLastName">Last name</label>
                         <input type="text" class="form-control" id="userLastName">
                     </div>
 
                     <div class="form-group">
-                        <label for="userPatronymic">Patronymic</label>
+                        <label for="userPatronymic" class="userPatronymic">Patronymic</label>
                         <input type="text" class="form-control" id="userPatronymic">
                     </div>
 
@@ -58,7 +58,7 @@
                     </div>
 
                     <div class="form-group" id="hideUserPassword">
-                        <label for="userPassword">Password</label>
+                        <label for="userPassword" class="password">Password</label>
                         <input type="password" class="form-control" id="userPassword">
                     </div>
 
@@ -66,7 +66,7 @@
             <div class="col-sm-6">
 
                 <div class="form-group" style="margin-top: 15px;">
-                    <label for="userLocalization">Localization</label>
+                    <label for="userLocalization" class="localization">Localization</label>
                     <select class='form-control custom-select' id="userLocalization">
                         <option value="UKRAINIAN">UKRAINIAN</option>
                         <option value="ENGLISH">ENGLISH</option>
@@ -74,7 +74,7 @@
                 </div>
 
                 <div class="form-group" id="hideUserType">
-                    <label for="userType">Type of user</label>
+                    <label for="userType" class="userType">Type of user</label>
                     <select class='form-control custom-select' id="userType">
                         <option value="BUSINESS">BUSINESS</option>
                         <option value="CLIENT">CLIENT</option>
@@ -94,7 +94,7 @@
             </div>
         </div>
         <div class="row">
-            <button type="button" class="btn btn-success btn-block mt-4" id="submitRegistrationButton">Register me</button>
+            <button type="button" class="btn btn-success btn-block mt-4 registerMe" id="submitRegistrationButton">Register me</button>
         </div>
     </div>
 
@@ -102,7 +102,7 @@
 <script src="../user.js"></script>
 
     <script id="userCountrySelectEntity" type="text/x-handlebars-template">
-        <label for="userCountryId">Country</label>
+        <label for="userCountryId" class="country">Country</label>
         <select id='userCountryId' class='form-control custom-select'>
             {{#this}}
             <option value="{{ id }}">{{ name }}</option>
@@ -111,7 +111,7 @@
     </script>
 
     <script id="userRegionSelectEntity" type="text/x-handlebars-template">
-        <label for="userRegionId">Region</label>
+        <label for="userRegionId" class="region">Region</label>
         <select id='userRegionId' class='form-control custom-select'>
             {{#this}}
             <option value="{{ id }}">{{ name }}</option>
@@ -120,7 +120,7 @@
     </script>
 
     <script id="userPointSelectEntity" type="text/x-handlebars-template">
-        <label for="userPointId">PopulatePoint</label>
+        <label for="userPointId" class="point">PopulatePoint</label>
         <select id='userPointId' class='form-control custom-select'>
             {{#this}}
             <option value="{{ id }}">{{ name }}</option>
@@ -131,6 +131,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
     <script src="../admin/entities/location.js"></script>
+    <script src="../l10n/l10n.js"></script>
+    <script src="../l10n/jquery.i18n.js"></script>
 
 </body>
 </html>

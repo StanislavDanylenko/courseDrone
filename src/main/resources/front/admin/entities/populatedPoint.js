@@ -2,6 +2,7 @@ function renderPopulatedPointList(response) {
     var html = populatedPointsTemplate(response);
     $('#mainContainer').empty().append(html);
     setDataTeble('#populatedPointListTable');
+    setTranslatePoint();
 }
 
 function renderPopulatedPointEntity() {
@@ -14,6 +15,7 @@ function renderPopulatedPointEntity() {
 function renderSelectRegion(data) {
     var html = populatedPointEntitySelectTemplate(data)
     $('#populatedPointSelect').empty().append(html);
+    setTranslatePointEntity();
 }
 
 function getPopulatedPoints() {
@@ -68,7 +70,7 @@ function createPopulatedPoint() {
     renderPopulatedPointEntity();
     var button = $('#populatedPointSubmitButton');
     button.bind('click', savePopulatedPoint);
-    $('#populatedPointOperation').text('Add populated point');
+    $('#populatedPointOperation')._t('addPoint');
     getRegionForSelect();
 }
 
@@ -77,7 +79,7 @@ function editPopulatedPoint(e) {
     renderPopulatedPointEntity();
     var button = $('#populatedPointSubmitButton');
     button.bind('click', updatePopulatedPoint);
-    $('#populatedPointOperation').text('Update populated Point');
+    $('#populatedPointOperation')._t('editPoint');
     getPopulatedPoint(id);
 }
 
