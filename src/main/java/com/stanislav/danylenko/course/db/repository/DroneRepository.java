@@ -7,5 +7,7 @@ public interface DroneRepository extends JpaRepository<Drone, Long> {
 
     Drone findByName(String name);
 
+    Drone findByMac(String mac);
+
     Iterable<Drone> findAllByPopulatedPointId(Long id);
 }

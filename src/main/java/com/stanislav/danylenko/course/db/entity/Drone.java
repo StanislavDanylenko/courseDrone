@@ -28,6 +28,11 @@ public class Drone extends BaseEntity implements Comparable<Drone> {
     @JsonView(value = JsonRules.DroneCustom.class)
     private String name;
 
+    @Column(nullable = false, unique = true)
+    @NonNull
+    @JsonView(value = JsonRules.DroneCustom.class)
+    private String mac;
+
     @Column(columnDefinition = "BINARY(16)")
     @JsonView(value = JsonRules.DroneCustom.class)
     private UUID currentUuid;

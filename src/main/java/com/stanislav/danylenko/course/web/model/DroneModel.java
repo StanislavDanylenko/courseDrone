@@ -13,6 +13,7 @@ import java.util.List;
 public class DroneModel {
 
     private String name;
+    private String mac;
     private Integer batteryLevel;
     private Boolean isAvailable;
     private List<Sensor> sensors;

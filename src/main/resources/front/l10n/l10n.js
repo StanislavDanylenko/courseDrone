@@ -132,8 +132,8 @@ function setTranslateProposalList() {
     $(".createDate")._t("createDate");
     $(".updateDate")._t("updateDate");
     $(".status")._t("status");
+    $(".showReport")._t("showReport");
     $("#updateUserOrderStatusButton")._t("updateStatus");
-    $("#showReport")._t("showReport");
 }
 
 function setTranslateReport() {

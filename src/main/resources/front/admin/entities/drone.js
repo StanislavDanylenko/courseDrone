@@ -131,6 +131,7 @@ function saveDrone() {
 
     var drone = {
         name: $('#droneName').val(),
+        mac: $('#droneMac').val(),
         batteryLevel: $('#droneBattery').val(),
         isAvailable: getAvailabilityOfDrone(),
         currentCoordinates: getCoordinates(),
@@ -299,6 +300,7 @@ function getSensorsFromTable() {
 
 function hideUnnesseseryFields() {
     $('#hideDroneBattery').hide();
+    $('#hideDroneMAC').hide();
     $('#hideDroneCoordinates').hide();
 }
 

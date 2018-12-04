@@ -54,6 +54,13 @@ public class DroneController {
         return new ResponseEntity<>(service.find(id), HttpStatus.OK);
     }
 
+    @GetMapping("/mac/{MAC}")
+    @JsonView(value = JsonRules.DroneCustom.class)
+    public @ResponseBody
+    ResponseEntity<Drone> getDroneByMac(@PathVariable String MAC) throws DBException {
+        return new ResponseEntity<>(service.findByMAC(MAC), HttpStatus.OK);
+    }
+
     @GetMapping("/point/{id}")
     @JsonView(value = JsonRules.DroneCustom.class)
     public @ResponseBody

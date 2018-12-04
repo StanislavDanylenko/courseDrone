@@ -43,6 +43,10 @@ public class DroneService implements GenericService<Drone> {
         return repository.findById(id).orElse(null);
     }
 
+    public Drone findByMAC(String MAC) {
+        return repository.findByMac(MAC);
+    }
+
     @Override
     public Iterable<Drone> findAll() {
         return repository.findAll();
@@ -102,6 +106,7 @@ public class DroneService implements GenericService<Drone> {
         drone.setBatteryLevel(model.getBatteryLevel());
         drone.setName(model.getName());
         drone.setCurrentLocation(model.getCurrentCoordinates());
+        drone.setMac(model.getMac());
 
         PopulatedPoint populatedPoint = populatedPointService.find(model.getPopulatedPointId());
         drone.setPopulatedPoint(populatedPoint);
