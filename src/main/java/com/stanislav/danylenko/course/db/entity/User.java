@@ -30,7 +30,6 @@ public class User extends BaseEntity implements UserDetails {
     @Column(nullable = false, unique = true)
     @NonNull
     @Email
-//    @JsonIgnore
     private String email;
 
     private String firstName;
@@ -38,7 +37,6 @@ public class User extends BaseEntity implements UserDetails {
     private String patronymic;
     private Long defaultPopulatedPoint;
 
-//    @JsonIgnore
     private Boolean isActive;
 
     @JsonIgnore
@@ -52,12 +50,10 @@ public class User extends BaseEntity implements UserDetails {
 
     @Column
     @CreationTimestamp
-//    @JsonIgnore
     private LocalDateTime createDateTime;
 
     @Column
     @UpdateTimestamp
-//    @JsonIgnore
     private LocalDateTime updateDateTime;
 
     @ElementCollection(targetClass = RoleUser.class, fetch = FetchType.EAGER)
