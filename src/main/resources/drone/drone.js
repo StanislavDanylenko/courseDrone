@@ -9,7 +9,6 @@ var sensors;
 
 var currentStatus;
 var statuses = ['NEW', 'GO_TO_TARGET_PALACE', 'PERFORMING', 'GO_TO_HOME', 'FINALIZED'];
-var isStatusAccepted;
 
 var uuid;
 var templateChangeStatus = "Change status to ";
@@ -23,9 +22,10 @@ $(document).ready(function () {
     checkPointListTemplate = Handlebars.compile($('#checkPointList').html());
 
     $(document).on('change', '#droneBattery', changeBatteryLevel);
-    $(document).on('click', '#cleanDrone', restorelayout);
+    $(document).on('click', '#cleanDrone', restoreLayout);
     $(document).on('click', '#sendData', updateDrone);
     $(document).on('click', '#changeStatus', changeStatus);
+    $(document).on('click', '#crashOrder', crashOrder);
 
     fillFirstTemplate();
 
@@ -40,6 +40,9 @@ $(document).ready(function () {
 function fillFirstTemplate() {
     var html = firstTemplate();
     $('#macContainer').empty().append(html);
+    $('#changeStatus').prop('disabled', true);
+    $('#sendData').prop('disabled', true);
+    $('#statusName').text('');
 }
 
 function fillOrder(data) {
@@ -81,6 +84,7 @@ function getDrone(mac) {
         success: function (data) {
             sensors = data.sensors;
             displayDroneInfo(data);
+            $('#sendData').prop('disabled', false);
         },
         error: function(xhr, ajaxOptions, thrownError) {
             console.log(xhr.status);
@@ -99,6 +103,8 @@ function getOrder() {
             fillCheckPoints(data);
             if (data.status != 'PERFORMING') {
                 blockDroneSensors();
+            } else {
+                unblockDroneSensors();
             }
 
         },
@@ -125,7 +131,11 @@ function updateDrone() {
         data: JSON.stringify(droneInfo),
         success: function () {
             alert('Succes update');
-            updateOrder();
+            if (uuid != undefined) {
+                updateOrder();
+            } else {
+                getDrone(drone.mac);
+            }
         },
         error: function(data) {
         }
@@ -154,17 +164,35 @@ function updateOrder() {
             alert('Succes update status');
             $('#changeStatus').prop('disabled', false);
             if (currentStatus == 2) {
-                $('.sensor').prop('readonly', false);
-            } else if (currentStatus == 4) {
-                $('#changeStatus').prop('disabled', true);
-                $('#changeStatus').html('PERFORMED');
+                unblockDroneSensors();
             } else {
                 blockDroneSensors();
+                if (currentStatus == 4) {
+                    fillFirstTemplate();
+                    getDrone(drone.mac);
+                    $('#mac').val(drone.mac);
+                    $('#changeStatus').html(templateChangeStatus);
+                }
             }
         },
         error: function(data) {
         }
     });
+}
+
+function crashOrder() {
+    $.ajax({
+        url: "http://localhost:8080/userProposals/crash/" + uuid,
+        xhrFields: { withCredentials: true },
+        type: "DELETE",
+        success: function () {
+            fillFirstTemplate();
+            getDrone(drone.mac);
+            $('#mac').val(drone.mac);
+            $('#changeStatus').html(templateChangeStatus);
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+        }});
 }
 
 /////////////////////////
@@ -178,6 +206,8 @@ function displayDroneInfo(data) {
         $('#orderContainer').empty().append("<h3>No order</h3>");
     } else {
         uuid = data.currentUuid;
+        $('#changeStatus').prop('disabled', false);
+        $('#sendData').prop('disabled', false);
         getOrder();
     }
 
@@ -194,8 +224,12 @@ function blockDroneSensors() {
     $('.sensor').prop('readonly', true);
 }
 
+function unblockDroneSensors() {
+    $('.sensor').prop('readonly', false);
+}
 
-function restorelayout() {
+
+function restoreLayout() {
     fillFirstTemplate();
     $('#orderContainer').empty();
     $('#droneContainer').empty();
@@ -204,7 +238,9 @@ function restorelayout() {
     drone = undefined;
     currentStatus = undefined;
     uuid = undefined;
+    sensors = undefined;
 }
+
 
 
 function processOrderInfo(data) {
@@ -248,17 +284,25 @@ function processOrderStatus(data) {
             break;
     }
 
-    $('#changeStatus').html(templateChangeStatus + statuses[currentStatus + 1]);
     $('#statusName').text(statuses[currentStatus]);
+    $('#changeStatus').html(templateChangeStatus + statuses[currentStatus + 1]);
 }
 
 
 function changeStatus() {
-    if (currentStatus !== 4) {
+    if (currentStatus !== 3) {
         currentStatus += 1;
         $('#statusName').text(statuses[currentStatus]);
         $('#changeStatus').prop('disabled', true);
         $('#changeStatus').html(templateChangeStatus + statuses[currentStatus + 1]);
+        if (currentStatus == 2) {
+
+        }
+    } else {
+        currentStatus += 1;
+        $('#statusName').text('RESOLVED');
+        $('#changeStatus').prop('disabled', true);
+        $('#changeStatus').html('RESOLVED');
     }
 }
 

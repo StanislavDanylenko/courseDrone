@@ -15,17 +15,18 @@
     <div class="container-fluid">
         <div class="row">
 
-            <div class="border border-primary rounded p-2 w-100 m-3">
-                <button class="btn btn-primary" id="getDroneInfoByMac">Get info</button>
+            <div class="border border-primary rounded p-2 w-100 m-3 bg-light ">
+                <button class="btn btn-primary mr-3" id="getDroneInfoByMac">Get info</button>
                 <button class="btn btn-warning" id="changeStatus">Change status to</button>
                 <button class="btn btn-success" id="sendData">Send data to server</button>
-                <button class="btn btn-danger" id="cleanDrone">Clean Drone</button>
+                <button class="btn btn-danger ml-3" id="cleanDrone">Clean Drone</button>
+                <button class="btn btn-danger ml-3" id="crashOrder">CRASH!</button>
                 <h1 id="statusName"></h1>
             </div>
 
-            <div id="mainContainer" class="row p-5 border border-primary rounded w-100">
+            <div id="mainContainer" class="row p-5 w-100">
 
-                    <div class="col-4 w-100 p-2 border border-primary rounded">
+                    <div class="col-4 w-100 p-2 border-right border-primary">
 
                         <div id="macContainer">
 
@@ -37,14 +38,14 @@
 
                     </div>
 
-                    <div class="col-4 p-2 w-100 border border-primary rounded">
+                    <div class="col-4 p-2 w-100 border-right border-primary ">
 
                         <div id="sensorContainer">
 
                         </div>
 
                     </div>
-                    <div class="col-4 p-2 w-100 border border-primary rounded">
+                    <div class="col-4 p-2 w-100 ">
 
                         <div id="orderContainer">
 
@@ -83,7 +84,7 @@
             <h5>Target location</h5>
             <div class="form-group">
                 <label for="targetLocationX">Latitude</label>
-                <input class="form-control" type="text" id="targetLocationX" value="{{ targetX }}" readonly/>
+                <input class="form-control"  type="text" id="targetLocationX" value="{{ targetX }}" readonly/>
             </div>
             <div class="form-group">
                 <label for="targetLocationY">Longitude</label>
@@ -129,11 +130,11 @@
                 <div class="form-group" id="hideDroneCoordinates">
                     <div class="form-group">
                         <label for="droneX" class="latitude">Latitude</label>
-                        <input type="number" class="form-control"  value="{{ X }}" id="droneX" name="droneX">
+                        <input type="number" step="0.001" class="form-control"  value="{{ X }}" id="droneX" name="droneX">
                     </div>
                     <div class="form-group">
                         <label for="droneY" class="longitude">Longitude</label>
-                        <input type="number" class="form-control" value="{{ Y }}" id="droneY" name="droneY">
+                        <input type="number" step="0.001" class="form-control" value="{{ Y }}" id="droneY" name="droneY">
                     </div>
                 </div>
             </div>

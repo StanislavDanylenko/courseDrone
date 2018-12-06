@@ -8,13 +8,11 @@ import com.stanislav.danylenko.course.db.entity.pk.LocalProposalUserPK;
 import com.stanislav.danylenko.course.db.enumeration.OperationStatus;
 import com.stanislav.danylenko.course.db.enumeration.TypeOfSensor;
 import com.stanislav.danylenko.course.db.repository.LocalProposalUserRepository;
-import com.stanislav.danylenko.course.service.location.PopulatedPointService;
 import com.stanislav.danylenko.course.web.model.LocalProposalUserModel;
 import com.stanislav.danylenko.course.web.model.ReportModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 @Service
@@ -126,12 +124,17 @@ public class LocalProposalUserService {
             case GO_TO_HOME:
                 Report report = new Report();
                 drone = droneService.find(localProposalUser.getDroneId());
+                fillDroneSensorsValues(drone, model);
                 fillReportFields(report, drone.getSensors());
                 localProposalUser.setReport(report);
                 break;
             case FINALIZED:
                 drone = droneService.find(localProposalUser.getDroneId());
+                Report changeReport = localProposalUser.getReport();
+                changeReport.setDescription("Success order");
+                localProposalUser.setReport(changeReport);
                 drone.setCurrentUuid(null);
+                resetDroneSensorsValues(drone);
                 droneService.save(drone);
                 break;
         }
@@ -187,6 +190,37 @@ public class LocalProposalUserService {
                     break;
             }
         }
+    }
+
+    private void fillDroneSensorsValues(Drone drone, ReportModel reportModel) {
+        List<Sensor> droneSensors = drone.getSensors();
+        List<Sensor> reportSensors = reportModel.getSensors();
+
+        for (Sensor sensor : droneSensors) {
+            for (Sensor sensorModel : reportSensors) {
+                if (sensor.getId() == sensorModel.getId()) {
+                    sensor.setValue(sensorModel.getValue());
+                }
+            }
+        }
+    }
+
+    private void resetDroneSensorsValues(Drone drone) {
+        for (Sensor sensor : drone.getSensors()) {
+            sensor.setValue(0.0);
+        }
+    }
+
+    public Drone cancelOrder(Long id) {
+        if (id != null) {
+            Drone drone = droneService.find(id);
+            drone.setCurrentUuid(null);
+            drone.setIsAvailable(false);
+            resetDroneSensorsValues(drone);
+            droneService.save(drone);
+            return drone;
+        }
+        return null;
     }
 
 }

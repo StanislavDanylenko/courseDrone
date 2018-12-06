@@ -2,6 +2,7 @@ package com.stanislav.danylenko.course.web.controller;
 
 import com.stanislav.danylenko.course.db.entity.LocalProposal;
 import com.stanislav.danylenko.course.db.entity.LocalProposalUser;
+import com.stanislav.danylenko.course.db.entity.bl.Report;
 import com.stanislav.danylenko.course.db.entity.pk.LocalProposalPK;
 import com.stanislav.danylenko.course.db.enumeration.OperationStatus;
 import com.stanislav.danylenko.course.exception.DBException;
@@ -17,8 +18,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -130,7 +129,31 @@ public class LocalProposalUserController {
     public void cancelLocalProposalUser(@PathVariable String id, HttpServletResponse response) throws DBException {
         LocalProposalUser proposal = service.findByUuid(UUID.fromString(id));
         proposal.setStatus(OperationStatus.CANCELED);
+
+        Report report = new Report();
+        report.setDescription("Canceled");
+        proposal.setReport(report);
+
         service.save(proposal);
+        service.cancelOrder(proposal.getDroneId());
+        response.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    @DeleteMapping("/crash/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public void cancelLocalProposalUserByDrone(@PathVariable String id, HttpServletResponse response) throws DBException {
+        LocalProposalUser proposal = service.findByUuid(UUID.fromString(id));
+        proposal.setStatus(OperationStatus.CANCELED);
+
+        service.save(proposal);
+
+        Report report = new Report();
+        report.setDescription("Drone crash!");
+        proposal.setReport(report);
+
+        service.save(proposal);
+
+        service.cancelOrder(proposal.getDroneId());
         response.setStatus(HttpServletResponse.SC_OK);
     }
 }
