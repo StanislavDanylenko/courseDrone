@@ -16,6 +16,7 @@ import java.util.UUID;
 public class DroneTaskModel {
 
     private UUID uuid;
+    private OperationStatus status;
     private Double[] targetLocation;
     private Double[] startLocation;
     private Double[] currentLocation;

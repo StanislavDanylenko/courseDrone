@@ -6,6 +6,7 @@ import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
 import com.stanislav.danylenko.course.db.repository.DroneRepository;
 import com.stanislav.danylenko.course.service.location.PopulatedPointService;
 import com.stanislav.danylenko.course.web.model.DroneModel;
+import com.stanislav.danylenko.course.web.model.ReportModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -51,7 +51,12 @@ public class DroneController {
     @JsonView(value = JsonRules.DroneCustom.class)
     public @ResponseBody
     ResponseEntity<Drone> getDrone(@PathVariable Long id) throws DBException {
-        return new ResponseEntity<>(service.find(id), HttpStatus.OK);
+        Drone drone = service.find(id);
+        if (drone != null) {
+            return new ResponseEntity<>(drone, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/mac/{MAC}")
@@ -110,6 +115,7 @@ public class DroneController {
         Drone drone = droneService.find(localProposalUser.getDroneId());
         DroneTaskModel model = new DroneTaskModel();
         model.setUuid(uuid);
+        model.setStatus(localProposalUser.getStatus());
         model.setCheckPoints(GeoService.getCheckPoints());
         model.setCurrentLocation(drone.getCurrentLocation());
         model.setStartLocation(drone.getCurrentLocation());

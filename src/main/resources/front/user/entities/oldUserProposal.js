@@ -68,5 +68,5 @@ function hideUserUpdateButton() {
 
 function getReport(e) {
     var id = getID(e, '#oldProposalListTable');
-    renderReport(orderList[id]);
+    renderReport(orderList[id].report);
 }

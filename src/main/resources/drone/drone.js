@@ -5,11 +5,14 @@ var orderTemplate;
 var checkPointListTemplate;
 
 var drone;
+var sensors;
 
 var currentStatus;
 var statuses = ['NEW', 'GO_TO_TARGET_PALACE', 'PERFORMING', 'GO_TO_HOME', 'FINALIZED'];
+var isStatusAccepted;
 
 var uuid;
+var templateChangeStatus = "Change status to ";
 
 $(document).ready(function () {
 
@@ -20,6 +23,9 @@ $(document).ready(function () {
     checkPointListTemplate = Handlebars.compile($('#checkPointList').html());
 
     $(document).on('change', '#droneBattery', changeBatteryLevel);
+    $(document).on('click', '#cleanDrone', restorelayout);
+    $(document).on('click', '#sendData', updateDrone);
+    $(document).on('click', '#changeStatus', changeStatus);
 
     fillFirstTemplate();
 
@@ -29,47 +35,7 @@ $(document).ready(function () {
 
 });
 
-function getDrone(mac) {
-
-    $.ajax({
-        url: "http://localhost:8080/drones/mac/" + mac,
-        type: "GET",
-        xhrFields: { withCredentials: true },
-        success: function (data) {
-            $('#mac').attr('readonly', true);
-            drone = data;
-            uuid = data.currentUuid;
-            console.log(data);
-            data.X = data.currentLocation[0];
-            data.Y = data.currentLocation[1];
-            fillDrone(data);
-            fillSensors(data);
-            getOrder();
-            $('#droneBatteryLevel').text(data.batteryLevel);
-
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
-        }});
-}
-
-function getOrder() {
-
-    $.ajax({
-        url: "http://localhost:8080/drones/task/" + uuid,
-        type: "GET",
-        xhrFields: { withCredentials: true },
-        success: function (data) {
-            fillOrder(processOrderInfo(data));
-            fillCheckPoints(data);
-
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
-        }});
-}
+//////////////////////////
 
 function fillFirstTemplate() {
     var html = firstTemplate();
@@ -95,6 +61,7 @@ function fillSensors(data) {
 
     var html = sensorsTemplate(sensors);
     $('#sensorContainer').empty().append(html);
+    blockDroneSensors();
 }
 
 function fillCheckPoints(data) {
@@ -103,7 +70,146 @@ function fillCheckPoints(data) {
     $('#checkPoint').empty().append(html);
 }
 
+////////////////////////////////////
+
+function getDrone(mac) {
+
+    $.ajax({
+        url: "http://localhost:8080/drones/mac/" + mac,
+        type: "GET",
+        xhrFields: { withCredentials: true },
+        success: function (data) {
+            sensors = data.sensors;
+            displayDroneInfo(data);
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            console.log(xhr.status);
+            console.log(xhr.responseText);
+        }});
+}
+
+function getOrder() {
+
+    $.ajax({
+        url: "http://localhost:8080/drones/task/" + uuid,
+        type: "GET",
+        xhrFields: { withCredentials: true },
+        success: function (data) {
+            fillOrder(processOrderInfo(data));
+            fillCheckPoints(data);
+            if (data.status != 'PERFORMING') {
+                blockDroneSensors();
+            }
+
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            console.log(xhr.status);
+            console.log(xhr.responseText);
+        }});
+}
+
+//////////////////////////////////////
+
+function updateDrone() {
+    var droneInfo = {
+        batteryLevel: $('#droneBattery').val(),
+        currentCoordinates: getCoordinates()
+    };
+
+    $.ajax({
+        url: "http://localhost:8080/drones/" + drone.id,
+        type: "PUT",
+        dataType: "json",
+        contentType: "application/json",
+        xhrFields: { withCredentials: true },
+        data: JSON.stringify(droneInfo),
+        success: function () {
+            alert('Succes update');
+            updateOrder();
+        },
+        error: function(data) {
+        }
+    });
+}
+
+function updateOrder() {
+    var order = {
+        uuid: uuid,
+        status: statuses[currentStatus]
+    };
+
+    if (currentStatus === 3) {
+        getAllSensors();
+        order.sensors = sensors;
+    }
+
+    $.ajax({
+        url: "http://localhost:8080/userProposals/" + uuid,
+        type: "PUT",
+        dataType: "json",
+        contentType: "application/json",
+        xhrFields: { withCredentials: true },
+        data: JSON.stringify(order),
+        success: function () {
+            alert('Succes update status');
+            $('#changeStatus').prop('disabled', false);
+            if (currentStatus == 2) {
+                $('.sensor').prop('readonly', false);
+            } else if (currentStatus == 4) {
+                $('#changeStatus').prop('disabled', true);
+                $('#changeStatus').html('PERFORMED');
+            } else {
+                blockDroneSensors();
+            }
+        },
+        error: function(data) {
+        }
+    });
+}
+
+/////////////////////////
+
+function displayDroneInfo(data) {
+
+    $('#mac').attr('readonly', true);
+    drone = data;
+
+    if (data.currentUuid == null) {
+        $('#orderContainer').empty().append("<h3>No order</h3>");
+    } else {
+        uuid = data.currentUuid;
+        getOrder();
+    }
+
+    console.log(data);
+    data.X = data.currentLocation[0];
+    data.Y = data.currentLocation[1];
+    fillDrone(data);
+    fillSensors(data);
+
+    $('#droneBatteryLevel').text(data.batteryLevel);
+}
+
+function blockDroneSensors() {
+    $('.sensor').prop('readonly', true);
+}
+
+
+function restorelayout() {
+    fillFirstTemplate();
+    $('#orderContainer').empty();
+    $('#droneContainer').empty();
+    $('#sensorContainer').empty();
+    $('#changeStatus').html(templateChangeStatus);
+    drone = undefined;
+    currentStatus = undefined;
+    uuid = undefined;
+}
+
+
 function processOrderInfo(data) {
+
+    processOrderStatus(data);
 
     data.startX = data.startLocation[0];
     data.startY = data.startLocation[1];
@@ -122,6 +228,43 @@ function processOrderInfo(data) {
 }
 
 
+function processOrderStatus(data) {
+
+    switch (data.status) {
+        case 'NEW':
+            currentStatus = 0;
+            break;
+        case 'GO_TO_TARGET_PALACE':
+            currentStatus = 1;
+            break;
+        case 'PERFORMING':
+            currentStatus = 2;
+            break;
+        case 'GO_TO_HOME':
+            currentStatus = 3;
+            break;
+        case 'FINALIZED':
+            currentStatus = 4;
+            break;
+    }
+
+    $('#changeStatus').html(templateChangeStatus + statuses[currentStatus + 1]);
+    $('#statusName').text(statuses[currentStatus]);
+}
+
+
+function changeStatus() {
+    if (currentStatus !== 4) {
+        currentStatus += 1;
+        $('#statusName').text(statuses[currentStatus]);
+        $('#changeStatus').prop('disabled', true);
+        $('#changeStatus').html(templateChangeStatus + statuses[currentStatus + 1]);
+    }
+}
+
+///////////////////////////////
+
+
 function getCoordinates() {
     if (($('#droneX').val() != -1000000) && ($('#droneY').val() != -1000000)) {
         return [$('#droneX').val(), $('#droneY').val()];
@@ -131,4 +274,18 @@ function getCoordinates() {
 
 function changeBatteryLevel() {
     $('#droneBatteryLevel').text($('#droneBattery').val());
+}
+
+function getAllSensors() {
+    var sens = $('.sensor');
+
+    for (var i = 0; i < sens.length; i++) {
+        var id = sens[i].id;
+        for (var j = 0; j < sensors.length; j++) {
+            if (id == sensors[j].id) {
+                sensors[j].value = sens[i].value;
+            }
+        }
+    }
+
 }
