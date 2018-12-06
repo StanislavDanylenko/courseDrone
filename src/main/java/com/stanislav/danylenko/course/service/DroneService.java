@@ -63,13 +63,22 @@ public class DroneService implements GenericService<Drone> {
 
     public List<Sensor> updateDrone(Drone drone, DroneModel model) {
 
-        PopulatedPoint populatedPoint = populatedPointService.find(model.getPopulatedPointId());
-        drone.setPopulatedPoint(populatedPoint);
+        if (model.getPopulatedPointId() != null) {
+            PopulatedPoint populatedPoint = populatedPointService.find(model.getPopulatedPointId());
+            drone.setPopulatedPoint(populatedPoint);
+        }
+
         if (model.getIsAvailable() != null) {
             drone.setIsAvailable(model.getIsAvailable());
         }
+
         if (model.getBatteryLevel() != null) {
             drone.setBatteryLevel(model.getBatteryLevel());
+            if (drone.getBatteryLevel() < 70) {
+                drone.setIsAvailable(false);
+            } else {
+                drone.setIsAvailable(true);
+            }
         }
         if (model.getCurrentCoordinates() != null) {
             drone.setCurrentLocation(model.getCurrentCoordinates());

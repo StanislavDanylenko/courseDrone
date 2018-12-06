@@ -55,7 +55,6 @@ public class DroneController {
     }
 
     @GetMapping("/mac/{MAC}")
-    @JsonView(value = JsonRules.DroneCustom.class)
     public @ResponseBody
     ResponseEntity<Drone> getDroneByMac(@PathVariable String MAC) throws DBException {
         return new ResponseEntity<>(service.findByMAC(MAC), HttpStatus.OK);
@@ -77,6 +76,8 @@ public class DroneController {
         return new ResponseEntity<>(drone, HttpStatus.CREATED);
     }
 
+    //////////////////////////////////////
+
     @PutMapping("/{id}")
     @JsonView(value = JsonRules.DroneCustom.class)
     public @ResponseBody
@@ -91,6 +92,8 @@ public class DroneController {
         return ResponseEntity.ok(drone);
     }
 
+    ///////////////////////////////////////
+
     @DeleteMapping("/{id}")
     @JsonView(value = JsonRules.DroneCustom.class)
     public void deleteDrone(@PathVariable Long id, HttpServletResponse response) throws DBException {
@@ -98,7 +101,7 @@ public class DroneController {
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
-    // tasks for drone
+    ///////////////////////////// tasks for drone
 
     @GetMapping("/task/{id}")
     public DroneTaskModel getTask(@PathVariable String id) {

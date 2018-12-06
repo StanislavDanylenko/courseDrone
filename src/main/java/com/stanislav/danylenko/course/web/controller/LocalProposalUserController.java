@@ -103,6 +103,8 @@ public class LocalProposalUserController {
         return new ResponseEntity<>(localProposalUser, HttpStatus.CREATED);
     }
 
+    //////////////////////////////////////////////
+
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public @ResponseBody
@@ -113,6 +115,8 @@ public class LocalProposalUserController {
         service.update(localProposalUser);
         return ResponseEntity.ok(localProposalUser);
     }
+
+    ////////////////////////////////////////////////
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")

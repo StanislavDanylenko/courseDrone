@@ -12,39 +12,160 @@
 </head>
 <body>
 
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-        </li>
-    </ul>
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <div class="m-5">
-                <div class="form-group">
-                    <label for="mac1" id="userOrdinalFirstNameLabel">MAC:</label>
-                    <input class="form-control" type="text" id="mac1"/>
-                </div>
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="border border-primary rounded p-2 w-100 m-3">
                 <button class="btn btn-primary" id="getDroneInfoByMac">Get info</button>
+                <button class="btn btn-warning" id="changeStatus">Change status to</button>
+                <button class="btn btn-accept" id="sendData">Send data to server</button>
+                <button class="btn btn-danger" id="cleanDrone">Clean Drone</button>
+            </div>
+
+            <div id="mainContainer" class="row p-5 border border-primary rounded w-100">
+
+                    <div class="col-4 w-100 p-2 border border-primary rounded">
+
+                        <div id="macContainer">
+
+                        </div>
+
+                        <div id="droneContainer">
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-4 p-2 w-100 border border-primary rounded">
+
+                        <div id="sensorContainer">
+
+                        </div>
+
+                    </div>
+                    <div class="col-4 p-2 w-100 border border-primary rounded">
+
+                        <div id="orderContainer">
+
+                        </div>
+
+                    </div>
+                </div>
+        </div>
+
+    </div>
+
+    <script id="firstTemplate" type="text/x-handlebars-template">
+        <div class="form-group">
+            <h2>Drone info</h2>
+            <label for="mac" id="userOrdinalFirstNameLabel">MAC:</label>
+            <input class="form-control" type="text" id="mac"/>
+        </div>
+    </script>
+
+    <script id="orderTemplate" type="text/x-handlebars-template">
+        <h2>Order info</h2>
+
+        <div class="border border-info rounded p-2">
+            <h5>Start location</h5>
+            <div class="form-group">
+                <label for="startLocationX">Latitude</label>
+                <input class="form-control" type="text" id="startLocationX" value="{{ startX }}" readonly/>
+            </div>
+            <div class="form-group">
+                <label for="startLocationY">Longitude</label>
+                <input class="form-control" type="text" id="startLocationY" value="{{ startY }}" readonly/>
+            </div>
+        </div>
+
+        <div class="border border-info rounded p-2">
+            <h5>Target location</h5>
+            <div class="form-group">
+                <label for="targetLocationX">Latitude</label>
+                <input class="form-control" type="text" id="targetLocationX" value="{{ targetX }}" readonly/>
+            </div>
+            <div class="form-group">
+                <label for="targetLocationY">Longitude</label>
+                <input class="form-control" type="text" id="targetLocationY" value="{{ targetY }}" readonly/>
+            </div>
+        </div>
+
+        <div class="border border-info rounded p-2">
+            <h5>Route check points</h5>
+            <div class="form-group" id="checkPoint">
+
+            </div>
+        </div>
+
+    </script>
+
+    <script id="droneEntityTemplate" type="text/x-handlebars-template">
+        <div id="droneForm">
+
+            <div class="form-group mt-3">
+                <label for="droneId" class="title">Id</label>
+                <input type="text" class="form-control" id="droneId" value="{{ id }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="droneName" class="title">Title</label>
+                <input type="text" class="form-control" id="droneName" value="{{ name }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="uuid" class="title">Operation UUID</label>
+                <input type="text" class="form-control" id="uuid" value="{{ currentUuid }}" readonly>
+            </div>
+
+            <div class="border border-info rounded p-2">
+                <!--range -->
+                <div class="form-group" id="hideDroneBattery">
+                    <label for="droneBattery" class="batteryLevel">Battery level </label><b><span class="span-slider" id="droneBatteryLevel">100</span><span>%</span></b>
+                    <input type="range" class="custom-range" id="droneBattery" name="name" step="1" value="{{ batteryLevel }}">
+                </div>
+
+                <!--coords-->
+                <div class="form-group" id="hideDroneCoordinates">
+                    <div class="form-group">
+                        <label for="droneX" class="latitude">Latitude</label>
+                        <input type="number" class="form-control"  value="{{ X }}" id="droneX" name="droneX">
+                    </div>
+                    <div class="form-group">
+                        <label for="droneY" class="longitude">Longitude</label>
+                        <input type="number" class="form-control" value="{{ Y }}" id="droneY" name="droneY">
+                    </div>
+                </div>
             </div>
 
         </div>
-        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
-    </div>
+    </script>
+
+    <script id="sensorsEntityTemplate" type="text/x-handlebars-template">
+        <h2>Sensors</h2>
+            {{#this}}
+                <label for="{{ id }}">{{ sensorInfo }}</label>
+                <input class="form-control" type="number" step="0.001" id="{{ id }}" value="{{ value }}"/>
+            {{/this}}
+
+    </script>
+
+    <script id="checkPointList" type="text/x-handlebars-template">
+        <ul>
+        {{#each checkPointsList}}
+            <li>{{ this }}</li>
+        {{/each}}
+        </ul>
+
+    </script>
 
 
-<!-- Optional JavaScript -->
+    <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
     <script src="drone.js"></script>
 </body>
 </html>
