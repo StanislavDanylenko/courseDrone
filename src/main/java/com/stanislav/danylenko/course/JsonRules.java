@@ -10,4 +10,6 @@ public final class JsonRules {
 
     public interface MobileCustom extends Id{}
 
+    public interface MobileProposal extends Id{}
+
 }

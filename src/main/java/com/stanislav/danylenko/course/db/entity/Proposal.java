@@ -1,6 +1,8 @@
 package com.stanislav.danylenko.course.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.stanislav.danylenko.course.JsonRules;
 import com.stanislav.danylenko.course.db.enumeration.TypeOfSensor;
 import lombok.*;
 
@@ -17,10 +19,12 @@ import java.util.Set;
 @ToString
 public class Proposal extends BaseEntity {
 
+    @JsonView(value = JsonRules.MobileProposal.class)
     @Column(nullable = false, unique = true)
     @NonNull
     private String name;
 
+    @JsonView(value = JsonRules.MobileProposal.class)
     @Column(nullable = false)
     @NonNull
     private String description;

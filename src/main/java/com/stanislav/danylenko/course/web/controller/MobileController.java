@@ -2,10 +2,14 @@ package com.stanislav.danylenko.course.web.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.stanislav.danylenko.course.JsonRules;
+import com.stanislav.danylenko.course.db.entity.LocalProposal;
+import com.stanislav.danylenko.course.db.entity.Proposal;
 import com.stanislav.danylenko.course.db.entity.User;
 import com.stanislav.danylenko.course.db.entity.location.Country;
 import com.stanislav.danylenko.course.exception.DBException;
+import com.stanislav.danylenko.course.service.LocalProposalService;
 import com.stanislav.danylenko.course.service.MobileService;
+import com.stanislav.danylenko.course.service.ProposalService;
 import com.stanislav.danylenko.course.service.UserService;
 import com.stanislav.danylenko.course.service.location.CountryService;
 import com.stanislav.danylenko.course.web.model.mobile.UserCredentialsModel;
@@ -25,6 +29,8 @@ public class MobileController {
     private UserService userService;
     @Autowired
     private CountryService countryService;
+    @Autowired
+    private LocalProposalService localProposalService;
 
     @JsonView(value = JsonRules.MobileCustom.class)
     @PostMapping("/{id}")
@@ -43,6 +49,17 @@ public class MobileController {
         User user = service.authenticateUser(model.getEmail(), model.getPassword());
         if (user != null) {
             return ResponseEntity.ok(countryService.findAll());
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @JsonView(value = JsonRules.MobileProposal.class)
+    @PostMapping("/proposal/point/{id}")
+    public ResponseEntity<Iterable<LocalProposal>> getCountriesFull(@RequestBody UserCredentialsModel model, @PathVariable Long id) throws DBException {
+        User user = service.authenticateUser(model.getEmail(), model.getPassword());
+        if (user != null) {
+            return ResponseEntity.ok(localProposalService.findAllByPopulatedPointAndActivity(id, true));
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
