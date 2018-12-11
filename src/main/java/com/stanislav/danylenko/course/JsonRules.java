@@ -8,4 +8,6 @@ public final class JsonRules {
 
     public interface DroneCustom extends Id{}
 
+    public interface MobileCustom extends Id{}
+
 }

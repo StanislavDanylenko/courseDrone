@@ -1,6 +1,8 @@
 package com.stanislav.danylenko.course.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.stanislav.danylenko.course.JsonRules;
 import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
 import com.stanislav.danylenko.course.db.enumeration.Localization;
 import com.stanislav.danylenko.course.db.enumeration.TypeOfUser;
@@ -30,21 +32,32 @@ public class User extends BaseEntity implements UserDetails {
     @Column(nullable = false, unique = true)
     @NonNull
     @Email
+    @JsonView(value = JsonRules.MobileCustom.class)
     private String email;
 
+    @JsonView(value = JsonRules.MobileCustom.class)
     private String firstName;
+
+    @JsonView(value = JsonRules.MobileCustom.class)
     private String lastName;
+
+    @JsonView(value = JsonRules.MobileCustom.class)
     private String patronymic;
+
+    @JsonView(value = JsonRules.MobileCustom.class)
     private Long defaultPopulatedPoint;
 
+    @JsonView(value = JsonRules.MobileCustom.class)
     private Boolean isActive;
 
     @JsonIgnore
     private String password;
 
+    @JsonView(value = JsonRules.MobileCustom.class)
     @Enumerated
     private Localization localization;
 
+    @JsonView(value = JsonRules.MobileCustom.class)
     @Enumerated
     private TypeOfUser type;
 
@@ -56,6 +69,7 @@ public class User extends BaseEntity implements UserDetails {
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 
+    @JsonView(value = JsonRules.MobileCustom.class)
     @ElementCollection(targetClass = RoleUser.class, fetch = FetchType.EAGER)
     @Enumerated
     @CollectionTable(name = "user_role")
