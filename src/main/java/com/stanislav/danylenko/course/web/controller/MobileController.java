@@ -12,6 +12,7 @@ import com.stanislav.danylenko.course.exception.DBException;
 import com.stanislav.danylenko.course.service.*;
 import com.stanislav.danylenko.course.service.location.CountryService;
 import com.stanislav.danylenko.course.web.model.mobile.UserCredentialsModel;
+import com.stanislav.danylenko.course.web.model.user.UpdatePasswordModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -90,5 +91,26 @@ public class MobileController {
 
     }
 
+    @JsonView(value = JsonRules.MobileCustom.class)
+    @PutMapping("/{id}")
+    public @ResponseBody
+    ResponseEntity<User> updateUser(@RequestBody User newUser, @PathVariable Long id) throws DBException {
+        User user = userService.find(id);
+        userService.updateUser(user, newUser);
+        userService.update(user);
+        return ResponseEntity.ok(user);
+    }
+
+    @JsonView(value = JsonRules.MobileCustom.class)
+    @PostMapping("/password")
+    public @ResponseBody
+    ResponseEntity<User> updatePassword(@RequestBody UpdatePasswordModel userModel) throws DBException {
+        User user = userService.find(userModel.getId());
+        boolean isChanged = userService.changePassword(userModel);
+        if (isChanged) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(user, HttpStatus.CONFLICT);
+    }
 
 }
