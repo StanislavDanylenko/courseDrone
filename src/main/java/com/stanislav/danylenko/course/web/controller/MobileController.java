@@ -11,6 +11,7 @@ import com.stanislav.danylenko.course.db.enumeration.OperationStatus;
 import com.stanislav.danylenko.course.exception.DBException;
 import com.stanislav.danylenko.course.service.*;
 import com.stanislav.danylenko.course.service.location.CountryService;
+import com.stanislav.danylenko.course.web.model.LocalProposalUserModel;
 import com.stanislav.danylenko.course.web.model.mobile.UserCredentialsModel;
 import com.stanislav.danylenko.course.web.model.user.UpdatePasswordModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +92,18 @@ public class MobileController {
 
     }
 
+    @JsonView(value = JsonRules.MobileProposal.class)
+    @PostMapping("/user/{id}")
+    public @ResponseBody
+    ResponseEntity<Iterable<LocalProposalUser>> getLocalProposalUserByUser(@RequestBody UserCredentialsModel model, @PathVariable Long id) throws DBException {
+        User user = service.authenticateUser(model.getEmail(), model.getPassword());
+        if (user != null) {
+            return new ResponseEntity<>(localProposalUserService.findAllByUserId(id), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
     @JsonView(value = JsonRules.MobileCustom.class)
     @PutMapping("/{id}")
     public @ResponseBody
@@ -111,6 +124,18 @@ public class MobileController {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
         return new ResponseEntity<>(user, HttpStatus.CONFLICT);
+    }
+
+    ///////////////
+
+    @JsonView(value = JsonRules.MobileProposal.class)
+    @PostMapping("/proposal")
+    public @ResponseBody
+    ResponseEntity<LocalProposalUser> createLocalProposalUser(@RequestBody LocalProposalUserModel model) throws Exception {
+
+        LocalProposalUser localProposalUser = localProposalUserService.createLocalProposalUser(model);
+        localProposalUserService.save(localProposalUser);
+        return new ResponseEntity<>(localProposalUser, HttpStatus.CREATED);
     }
 
 }
