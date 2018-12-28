@@ -64,7 +64,6 @@ function saveUserProposalOrder(e) {
     };
 
     if (!$('#proposal' + order.proposalId).valid()) {
-        alert("here");
         return;
     }
 

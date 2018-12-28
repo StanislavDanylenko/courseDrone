@@ -175,5 +175,6 @@ function checkHash() {
             break;
         case "#home": renderHome();
             break;
+        default: renderHome();
     }
 }

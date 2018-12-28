@@ -21,6 +21,8 @@ function checkUSER() {
             case "ENGLISH":
                 $('#localizationSwitcher').val("EN");
                 setL10n(EN);
+                break;
+            default: setL10n(EN);
         }
     } else {
         setL10n(EN);
@@ -525,7 +527,9 @@ function loadJSONs() {
         "getUserError": "Помилка при отриманні данних профіля. Спробуйте пізніше.",
         "updateUserError": "Помилка при оновленні данних профіля. Спробуйте пізніше.",
         "updatePasswordError": "Помилка при оновленні пароля. Спробуйте пізніше.",
-        "getOrderListError": "Помилка при отриманні списку замовлень. Спробуйте пізніше."
+        "getOrderListError": "Помилка при отриманні списку замовлень. Спробуйте пізніше.",
+
+        "badCredentials": "Невірний логін/пароль"
     };
     EN = {
         "contacts": "Contacts",
@@ -702,7 +706,9 @@ function loadJSONs() {
         "getUserError": "Error while getting user profile. Try later.",
         "updateUserError": "Error while updating user profile. Try later.",
         "updatePasswordError": "Error while updating password. Try later.",
-        "getOrderListError": "Error while getting order list. Try later."
+        "getOrderListError": "Error while getting order list. Try later.",
+
+        "badCredentials": "Incorrect login/password"
     }
 }
 
