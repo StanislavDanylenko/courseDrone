@@ -67,3 +67,7 @@ input[type='number'] {
 .deleteFormButton {
     text-align: right;
 }
+
+.error {
+    color: red;
+}

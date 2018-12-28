@@ -27,6 +27,12 @@ $(document).ready(function() {
     loadProposls();
     loadCurrentProposal();
 
+    $(window).on('hashchange', function () {
+        checkHash();
+    });
+
+    checkHash();
+
 });
 
 function logout() {
@@ -53,9 +59,9 @@ function loadOrders() {
     userOldOrderTemplate = Handlebars.compile($('#oldProposalListTemplate').html());
     userReportTemplate = Handlebars.compile($('#reportListTemplate').html());
 
-    $(document).on('click', '#getUserHistory', getOldOrders);
-    $(document).on('click', '#getUserCanceled', getCanceledOrders);
-    $(document).on('click', '#getUserAllOrders', getAllOrders);
+    //$(document).on('click', '#getUserHistory', getOldOrders);
+    // $(document).on('click', '#getUserCanceled', getCanceledOrders);
+    // $(document).on('click', '#getUserAllOrders', getAllOrders);
     $(document).on('click', '#updateUserOrderStatusButton', getAllOrders);
 
     $(document).on('click', '.info-order', getReport);
@@ -71,7 +77,7 @@ function loadProposls() {
     $(document).on('change', '#userOrdinalRegionId', changeUserOrdinalPopulatedPoint);
 
     $(document).on('click', '#userOrdinalSubmitButton', updateOrdinalUser);
-    $(document).on('click', '#getUserProfile', getOrdinalUser);
+    // $(document).on('click', '#getUserProfile', getOrdinalUser);
 
     $(document).on('click', '#submitUpdatePassword', updateUserPassword);
 }
@@ -155,4 +161,19 @@ function getID(e, tableId) {
     var id = $(tableId +' tr').eq(rowIndex).find('td').eq(0).html();
     console.log(rowIndex + "   " + id);
     return id;
+}
+
+function checkHash() {
+    switch (window.location.hash) {
+        case "#all": getAllOrders();
+            break;
+        case "#history": getOldOrders();
+            break;
+        case "#canceled": getCanceledOrders();
+            break;
+        case "#profile": getOrdinalUser();
+            break;
+        case "#home": renderHome();
+            break;
+    }
 }

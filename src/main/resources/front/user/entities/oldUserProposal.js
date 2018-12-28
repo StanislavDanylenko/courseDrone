@@ -35,8 +35,7 @@ function getUserKindOrders(status) {
             }
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getOrderListError'));
         }});
 }
 

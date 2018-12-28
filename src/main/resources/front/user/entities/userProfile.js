@@ -1,10 +1,18 @@
+function renderHome() {
+    var html = '<h3 id="userGreeting">Hello in user panel</h3>';
+    $('#mainContainer').empty().append(html);
+    setTranslateUser();
+}
+
 function renderOrdinalUserEntity() {
     var html = userOrdinalEntityTemplate();
     var select = userOrdinalEntitySelectTemplate();
     $('#mainContainer').empty().append(html);
     $('#userOrdinalSelect').empty().append(select);
     setTranslateProfile();
+    validateUser();
 }
+
 
 function getOrdinalUser() {
 
@@ -27,12 +35,15 @@ function getOrdinalUser() {
                 '#userOrdinalSelectCountry', '#userOrdinalSelectRegion', '#userOrdinalSelect');
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getUserError'));
         }});
 }
 
 function updateOrdinalUser() {
+
+    if (!$('#userOrdinalFormF').valid()) {
+        return;
+    }
 
     var user = {
         firstName: $('#userOrdinalFirstName').val(),
@@ -60,6 +71,7 @@ function updateOrdinalUser() {
             }
         },
         error: function(data) {
+            alert($.i18n._('updateUserError'));
         }
     });
 
@@ -125,6 +137,44 @@ function updateUserPassword() {
             $("#closeModal").click();
         },
         error: function(data) {
+            alert($.i18n._('updatePasswordError'));
         }
     });
+}
+
+////////////
+
+function validateUser() {
+
+    $('#userOrdinalFormF').validate({
+        rules: {
+            firstName: {
+                required: true,
+                minlength: 1
+            },
+            lastName: {
+                required: true,
+                minlength: 1
+            },
+            patronymic: {
+                required: true,
+                minlength: 1
+            }
+        },
+        messages: {
+            firstName: {
+                required: $.i18n._('requiredField'),
+                minlength: $.i18n._('validLength')
+            },
+            lastName: {
+                required: $.i18n._('requiredField'),
+                minlength: $.i18n._('validLength')
+            },
+            patronymic: {
+                required: $.i18n._('requiredField'),
+                minlength: $.i18n._('validLength')
+            }
+        }
+    });
+
 }

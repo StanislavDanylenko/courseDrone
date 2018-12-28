@@ -514,7 +514,18 @@ function loadJSONs() {
         "registration": "Реєстрація",
         "registerMe": "Зареєструвати мене",
 
-        "login": "Увійти"
+        "login": "Увійти",
+
+        "requiredField": "Це поле обов'язкове до заповнення",
+        "validNumber": "Введіть коректне числове значення",
+        "validLength": "Некоректна довжина поля",
+
+        "getProposalError": "Помилка при отриманні списку доступних пропозицій. Спробуйте пізніше.",
+        "saveOrderError": "Помилка при додаванні замовлення. Спробуйте пізніше.",
+        "getUserError": "Помилка при отриманні данних профіля. Спробуйте пізніше.",
+        "updateUserError": "Помилка при оновленні данних профіля. Спробуйте пізніше.",
+        "updatePasswordError": "Помилка при оновленні пароля. Спробуйте пізніше.",
+        "getOrderListError": "Помилка при отриманні списку замовлень. Спробуйте пізніше."
     };
     EN = {
         "contacts": "Contacts",
@@ -680,7 +691,18 @@ function loadJSONs() {
         "registration": "Registration",
         "registerMe": "Register me",
 
-        "login": "Log in"
+        "login": "Log in",
+
+        "requiredField": "This field is required",
+        "validNumber": "Please enter a valid number",
+        "validLength": "Incorrect field content length",
+
+        "getProposalError": "Error while getting proposal list. Try later.",
+        "saveOrderError": "Error while saving order. Try later.",
+        "getUserError": "Error while getting user profile. Try later.",
+        "updateUserError": "Error while updating user profile. Try later.",
+        "updatePasswordError": "Error while updating password. Try later.",
+        "getOrderListError": "Error while getting order list. Try later."
     }
 }
 

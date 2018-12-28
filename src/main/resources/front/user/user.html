@@ -18,7 +18,7 @@
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
-    <a class="navbar-brand" href="#">Speeer</a>
+    <a class="navbar-brand" href='#home'>Speeer</a>
 
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -29,7 +29,7 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav w-100 nav-justified">
             <li class="nav-item">
-                <a class="nav-link hov-link profile" href="#" id="userProfile">Profile</a>
+                <a class="nav-link hov-link profile" href="#profile" id="userProfile">Profile</a>
             </li>
             <!--<li class="nav-item">
               <a class="nav-link hov-link" href="#">Link</a>
@@ -49,19 +49,19 @@
     <div class="row full-block">
         <!--   Navbar left   -->
         <div class="col-sm-2 no-margin-no-padding left-nav">
-            <div class="btn btn-block btn-primary btn-custom" id="addOrder">
+            <div class="btn btn-block btn-primary btn-custom" id="addOrder" onclick="window.location.href='#add'">
                 <span><i class="fa fa-plus"></i></span> &emsp;Add order
             </div>
-            <div class="btn btn-block btn-secondary btn-custom" id="getUserAllOrders">
+            <div class="btn btn-block btn-secondary btn-custom" id="getUserAllOrders" onclick="window.location.href='#all'">
                 Orders
             </div>
-            <div class="btn btn-block btn-secondary btn-custom" id="getUserHistory">
+            <div class="btn btn-block btn-secondary btn-custom" id="getUserHistory" onclick="window.location.href='#history'">
                 History
             </div>
-            <div class="btn btn-block btn-secondary btn-custom" id="getUserCanceled">
+            <div class="btn btn-block btn-secondary btn-custom" id="getUserCanceled" onclick="window.location.href='#canceled'">
                 Canceled
             </div>
-            <div class="btn btn-block btn-secondary btn-custom profile" id="getUserProfile">
+            <div class="btn btn-block btn-secondary btn-custom profile" id="getUserProfile" onclick="window.location.href='#profile'">
                 Profile
             </div>
         </div>
@@ -182,30 +182,32 @@
 <script id="userOrdinalEntity" type="text/x-handlebars-template">
     <div class="row">
         <div class="col-sm-6">
-            <div id="userOrdinalForm">
+            <form id="userOrdinalFormF">
+                <div id="userOrdinalForm">
 
-                <div class="form-group">
-                    <label for="userOrdinalFirstName" id="userOrdinalFirstNameLabel">First name</label>
-                    <input type="text" class="form-control" id="userOrdinalFirstName" name="name">
+                    <div class="form-group">
+                        <label for="userOrdinalFirstName" id="userOrdinalFirstNameLabel">First name</label>
+                        <input type="text" class="form-control" id="userOrdinalFirstName" name="firstName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userOrdinalLastName" id="userOrdinalLastNameLabel">Last name</label>
+                        <input type="text" class="form-control" id="userOrdinalLastName" name="lastName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userOrdinalPatronymic" id="userOrdinalPatronymicLabel">Patronymic</label>
+                        <input type="text" class="form-control" id="userOrdinalPatronymic" name="patronymic">
+                    </div>
+
+                    <div class="form-group" id="userPassword">
+                        <!--<label for="userOrdinalPassword">Password</label>
+                        <input type="password" class="form-control" id="userOrdinalPassword" name="name" >-->
+                        <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-warning btn-block" id="updatePassword">Update Password</button>
+                    </div>
+
                 </div>
-
-                <div class="form-group">
-                    <label for="userOrdinalLastName" id="userOrdinalLastNameLabel">Last name</label>
-                    <input type="text" class="form-control" id="userOrdinalLastName" name="name">
-                </div>
-
-                <div class="form-group">
-                    <label for="userOrdinalPatronymic" id="userOrdinalPatronymicLabel">Patronymic</label>
-                    <input type="text" class="form-control" id="userOrdinalPatronymic" name="name">
-                </div>
-
-                <div class="form-group" id="userPassword">
-                    <!--<label for="userOrdinalPassword">Password</label>
-                    <input type="password" class="form-control" id="userOrdinalPassword" name="name" >-->
-                    <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-warning btn-block" id="updatePassword">Update Password</button>
-                </div>
-
-            </div>
+            </form>
         </div>
         <div class="col-sm-6">
             <h1></h1>
@@ -326,19 +328,21 @@
         </div>
         <div class="card-body">
             <h1 class="card-title pricing-card-title">${{ price }}</h1>
-            <p>
+            <h4>
                {{ description }}
-            </p>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="Latitude" class="latitude">Latitude</label>
-                    <input type="number" class="form-control" id="Latitude" >
+            </h4>
+            <form id="proposal{{ proposalId }}">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="Latitude" class="latitude">Latitude</label>
+                        <input type="number" class="form-control" id="Latitude" name="latitude">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="Longitude" class="longitude">Longitude</label>
+                        <input type="number" class="form-control" id="Longitude" name="longitude">
+                    </div>
                 </div>
-                <div class="form-group col-md-6">
-                    <label for="Longitude" class="longitude">Longitude</label>
-                    <input type="number" class="form-control" id="Longitude" >
-                </div>
-            </div>
+            </form>
             <button type="button" class="btn btn-block btn-primary buy-order">Buy</button>
         </div>
     </div>
@@ -358,6 +362,7 @@
 <script src="entities/userProfile.js"></script>
 <script src="entities/userProposal.js"></script>
 <script src="../admin/entities/location.js"></script>
+
 
 </body>
 </html>

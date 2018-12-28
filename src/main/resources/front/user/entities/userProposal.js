@@ -10,6 +10,9 @@ function renderProposalsList(data) {
     var html = currentProposalTemplate(data);
     $('#currentProposal').empty().append(html);
     setTranslateProposalUser();
+    for (var i = 0; i < data.length; i++) {
+        validateProposal('proposal' + data[i].proposalId);
+    }
 }
 
 function renderLocSelect() {
@@ -33,8 +36,7 @@ function getUserLocalProposals(id) {
             }
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getProposalError'))
         }});
 }
 
@@ -61,6 +63,12 @@ function saveUserProposalOrder(e) {
         targetCoordinates: [info.x, info.y]
     };
 
+    if (!$('#proposal' + order.proposalId).valid()) {
+        alert("here");
+        return;
+    }
+
+
     $.ajax({
         url: "http://localhost:8080/userProposals",
         type: "POST",
@@ -72,6 +80,7 @@ function saveUserProposalOrder(e) {
             getAllOrders();
         },
         error: function(data) {
+            alert($.i18n._('saveOrderError'))
         }
     });
 
@@ -81,8 +90,8 @@ function getInfoFromProposalPanel(e) {
     var info = {};
 
     var coordDiv = $(e.target).parent();
-    info.x = coordDiv[0].childNodes[5].childNodes[1].childNodes[3].value;
-    info.y = coordDiv[0].childNodes[5].childNodes[3].childNodes[3].value;
+    info.x = coordDiv[0].childNodes[5].childNodes[1].childNodes[1].childNodes[3].value;
+    info.y = coordDiv[0].childNodes[5].childNodes[1].childNodes[3].childNodes[3].value;
 
     var parentDiv = $(e.target).parent().parent();
     info.populatedPointId = parentDiv[0].childNodes[1].childNodes[1].value;
@@ -125,4 +134,33 @@ function changeUserOrdinalProposalPopulatedPoint() {
 function changeUserOrdinalProposalList() {
     var pointId = $('#userOrdinalProposalPopulatedPointId').val();
     getUserLocalProposals(pointId);
+}
+
+////// validation
+
+function validateProposal(id) {
+
+    $('#' + id).validate({
+        rules: {
+            latitude: {
+                required: true,
+                number: true
+            },
+            longitude: {
+                required: true,
+                number: true
+            }
+        },
+        messages: {
+            latitude: {
+                required: $.i18n._('requiredField'),
+                number: $.i18n._('validNumber')
+            },
+            longitude: {
+                required: $.i18n._('requiredField'),
+                number: $.i18n._('validNumber')
+            }
+        }
+    });
+
 }
