@@ -83,6 +83,13 @@ $(document).ready(function() {
     checkUSER();
     $.i18n.load(locale);
     setTranslateAdmin();
+
+    $.validator.addMethod("samePassword", function(value, element) {
+        var firstValue = $('#userNewPassword').val();
+        return value == firstValue;
+
+    }, $.i18n._('samePassword'));
+    validatePassword();
 });
 
 function loadCountry() {
@@ -264,9 +271,10 @@ function setDataTeble(tableName) {
             break;
     }
 
-    $(tableName).DataTable( {
-        "language": lang
-    } );
+    $(tableName).DataTable({
+            "language": lang
+        }
+    );
 }
 
 function getID(e, tableId) {

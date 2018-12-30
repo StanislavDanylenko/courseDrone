@@ -10,6 +10,7 @@ function renderRegionEntity() {
     var select = regionEntitySelectTemplate();
     $('#mainContainer').empty().append(html);
     $('#regionSelect').empty().append(select);
+    validateRegion();
 }
 //
 function renderSelectCountry(data) {
@@ -28,8 +29,7 @@ function getRegions() {
             renderRegionList(data);
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getRegionListError'));
         }});
 }
 //
@@ -43,8 +43,7 @@ function getCountryForSelect(countryId) {
             $("#regionCountryId").val(countryId);
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getCountryListError'));
         }});
 }
 
@@ -60,8 +59,7 @@ function getRegion(id) {
             getCountryForSelect(data.countryId);
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getRegionError'));
         }});
 }
 
@@ -91,6 +89,10 @@ function saveRegion() {
         countryId: $('#regionCountryId').val()
     };
 
+    if (!$('#regionForm').valid()) {
+        return;
+    }
+
     $.ajax({
         url: "http://localhost:8080/regions",
         type: "POST",
@@ -102,6 +104,7 @@ function saveRegion() {
             getRegions();
         },
         error: function(data) {
+            alert($.i18n._('saveRegionError'));
         }
     });
 
@@ -114,6 +117,10 @@ function updateRegion() {
         countryId: $('#regionCountryId').val()
     };
 
+    if (!$('#regionForm').valid()) {
+        return;
+    }
+
     $.ajax({
         url: "http://localhost:8080/regions/" + region.id,
         type: "PUT",
@@ -125,6 +132,7 @@ function updateRegion() {
             getRegions();
         },
         error: function(data) {
+            alert($.i18n._('updateRegionError'));
         }
     });
 }
@@ -141,7 +149,31 @@ function deleteRegion(e) {
             getRegions();
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('deleteRegionError'));
         }});
+}
+
+/////////
+
+function validateRegion() {
+
+    $('#regionForm').validate({
+        rules: {
+            regionName: {
+                required: true
+            },
+            countryId: {
+                required: true
+            }
+        },
+        messages: {
+            regionName: {
+                required: $.i18n._('requiredField')
+            },
+            countryId: {
+                required: $.i18n._('requiredField')
+            }
+        }
+    });
+
 }

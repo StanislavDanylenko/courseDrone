@@ -11,6 +11,7 @@ function renderUserEntity() {
     $('#mainContainer').empty().append(html);
     $('#userSelect').empty().append(select);
     setTranslateUserAdminEntity();
+    validateUser();
 }
 
 

@@ -7,7 +7,9 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="admin.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="admin.js"></script>
@@ -95,24 +97,27 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="userOldPassword" id="userOldPasswordLabel">Old password</label>
-                    <input type="password" class="form-control" id="userOldPassword">
+            <form id="changePasswordForm">
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="userOldPassword" id="userOldPasswordLabel">Old password</label>
+                        <input type="password" class="form-control" id="userOldPassword" name="userOldPassword">
+                    </div>
+                    <div class="form-group">
+                        <label for="userNewPassword" id="userNewPasswordLabel">New password</label>
+                        <input type="password" class="form-control" id="userNewPassword" name="userNewPassword">
+                    </div>
+                    <div class="form-group">
+                        <label for="userNewPasswordRepeat" id="userNewPasswordRepeatLabel">Repeat new password</label>
+                        <input type="password" class="form-control" id="userNewPasswordRepeat" name="userNewPasswordRepeat">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="userNewPassword" id="userNewPasswordLabel">New password</label>
-                    <input type="password" class="form-control" id="userNewPassword">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="closeModal" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="submitUpdatePassword">Update</button>
                 </div>
-                <div class="form-group">
-                    <label for="userNewPasswordRepeat" id="userNewPasswordRepeatLabel">Repeat new password</label>
-                    <input type="password" class="form-control" id="userNewPasswordRepeat">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="closeModal" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="submitUpdatePassword">Update</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -160,7 +165,7 @@
                 
                         <div class="form-group">
                             <label for="countryName" class="title" >Title</label>
-                            <input type="text" class="form-control" id="countryName" name="name">
+                            <input type="text" class="form-control" id="countryName" name="countryName">
                         </div>
 
                         <button type="button" class="btn btn-success btn-block save" id="countrySubmitButton">Save</button>
@@ -215,7 +220,7 @@
 
                     <div class="form-group">
                         <label for="regionName" class="title">Title</label>
-                        <input type="text" class="form-control" id="regionName" name="name">
+                        <input type="text" class="form-control" id="regionName" name="regionName">
                     </div>
 
                     <div class="form-group" id="regionSelect">
@@ -283,7 +288,7 @@
 
                     <div class="form-group">
                         <label for="populatedPointName" class="title">Title</label>
-                        <input type="text" class="form-control" id="populatedPointName" name="name">
+                        <input type="text" class="form-control" id="populatedPointName" name="populatedPointName">
                     </div>
 
                     <div class="form-group" id="populatedPointSelect">
@@ -947,20 +952,20 @@
     <div class="row">
         <div class="col-sm-6">
             <div id="userOrdinalForm">
-
+                <form id="userOrdinalFormF">
                 <div class="form-group">
                     <label for="userOrdinalFirstName" id="userOrdinalFirstNameLabel">First name</label>
-                    <input type="text" class="form-control" id="userOrdinalFirstName" name="name">
+                    <input type="text" class="form-control" id="userOrdinalFirstName" name="firstName">
                 </div>
 
                 <div class="form-group">
                     <label for="userOrdinalLastName" id="userOrdinalLastNameLabel">Last name</label>
-                    <input type="text" class="form-control" id="userOrdinalLastName" name="name">
+                    <input type="text" class="form-control" id="userOrdinalLastName" name="lastName">
                 </div>
 
                 <div class="form-group">
                     <label for="userOrdinalPatronymic" id="userOrdinalPatronymicLabel">Patronymic</label>
-                    <input type="text" class="form-control" id="userOrdinalPatronymic" name="name">
+                    <input type="text" class="form-control" id="userOrdinalPatronymic" name="patronymic">
                 </div>
 
                 <div class="form-group" id="userPasswordd">
@@ -968,7 +973,7 @@
                     <input type="password" class="form-control" id="userOrdinalPassword" name="name" >-->
                     <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-warning btn-block" id="updatePassword">Update Password</button>
                 </div>
-
+                </form>
             </div>
         </div>
         <div class="col-sm-6">

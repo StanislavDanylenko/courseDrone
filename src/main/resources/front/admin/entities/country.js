@@ -9,6 +9,7 @@ function renderCountryEntity() {
     var html = countryEntityTemplate();
     $('#mainContainer').empty().append(html);
     setTranslateCountryEntity();
+    validateCountry();
 }
 
 
@@ -22,8 +23,7 @@ function getCountries() {
            renderCountryList(data);
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getCountryListError'));
     }});
 }
 
@@ -38,8 +38,7 @@ function getCountry(id) {
             $('#countryName').val(data.name)
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getCountryError'));
     }});
 }
 
@@ -67,6 +66,10 @@ function saveCountry() {
     var country = {
         name: $('#countryName').val()
     };
+
+    if (!$('#countryForm').valid()) {
+        return;
+    }
     
     $.ajax({
         url: "http://localhost:8080/countries",
@@ -79,6 +82,7 @@ function saveCountry() {
             getCountries();
         },
         error: function(data) {
+            alert($.i18n._('saveCountryError'));
         }
     });
 
@@ -89,7 +93,11 @@ function updateCountry() {
         id: $('#countryId').val(),
         name: $('#countryName').val()
     };
-    
+
+    if (!$('#countryForm').valid()) {
+        return;
+    }
+
     $.ajax({
         url: "http://localhost:8080/countries/" + country.id,
         type: "PUT",
@@ -101,6 +109,7 @@ function updateCountry() {
             getCountries();
         },
         error: function(data) {
+            alert($.i18n._('updateCountryError'));
         }
     });
 }
@@ -117,7 +126,25 @@ function deleteCountry(e) {
             getCountries();
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('deleteCountryError'));
     }});
+}
+
+//////////
+
+function validateCountry() {
+
+    $('#countryForm').validate({
+        rules: {
+            countryName: {
+                required: true
+            }
+        },
+        messages: {
+            countryName: {
+                required: $.i18n._('requiredField')
+            }
+        }
+    });
+
 }

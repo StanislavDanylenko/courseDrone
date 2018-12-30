@@ -10,6 +10,7 @@ function renderPopulatedPointEntity() {
     var select = populatedPointEntitySelectTemplate();
     $('#mainContainer').empty().append(html);
     $('#populatedPointSelect').empty().append(select);
+    validatePopulatedPoint();
 }
 //
 function renderSelectRegion(data) {
@@ -28,8 +29,7 @@ function getPopulatedPoints() {
             renderPopulatedPointList(data);
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getPopPointListError'));
         }});
 }
 //
@@ -43,8 +43,7 @@ function getRegionForSelect(regionId) {
             $("#populatedPointRegionId").val(regionId);
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getRegionListError'));
         }});
 }
 
@@ -60,8 +59,7 @@ function getPopulatedPoint(id) {
             getRegionForSelect(data.regionId);
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getPopPointError'));
         }});
 }
 
@@ -91,6 +89,10 @@ function savePopulatedPoint() {
         regionId: $('#populatedPointRegionId').val()
     };
 
+    if (!$('#populatedPointForm').valid()) {
+        return;
+    }
+
     $.ajax({
         url: "http://localhost:8080/points",
         type: "POST",
@@ -102,6 +104,7 @@ function savePopulatedPoint() {
             getPopulatedPoints();
         },
         error: function(data) {
+            alert($.i18n._('savePopPointError'));
         }
     });
 
@@ -114,6 +117,10 @@ function updatePopulatedPoint() {
         regionId: $('#populatedPointRegionId').val()
     };
 
+    if (!$('#populatedPointForm').valid()) {
+        return;
+    }
+
     $.ajax({
         url: "http://localhost:8080/points/" + populatedPoint.id,
         type: "PUT",
@@ -125,6 +132,7 @@ function updatePopulatedPoint() {
             getPopulatedPoints();
         },
         error: function(data) {
+            alert($.i18n._('updatePopPointError'));
         }
     });
 }
@@ -141,7 +149,31 @@ function deletePopulatedPoint(e) {
             getPopulatedPoints();
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('deletePopPointError'));
         }});
+}
+
+/////////
+
+function validatePopulatedPoint() {
+
+    $('#populatedPointForm').validate({
+        rules: {
+            populatedPointName: {
+                required: true
+            },
+            regionId: {
+                required: true
+            }
+        },
+        messages: {
+            populatedPointName: {
+                required: $.i18n._('requiredField')
+            },
+            regionId: {
+                required: $.i18n._('requiredField')
+            }
+        }
+    });
+
 }

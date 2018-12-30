@@ -535,7 +535,25 @@ function loadJSONs() {
         "registrationError": "Помилка при реєстрації користувача. Спробуйте пізніше.",
         "registrationSuccess": "Зареєстровано успішно",
 
-        "samePassword": "Паролі мають співпадати"
+        "samePassword": "Паролі мають співпадати",
+
+        "getCountryListError": "Помилка при отриманні списку доступних країн. Спробуйте пізніше.",
+        "getCountryError": "Помилка при отриманні країни. Спробуйте пізніше.",
+        "saveCountryError": "Помилка при зберіганні країни. Спробуйте пізніше.",
+        "updateCountryError": "Помилка при оновленні країни. Спробуйте пізніше.",
+        "deleteCountryError": "Помилка при видаленні країни. Спробуйте пізніше.",
+
+        "getRegionListError": "Помилка при отриманні списку доступних регіонів. Спробуйте пізніше.",
+        "getRegionError": "Помилка при отриманні регіону. Спробуйте пізніше.",
+        "saveRegionError": "Помилка при зберіганні регіону. Спробуйте пізніше.",
+        "updateRegionError": "Помилка при оновленні регіону. Спробуйте пізніше.",
+        "deleteRegionError": "Помилка при видаленні регіону. Спробуйте пізніше.",
+
+        "gePopPointListError": "Помилка при отриманні списку доступних населених пунктів. Спробуйте пізніше.",
+        "getPopPointError": "Помилка при отриманні населеного пункта. Спробуйте пізніше.",
+        "savePopPointError": "Помилка при зберіганні населеного пункта. Спробуйте пізніше.",
+        "updatePopPointError": "Помилка при оновленні населеного пункта. Спробуйте пізніше.",
+        "deletePopPointError": "Помилка при видаленні населеного пункта. Спробуйте пізніше."
     };
     EN = {
         "contacts": "Contacts",
@@ -720,7 +738,25 @@ function loadJSONs() {
         "registrationError": "Error while user registration. Try later.",
         "registrationSuccess": "Success registration",
 
-        "samePassword": "Password must be the same"
+        "samePassword": "Password must be the same",
+
+        "getCountryListError": "Error while getting country list. Try later.",
+        "getCountryError": "Error while getting country. Try later.",
+        "saveCountryError": "Error while saving country. Try later.",
+        "updateCountryError": "Error while updating country. Try later.",
+        "deleteCountryError": "Error while deleting country. Try later.",
+
+        "getRegionListError": "Error while getting region list. Try later.",
+        "getRegionError": "Error while getting region. Try later.",
+        "saveRegionError": "Error while saving region. Try later.",
+        "updateRegionError": "Error while updating region. Try later.",
+        "deleteRegionError": "Error while deleting region. Try later.",
+
+        "getPopPointListError": "Error while getting populated point list. Try later.",
+        "getPopPointError": "Error while getting populated point. Try later.",
+        "savePopPointError": "Error while saving populated point. Try later.",
+        "updatePopPointError": "Error while updating populated point. Try later.",
+        "deletePopPointError": "Error while deleting populated point. Try later."
     }
 }
 
