@@ -4,6 +4,12 @@ function renderHome() {
     setTranslateUser();
 }
 
+function renderHomeAdmin() {
+    var html = '<h3 id="adminGreeting">Hello in user panel</h3>';
+    $('#mainContainer').empty().append(html);
+    setTranslateAdmin();
+}
+
 function renderOrdinalUserEntity() {
     var html = userOrdinalEntityTemplate();
     var select = userOrdinalEntitySelectTemplate();

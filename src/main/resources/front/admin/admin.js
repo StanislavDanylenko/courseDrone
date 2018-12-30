@@ -84,6 +84,12 @@ $(document).ready(function() {
     $.i18n.load(locale);
     setTranslateAdmin();
 
+    $(window).on('hashchange', function () {
+        checkHashAdmin();
+    });
+
+    checkHashAdmin();
+
     $.validator.addMethod("samePassword", function(value, element) {
         var firstValue = $('#userNewPassword').val();
         return value == firstValue;
@@ -96,7 +102,7 @@ function loadCountry() {
     countriesTemplate = Handlebars.compile($('#countryListTemplate').html());
     countryEntityTemplate = Handlebars.compile($('#countryEntity').html());
 
-    $(document).on('click', '#getCountries', getCountries);
+    // $(document).on('click', '#getCountries', getCountries);
     $(document).on('click', '#addCountry', createCountry);
     $(document).on('click', '.edit-country', editCountry);
     $(document).on('click', '.delete-county', deleteCountry);
@@ -107,7 +113,7 @@ function loadRegion() {
     regionEntityTemplate = Handlebars.compile($('#regionEntity').html());
     regionEntitySelectTemplate = Handlebars.compile($('#regionSelectEntity').html());
 
-    $(document).on('click', '#getRegions', getRegions);
+    // $(document).on('click', '#getRegions', getRegions);
     $(document).on('click', '#addRegion', createRegion);
     $(document).on('click', '.edit-region', editRegion);
     $(document).on('click', '.delete-region', deleteRegion);
@@ -118,7 +124,7 @@ function loadPopulatedPoint() {
     populatedPointEntityTemplate = Handlebars.compile($('#populatedPointEntity').html());
     populatedPointEntitySelectTemplate = Handlebars.compile($('#populatedPointSelectEntity').html());
 
-    $(document).on('click', '#getPopulatedPoints', getPopulatedPoints);
+    // $(document).on('click', '#getPopulatedPoints', getPopulatedPoints);
     $(document).on('click', '#addPopulatedPoint', createPopulatedPoint);
     $(document).on('click', '.edit-point', editPopulatedPoint);
     $(document).on('click', '.delete-point', deletePopulatedPoint);
@@ -128,7 +134,7 @@ function loadProposal() {
     proposalsTemplate = Handlebars.compile($('#proposalListTemplate').html());
     proposalEntityTemplate = Handlebars.compile($('#proposalEntity').html());
 
-    $(document).on('click', '#getProposals', getProposals);
+    // $(document).on('click', '#getProposals', getProposals);
     $(document).on('click', '#addProposal', createProposal);
     $(document).on('click', '.edit-proposal', editProposal);
     $(document).on('click', '.delete-proposal', deleteProposal);
@@ -143,7 +149,7 @@ function loadDrone() {
     droneEntitySelectCountryTemplate = Handlebars.compile($('#droneCountrySelectEntity').html());
     droneEntitySelectRegionTemplate = Handlebars.compile($('#droneRegionSelectEntity').html());
 
-    $(document).on('click', '#getDrones', getDrones);
+    // $(document).on('click', '#getDrones', getDrones);
     $(document).on('click', '#addDrone', createDrone);
 
     $(document).on('change', '#droneCountryId', changeDroneRegion);
@@ -166,7 +172,7 @@ function loadUser(){
     userEntitySelectCountryTemplate = Handlebars.compile($('#userCountrySelectEntity').html());
     userEntitySelectRegionTemplate = Handlebars.compile($('#userRegionSelectEntity').html());
 
-    $(document).on('click', '#getUsers', getUsers);
+    // $(document).on('click', '#getUsers', getUsers);
     $(document).on('click', '#addUser', createUser);
 
     $(document).on('change', '#userCountryId', changeUserRegion);
@@ -184,7 +190,7 @@ function loadLocalProposal(){
     localProposalEntitySelectRegionTemplate = Handlebars.compile($('#localProposalRegionSelectEntity').html());
     localProposalEntitySelectProposalTemplate = Handlebars.compile($('#localProposalProposalSelectEntity').html());
 
-    $(document).on('click', '#getLocalProposals', getLocalProposals);
+    // $(document).on('click', '#getLocalProposals', getLocalProposals);
     $(document).on('click', '#addLocalProposal', createLocalProposal);
 
     $(document).on('change', '#localProposalCountryId', changeLocalProposalRegion);
@@ -311,4 +317,41 @@ function logout() {
             console.log(xhr.status);
             console.log(xhr.responseText);
     }});
+}
+
+function checkHashAdmin() {
+    switch (window.location.hash) {
+        case "#profile":
+            getOrdinalUser();
+            break;
+        case "#home":
+            renderHomeAdmin();
+            break;
+        case "#country":
+            getCountries();
+            break;
+        case "#region":
+            getRegions();
+            break;
+        case "#populatedPoint":
+            getPopulatedPoints();
+            break;
+        case "#proposal":
+            getProposals();
+            break;
+        case "#drone":
+            getDrones();
+            break;
+        case "#user":
+            getUsers();
+            break;
+        case "#localProposal":
+            getLocalProposals();
+            break;
+        case "#order":
+            getOrders();
+            break;
+        default:
+            renderHomeAdmin();
+    }
 }
