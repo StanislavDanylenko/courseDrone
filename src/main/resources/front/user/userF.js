@@ -33,6 +33,13 @@ $(document).ready(function() {
 
     checkHash();
 
+    $.validator.addMethod("samePassword", function(value, element) {
+        var firstValue = $('#userNewPassword').val();
+        return value == firstValue;
+
+    }, $.i18n._('samePassword'));
+    validatePassword();
+
 });
 
 function logout() {

@@ -64,6 +64,7 @@ function updateOrdinalUser() {
         data: JSON.stringify(user),
         success: function () {
             changeLocaleUser(user);
+            swapLocale();
             if (USER.roles == "USER") {
                 getAllOrders();
             } else {
@@ -117,6 +118,10 @@ function updateUserPassword() {
         return;
     }
 
+    if (!$('#changePasswordForm').valid()) {
+        return;
+    }
+
     var user = {
         id: USER.id,
         oldPassword: $('#userOldPassword').val(),
@@ -145,6 +150,7 @@ function updateUserPassword() {
 ////////////
 
 function validateUser() {
+
 
     $('#userOrdinalFormF').validate({
         rules: {
@@ -177,4 +183,54 @@ function validateUser() {
         }
     });
 
+}
+
+function validatePassword() {
+
+    $('#changePasswordForm').validate({
+        rules: {
+            userOldPassword: {
+                required: true
+            },
+            userNewPassword: {
+                required: true
+            },
+            userNewPasswordRepeat: {
+                required: true,
+                samePassword: true
+            }
+        },
+        messages: {
+            userOldPassword: {
+                required: $.i18n._('requiredField')
+            },
+            userNewPassword: {
+                required: $.i18n._('requiredField')
+            },
+            userNewPasswordRepeat: {
+                required: $.i18n._('requiredField'),
+                samePassword: $.i18n._('samePassword')
+            }
+        }
+    });
+
+}
+
+function swapLocale() {
+    $('input[name="userOldPassword"]').rules('add', {
+        messages: {
+            required: $.i18n._('requiredField')
+        }
+    });
+    $('input[name="userNewPassword"]').rules('add', {
+        messages: {
+            required: $.i18n._('requiredField')
+        }
+    });
+    $('input[name="userNewPasswordRepeat"]').rules('add', {
+        messages: {
+            required: $.i18n._('requiredField'),
+            samePassword: $.i18n._('samePassword')
+        }
+    });
 }

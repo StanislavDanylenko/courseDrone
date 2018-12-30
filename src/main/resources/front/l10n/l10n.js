@@ -533,7 +533,9 @@ function loadJSONs() {
         "emailError": "Введіть вірний email",
 
         "registrationError": "Помилка при реєстрації користувача. Спробуйте пізніше.",
-        "registrationSuccess": "Зареєстровано успішно"
+        "registrationSuccess": "Зареєстровано успішно",
+
+        "samePassword": "Паролі мають співпадати"
     };
     EN = {
         "contacts": "Contacts",
@@ -716,7 +718,9 @@ function loadJSONs() {
         "emailError": "Please enter a valid email address",
 
         "registrationError": "Error while user registration. Try later.",
-        "registrationSuccess": "Success registration"
+        "registrationSuccess": "Success registration",
+
+        "samePassword": "Password must be the same"
     }
 }
 
