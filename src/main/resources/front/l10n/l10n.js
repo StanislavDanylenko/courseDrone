@@ -529,7 +529,11 @@ function loadJSONs() {
         "updatePasswordError": "Помилка при оновленні пароля. Спробуйте пізніше.",
         "getOrderListError": "Помилка при отриманні списку замовлень. Спробуйте пізніше.",
 
-        "badCredentials": "Невірний логін/пароль"
+        "badCredentials": "Невірний логін/пароль",
+        "emailError": "Введіть вірний email",
+
+        "registrationError": "Помилка при реєстрації користувача. Спробуйте пізніше.",
+        "registrationSuccess": "Зареєстровано успішно"
     };
     EN = {
         "contacts": "Contacts",
@@ -708,7 +712,11 @@ function loadJSONs() {
         "updatePasswordError": "Error while updating password. Try later.",
         "getOrderListError": "Error while getting order list. Try later.",
 
-        "badCredentials": "Incorrect login/password"
+        "badCredentials": "Incorrect login/password",
+        "emailError": "Please enter a valid email address",
+
+        "registrationError": "Error while user registration. Try later.",
+        "registrationSuccess": "Success registration"
     }
 }
 

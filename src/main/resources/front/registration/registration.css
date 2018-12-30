@@ -55,3 +55,7 @@ body {
 #localizationSwitcherRegistration {
     width: auto !important;
 }
+
+.error {
+    color: red;
+}

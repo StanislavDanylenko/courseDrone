@@ -2,6 +2,8 @@ var registrationCountryListTemplate;
 var registrationRegionListTemplate;
 var registrationPointListTemplate;
 
+var validator;
+
 $(document).ready(function() {
 
     loadJSONs();
@@ -24,16 +26,20 @@ $(document).ready(function() {
         '#registrationUserSelectCountry', '#registrationUserSelectRegion', '#registrationUserSelect');
 
     $(document).on('change', '#localizationSwitcherRegistration', function () {
+        $.i18n.unload();
+
         if ($('#localizationSwitcherRegistration').val() == "EN") {
-            $.i18n.unload();
             $.i18n.load(EN);
-            setTranslateRegistration();
         } else {
-            $.i18n.unload();
             $.i18n.load(UA);
-            setTranslateRegistration();
         }
+
+        setTranslateRegistration();
+        swapLocale();
     });
+
+    initValidator();
+    $('#registrationForm').validate(validator);
 
 });
 
@@ -51,6 +57,10 @@ function registerUser() {
         isActive: true
     };
 
+    if (!$('#registrationForm').valid()) {
+        return;
+    }
+
     $.ajax({
         url: "http://localhost:8080/users",
         type: "POST",
@@ -59,9 +69,11 @@ function registerUser() {
         xhrFields: { withCredentials: true },
         data: JSON.stringify(user),
         success: function () {
+            alert($.i18n._('registrationSuccess'));
             gotoPage();
         },
         error: function(data) {
+            alert($.i18n._('registrationError'));
         }
     });
 
@@ -101,4 +113,76 @@ function registrationChangUserPopulatedPoint() {
     renderSelectPopulatedPointItem(points, "registration", '#registrationUserSelect');
     $('#userPopulatedPointId').val(points[0].id);
     $('#userPopulatedPointId').change();
+}
+
+//////////
+
+function initValidator() {
+    validator = {
+        rules: {
+            userEmail: {
+                required: true,
+                email: true
+            },
+            userFirstName: {
+                required: true
+            },
+            userLastName: {
+                required: true
+            },
+            userPatronymic: {
+                required: true
+            },
+            userPassword: {
+                required: true
+            }
+        },
+        messages: {
+            userEmail: {
+                required: $.i18n._('requiredField'),
+                email: $.i18n._('emailError')
+            },
+            userFirstName: {
+                required: $.i18n._('requiredField')
+            },
+            userLastName: {
+                required: $.i18n._('requiredField')
+            },
+            userPatronymic: {
+                required: $.i18n._('requiredField')
+            },
+            userPassword: {
+                required: $.i18n._('requiredField')
+            }
+        }
+    };
+}
+
+function swapLocale() {
+    $('input[name="userEmail"]').rules('add', {
+        messages: {
+            required: $.i18n._('requiredField'),
+            email: $.i18n._('emailError')
+        }
+    });
+    $('input[name="userFirstName"]').rules('add', {
+        messages: {
+            required: $.i18n._('requiredField')
+        }
+    });
+    $('input[name="userLastName"]').rules('add', {
+        messages: {
+            required: $.i18n._('requiredField')
+        }
+    });
+    $('input[name="userPatronymic"]').rules('add', {
+        messages: {
+            required: $.i18n._('requiredField')
+        }
+    });
+    $('input[name="userPassword"]').rules('add', {
+        messages: {
+            required: $.i18n._('requiredField')
+        }
+    });
 }

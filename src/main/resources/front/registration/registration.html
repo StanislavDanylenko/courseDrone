@@ -30,8 +30,9 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6">
 
+            <div class="col-sm-6">
+                <form id="registrationForm">
 
                     <div class="form-group">
                         <input type="text" class="form-control" id="userId" name="id" hidden>
@@ -39,30 +40,31 @@
 
                     <div class="form-group">
                         <label for="userFirstName" class="userFirstName">First name</label>
-                        <input type="text" class="form-control" id="userFirstName">
+                        <input type="text" class="form-control" id="userFirstName" name="userFirstName">
                     </div>
 
                     <div class="form-group">
                         <label for="userLastName" class="userLastName">Last name</label>
-                        <input type="text" class="form-control" id="userLastName">
+                        <input type="text" class="form-control" id="userLastName" name="userLastName">
                     </div>
 
                     <div class="form-group">
                         <label for="userPatronymic" class="userPatronymic">Patronymic</label>
-                        <input type="text" class="form-control" id="userPatronymic">
+                        <input type="text" class="form-control" id="userPatronymic" name="userPatronymic">
                     </div>
 
                     <div class="form-group" id="hideUserEmail">
                         <label for="userEmail">Email</label>
-                        <input type="email" class="form-control" id="userEmail">
+                        <input type="email" class="form-control" id="userEmail" name="userEmail">
                     </div>
 
                     <div class="form-group" id="hideUserPassword">
                         <label for="userPassword" class="password">Password</label>
-                        <input type="password" class="form-control" id="userPassword">
+                        <input type="password" class="form-control" id="userPassword" name="userPassword">
                     </div>
-
+                </form>
             </div>
+
             <div class="col-sm-6">
 
                 <div class="form-group" style="margin-top: 15px;">
@@ -128,7 +130,7 @@
         </select>
     </script>
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
     <script src="../admin/entities/location.js"></script>
     <script src="../l10n/l10n.js"></script>

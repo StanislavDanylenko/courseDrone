@@ -1,3 +1,4 @@
+var validator;
 $(document).ready(function() {
 
     loadJSONs();
@@ -22,9 +23,11 @@ $(document).ready(function() {
             setL10n(UA);
         }
         $.i18n.load(locale);
-        validateUserLogin();
+        swapLocale();
     });
-    validateUserLogin();
+
+    initValidator();
+    $('#loginForm').validate(validator);
 });
 
 function gotoPage(page) {
@@ -62,12 +65,12 @@ function redirect(user) {
     }
 }
 
-function validateUserLogin() {
-
-    $('#loginForm').validate({
+function initValidator() {
+    validator = {
         rules: {
             email: {
-                required: true
+                required: true,
+                email: true
             },
             password: {
                 required: true
@@ -75,12 +78,26 @@ function validateUserLogin() {
         },
         messages: {
             email: {
-                required: $.i18n._('requiredField')
+                required: $.i18n._('requiredField'),
+                email: $.i18n._('emailError')
             },
             password: {
                 required: $.i18n._('requiredField')
             }
         }
-    });
+    };
+}
 
+function swapLocale() {
+    $('input[name="email"]').rules('add', {
+        messages: {
+            required: $.i18n._('requiredField'),
+            email: $.i18n._('emailError')
+        }
+    });
+    $('input[name="password"]').rules('add', {
+        messages: {
+            required: $.i18n._('requiredField')
+        }
+    });
 }
