@@ -15,8 +15,7 @@ function getOrders() {
             renderOrderList(processedData);
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getOrderListError'));
         }});
 }
 
@@ -32,8 +31,7 @@ function cancelOrder(e) {
             getOrders();
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('cancelOrderError'));
         }});
 }
 

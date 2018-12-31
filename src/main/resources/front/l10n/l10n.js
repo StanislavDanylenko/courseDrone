@@ -580,6 +580,8 @@ function loadJSONs() {
         "saveLocalProposalError": "Помилка при зберіганні пропозиції. Спробуйте пізніше.",
         "updateLocalProposalError": "Помилка при оновленні пропозиції. Спробуйте пізніше.",
         "deleteLocalProposalError": "Помилка при видаленні пропозиції. Спробуйте пізніше.",
+
+        "cancelOrderError": "Помилка при відміні замовлення. Спробуйте пізніше."
     };
     EN = {
         "contacts": "Contacts",
@@ -808,7 +810,9 @@ function loadJSONs() {
         "getLocalProposalError": "Error while getting local proposal. Try later.",
         "saveLocalProposalError": "Error while saving local proposal. Try later.",
         "updateLocalProposalError": "Error while updating local proposal. Try later.",
-        "deleteLocalProposalError": "Error while deleting local proposal. Try later."
+        "deleteLocalProposalError": "Error while deleting local proposal. Try later.",
+
+        "cancelOrderError": "Error while canceling order. Try later."
     }
 }
 
