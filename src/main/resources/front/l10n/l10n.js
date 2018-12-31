@@ -298,7 +298,7 @@ function setTranslateUserAdminEntity() {
     $(".userFirstName")._t("userFirstName");
     $(".userLastName")._t("userLastName");
     $(".userPatronymic")._t("userPatronymic");
-    $(".localization")._t("userPatronymic");
+    $(".localization")._t("localization");
     $(".userType")._t("userType");
     $(".password")._t("password");
     $(".save")._t("save");
@@ -568,7 +568,11 @@ function loadJSONs() {
         "deleteDroneError": "Помилка при видаленні дрона. Спробуйте пізніше.",
 
         "getSensorListError": "Помилка при отриманні списку доступних датчиків. Спробуйте пізніше.",
-        "deleteSensorError": "Помилка при видаленні датчика. Спробуйте пізніше."
+        "deleteSensorError": "Помилка при видаленні датчика. Спробуйте пізніше.",
+
+        "getUserListError": "Помилка при отриманні списку користувачів. Спробуйте пізніше.",
+        "saveUserError": "Помилка при зберіганні користувача. Спробуйте пізніше.",
+        "deleteUserError": "Помилка при видаленні користувача. Спробуйте пізніше."
     };
     EN = {
         "contacts": "Contacts",
@@ -786,7 +790,11 @@ function loadJSONs() {
         "deleteDroneError": "Error while deleting drone. Try later.",
 
         "getSensorListError": "Error while getting sensor list. Try later.",
-        "deleteSensorError": "Error while deleting sensor. Try later."
+        "deleteSensorError": "Error while deleting sensor. Try later.",
+
+        "getUserListError": "Error while getting user list. Try later.",
+        "saveUserError": "Error while saving user. Try later.",
+        "deleteUserError": "Error while deleting user. Try later."
     }
 }
 

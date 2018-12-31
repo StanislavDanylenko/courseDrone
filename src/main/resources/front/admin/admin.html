@@ -661,7 +661,8 @@
             <div class="col-sm-1"></div>
             <div class="col-sm-5">
                 <h3 id="userOperation">Add user</h3>
-                <div id="userForm">
+                <form id="userForm">
+                <div>
 
                     <div class="form-group">
                         <input type="text" class="form-control" id="userId" name="id" hidden>
@@ -669,27 +670,27 @@
 
                     <div class="form-group">
                         <label for="userFirstName" class="userFirstName">First name</label>
-                        <input type="text" class="form-control" id="userFirstName" name="name">
+                        <input type="text" class="form-control" id="userFirstName" name="userFirstName">
                     </div>
 
                     <div class="form-group">
                         <label for="userLastName" class="userLastName">Last name</label>
-                        <input type="text" class="form-control" id="userLastName" name="name">
+                        <input type="text" class="form-control" id="userLastName" name="userLastName">
                     </div>
 
                     <div class="form-group">
                         <label for="userPatronymic" class="userPatronymic">Patronymic</label>
-                        <input type="text" class="form-control" id="userPatronymic" name="name">
+                        <input type="text" class="form-control" id="userPatronymic" name="userPatronymic">
                     </div>
 
                     <div class="form-group" id="hideUserEmail">
                         <label for="userEmail">Email</label>
-                        <input type="email" class="form-control" id="userEmail" name="name">
+                        <input type="email" class="form-control" id="userEmail" name="userEmail">
                     </div>
 
                     <div class="form-group" id="hideUserPassword">
                         <label for="userPassword" class="password">Password</label>
-                        <input type="password" class="form-control" id="userPassword" name="name">
+                        <input type="password" class="form-control" id="userPassword" name="userPassword">
                     </div>
 
                     <!--blocked-->
@@ -705,6 +706,7 @@
                     </div>
                     <button type="button" class="btn btn-success btn-block save" id="userSubmitButton">Save</button>
                 </div>
+                </form>
             </div>
             <div class="col-sm-1"></div>
             <div class="col-sm-5">

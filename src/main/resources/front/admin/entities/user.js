@@ -11,7 +11,7 @@ function renderUserEntity() {
     $('#mainContainer').empty().append(html);
     $('#userSelect').empty().append(select);
     setTranslateUserAdminEntity();
-    validateUser();
+    validateUserAdmin();
 }
 
 
@@ -25,8 +25,7 @@ function getUsers() {
             renderUserList(data);
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getUserListError'));
         }});
 }
 
@@ -49,8 +48,7 @@ function getUser(id) {
                 '#userSelectCountry', '#userSelectRegion', '#userSelect');
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getUserError'));
         }});
 }
 
@@ -89,6 +87,10 @@ function saveUser() {
         type: $('#userType').val()
     };
 
+    if (!$('#userForm').valid()) {
+        return;
+    }
+
     $.ajax({
         url: "http://localhost:8080/admin/users",
         type: "POST",
@@ -100,6 +102,7 @@ function saveUser() {
             getUsers();
         },
         error: function(data) {
+            alert($.i18n._('saveUserError'));
         }
     });
 
@@ -116,6 +119,10 @@ function updateUser() {
         localization: $('#userLocalization').val(),
     };
 
+    if (!$('#userForm').valid()) {
+        return;
+    }
+
     $.ajax({
         url: "http://localhost:8080/admin/users/" + user.id,
         type: "PUT",
@@ -127,6 +134,7 @@ function updateUser() {
             getUsers();
         },
         error: function(data) {
+            alert($.i18n._('updateUserError'));
         }
     });
 }
@@ -143,8 +151,7 @@ function deleteUser(e) {
             getUsers();
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('deleteUserError'));
         }});
 }
 
@@ -201,4 +208,49 @@ function changeUserPopulatedPoint() {
     renderSelectPopulatedPointItem(points, "user", '#userSelect');
     $('#userPopulatedPointId').val(points[0].id);
     $('#userPopulatedPointId').change();
+}
+
+//////////
+
+function validateUserAdmin() {
+
+    $('#userForm').validate({
+        rules: {
+            userFirstName: {
+                required: true
+            },
+            userLastName: {
+                required: true
+            },
+            userPatronymic: {
+                required: true
+            },
+            userEmail: {
+                required: true,
+                email: true
+            },
+            userPassword: {
+                required: true
+            }
+        },
+        messages: {
+            userFirstName: {
+                required: $.i18n._('requiredField')
+            },
+            userLastName: {
+                required: $.i18n._('requiredField')
+            },
+            userPatronymic: {
+                required: $.i18n._('requiredField')
+            },
+            userEmail: {
+                required: $.i18n._('requiredField'),
+                email: $.i18n._('emailError')
+            },
+            userPassword: {
+                required: $.i18n._('requiredField')
+            }
+        }
+    });
+
 }
