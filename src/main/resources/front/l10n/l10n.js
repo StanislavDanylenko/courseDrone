@@ -553,7 +553,13 @@ function loadJSONs() {
         "getPopPointError": "Помилка при отриманні населеного пункта. Спробуйте пізніше.",
         "savePopPointError": "Помилка при зберіганні населеного пункта. Спробуйте пізніше.",
         "updatePopPointError": "Помилка при оновленні населеного пункта. Спробуйте пізніше.",
-        "deletePopPointError": "Помилка при видаленні населеного пункта. Спробуйте пізніше."
+        "deletePopPointError": "Помилка при видаленні населеного пункта. Спробуйте пізніше.",
+
+        "getProposalListError": "Помилка при отриманні списку доступних пропозицій. Спробуйте пізніше.",
+        "getProposalEntityError": "Помилка при отриманні пропозиції. Спробуйте пізніше.",
+        "saveProposalError": "Помилка при зберіганні пропозиції. Спробуйте пізніше.",
+        "updateProposalError": "Помилка при оновленні пропозиції. Спробуйте пізніше.",
+        "deleteProposalError": "Помилка при видаленні пропозиції. Спробуйте пізніше."
     };
     EN = {
         "contacts": "Contacts",
@@ -756,7 +762,13 @@ function loadJSONs() {
         "getPopPointError": "Error while getting populated point. Try later.",
         "savePopPointError": "Error while saving populated point. Try later.",
         "updatePopPointError": "Error while updating populated point. Try later.",
-        "deletePopPointError": "Error while deleting populated point. Try later."
+        "deletePopPointError": "Error while deleting populated point. Try later.",
+
+        "getProposalListError": "Error while getting proposal list. Try later.",
+        "getProposalEntityError": "Error while getting proposal. Try later.",
+        "saveProposalError": "Error while saving proposal. Try later.",
+        "updateProposalError": "Error while updating proposal. Try later.",
+        "deleteProposalError": "Error while deleting proposal. Try later."
     }
 }
 

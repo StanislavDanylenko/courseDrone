@@ -9,6 +9,7 @@ function renderProposalEntity() {
     var html = proposalEntityTemplate();
     $('#mainContainer').empty().append(html);
     setTranslateProposalEntity();
+    validateProposal();
 }
 
 
@@ -22,8 +23,7 @@ function getProposals() {
             renderProposalList(convertFromListToTableViewProposal(data));
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getProposalListError'));
         }});
 }
 
@@ -40,8 +40,7 @@ function getProposal(id) {
             convertToCheckboxes(data.sensors);
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getProposalEntityError'));
         }});
 }
 
@@ -72,6 +71,10 @@ function saveProposal() {
         sensors: convertFromCheckboxes()
     };
 
+    if (!$('#proposalForm').valid()) {
+        return;
+    }
+
     $.ajax({
         url: "http://localhost:8080/proposals",
         type: "POST",
@@ -83,6 +86,7 @@ function saveProposal() {
             getProposals();
         },
         error: function(data) {
+            alert($.i18n._('saveProposalError'));
         }
     });
 
@@ -96,6 +100,10 @@ function updateProposal() {
         sensors: convertFromCheckboxes()
     };
 
+    if (!$('#proposalForm').valid()) {
+        return;
+    }
+
     $.ajax({
         url: "http://localhost:8080/proposals/" + proposal.id,
         type: "PUT",
@@ -107,6 +115,7 @@ function updateProposal() {
             getProposals();
         },
         error: function(data) {
+            alert($.i18n._('updateProposalError'));
         }
     });
 }
@@ -123,8 +132,7 @@ function deleteProposal(e) {
             getProposals();
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('deleteProposalError'));
         }});
 }
 
@@ -197,4 +205,29 @@ function checkSensorAndSetValue(sensor) {
             $('#TEMPERATURE').prop('checked', true);
             break;
     }
+}
+
+//////////
+
+function validateProposal() {
+
+    $('#proposalForm').validate({
+        rules: {
+            proposalName: {
+                required: true
+            },
+            proposalDescription: {
+                required: true
+            }
+        },
+        messages: {
+            proposalName: {
+                required: $.i18n._('requiredField')
+            },
+            proposalDescription: {
+                required: $.i18n._('requiredField')
+            }
+        }
+    });
+
 }
