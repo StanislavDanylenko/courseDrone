@@ -87,8 +87,7 @@ function getDrone(mac) {
             $('#sendData').prop('disabled', false);
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert('Error while getting drone');
         }});
 }
 
@@ -109,8 +108,7 @@ function getOrder() {
 
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert('Error while getting order');
         }});
 }
 
@@ -138,6 +136,7 @@ function updateDrone() {
             }
         },
         error: function(data) {
+            alert('Error while updating drone info');
         }
     });
 }
@@ -176,6 +175,7 @@ function updateOrder() {
             }
         },
         error: function(data) {
+            alert('Error while updating order status');
         }
     });
 }
@@ -192,6 +192,7 @@ function crashOrder() {
             $('#changeStatus').html(templateChangeStatus);
         },
         error: function(xhr, ajaxOptions, thrownError) {
+            alert('Error while sending crash report');
         }});
 }
 
