@@ -307,6 +307,7 @@ function hideUnnesseseryFields() {
     $('#hideDroneBattery').hide();
     $('#hideDroneMAC').hide();
     $('#hideDroneCoordinates').hide();
+    $('#droneName').prop('readonly', true);
 }
 
 //------------------
