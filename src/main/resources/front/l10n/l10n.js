@@ -559,7 +559,16 @@ function loadJSONs() {
         "getProposalEntityError": "Помилка при отриманні пропозиції. Спробуйте пізніше.",
         "saveProposalError": "Помилка при зберіганні пропозиції. Спробуйте пізніше.",
         "updateProposalError": "Помилка при оновленні пропозиції. Спробуйте пізніше.",
-        "deleteProposalError": "Помилка при видаленні пропозиції. Спробуйте пізніше."
+        "deleteProposalError": "Помилка при видаленні пропозиції. Спробуйте пізніше.",
+
+        "getDroneListError": "Помилка при отриманні списку доступних дронів. Спробуйте пізніше.",
+        "getDroneError": "Помилка при отриманні дрона. Спробуйте пізніше.",
+        "saveDroneError": "Помилка при зберіганні дрона. Спробуйте пізніше.",
+        "updateDroneError": "Помилка при оновленні дрона. Спробуйте пізніше.",
+        "deleteDroneError": "Помилка при видаленні дрона. Спробуйте пізніше.",
+
+        "getSensorListError": "Помилка при отриманні списку доступних датчиків. Спробуйте пізніше.",
+        "deleteSensorError": "Помилка при видаленні датчика. Спробуйте пізніше."
     };
     EN = {
         "contacts": "Contacts",
@@ -768,7 +777,16 @@ function loadJSONs() {
         "getProposalEntityError": "Error while getting proposal. Try later.",
         "saveProposalError": "Error while saving proposal. Try later.",
         "updateProposalError": "Error while updating proposal. Try later.",
-        "deleteProposalError": "Error while deleting proposal. Try later."
+        "deleteProposalError": "Error while deleting proposal. Try later.",
+
+        "getDroneListError": "Error while getting drone list. Try later.",
+        "getDroneError": "Error while getting drone. Try later.",
+        "saveDroneError": "Error while saving drone. Try later.",
+        "updateDroneError": "Error while updating drone. Try later.",
+        "deleteDroneError": "Error while deleting drone. Try later.",
+
+        "getSensorListError": "Error while getting sensor list. Try later.",
+        "deleteSensorError": "Error while deleting sensor. Try later."
     }
 }
 

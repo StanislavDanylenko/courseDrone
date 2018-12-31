@@ -11,6 +11,7 @@ function renderDroneEntity() {
     $('#mainContainer').empty().append(html);
     $('#droneSelect').empty().append(select);
     setTranslateDroneEntity();
+    validateDrone();
 }
 //
 function renderSelectPopulatedPoint(data) {
@@ -45,8 +46,7 @@ function getDrones() {
             renderDroneList(convertedData);
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getDroneListError'));
         }});
 }
 //
@@ -60,8 +60,7 @@ function getPopulatedPointForSelect(populatedPointId) {
             $("#dronePopulatedPointId").val(populatedPointId);
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getPopPointListError'));
         }});
 }
 
@@ -83,8 +82,7 @@ function getDrone(id) {
             getSensorsForDrone(data.id);
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getDroneError'));
         }});
 }
 
@@ -97,8 +95,7 @@ function getSensorsForDrone(id) {
             renderSensorList(data);
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getSensorListError'));
         }});
 }
 
@@ -139,6 +136,10 @@ function saveDrone() {
         populatedPointId: $('#dronePopulatedPointId').val()
     };
 
+    if (!$('#droneForm').valid()) {
+        return;
+    }
+
     $.ajax({
         url: "http://localhost:8080/drones",
         type: "POST",
@@ -150,6 +151,7 @@ function saveDrone() {
             getDrones();
         },
         error: function(data) {
+            alert($.i18n._('saveDroneError'));
         }
     });
 
@@ -164,6 +166,10 @@ function updateDrone() {
         populatedPointId: $('#dronePopulatedPointId').val()
     };
 
+    if (!$('#droneForm').valid()) {
+        return;
+    }
+
     $.ajax({
         url: "http://localhost:8080/drones/" + drone.id,
         type: "PUT",
@@ -175,6 +181,7 @@ function updateDrone() {
             getDrones();
         },
         error: function(data) {
+            alert($.i18n._('updateDroneError'));
         }
     });
 }
@@ -191,8 +198,7 @@ function deleteDrone(e) {
             getDrones();
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('deleteDroneError'));
         }});
 }
 
@@ -208,8 +214,7 @@ function deleteSensor(e) {
             getSensorsForDrone(actionDrone);
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('deleteSensorError'));
         }});
 }
 
@@ -332,4 +337,29 @@ function changeDronePopulatedPoint() {
     renderSelectPopulatedPointItem(points, "drone", '#droneSelect');
     $('#dronePopulatedPointId').val(points[0].id);
     $('#dronePopulatedPointId').change();
+}
+
+//////////
+
+function validateDrone() {
+
+    $('#droneForm').validate({
+        rules: {
+            droneName: {
+                required: true
+            },
+            droneMac: {
+                required: true
+            }
+        },
+        messages: {
+            droneName: {
+                required: $.i18n._('requiredField')
+            },
+            droneMac: {
+                required: $.i18n._('requiredField')
+            }
+        }
+    });
+
 }
