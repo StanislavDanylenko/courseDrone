@@ -13,11 +13,11 @@ import java.util.List;
 @ToString
 public class Report implements Serializable {
 
-    private double humidity;
-    private double radiation;
-    private double pressure;
-    private double airPollution;
-    private double temperature;
+    private double humidity = -9999;
+    private double radiation = -9999;
+    private double pressure = -9999;
+    private double airPollution = -9999;
+    private double temperature = -9999;
     private List<byte[]> photo;
     private String description;
 

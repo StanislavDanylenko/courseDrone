@@ -67,5 +67,25 @@ function hideUserUpdateButton() {
 
 function getReport(e) {
     var id = getID(e, '#oldProposalListTable');
-    renderReport(orderList[id].report);
+    var processedReport = processReportData(orderList[id].report);
+    renderReport(processedReport);
+}
+
+function processReportData(data) {
+    if(data.humidity == -9999) {
+        data.humidity = '-'
+    }
+    if(data.radiation == -9999) {
+        data.radiation = '-'
+    }
+    if(data.pressure == -9999) {
+        data.pressure = '-'
+    }
+    if(data.airPollution == -9999) {
+        data.airPollution = '-'
+    }
+    if(data.temperature == -9999) {
+        data.temperature = '-'
+    }
+    return data;
 }
