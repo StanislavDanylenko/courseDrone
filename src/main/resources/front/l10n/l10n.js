@@ -521,6 +521,7 @@ function loadJSONs() {
         "requiredField": "Це поле обов'язкове до заповнення",
         "validNumber": "Введіть коректне числове значення",
         "validLength": "Некоректна довжина поля",
+        "minNumber": "Введіть значення більше або рівне 0.1",
 
         "getProposalError": "Помилка при отриманні списку доступних пропозицій. Спробуйте пізніше.",
         "saveOrderError": "Помилка при додаванні замовлення. Спробуйте пізніше.",
@@ -572,7 +573,13 @@ function loadJSONs() {
 
         "getUserListError": "Помилка при отриманні списку користувачів. Спробуйте пізніше.",
         "saveUserError": "Помилка при зберіганні користувача. Спробуйте пізніше.",
-        "deleteUserError": "Помилка при видаленні користувача. Спробуйте пізніше."
+        "deleteUserError": "Помилка при видаленні користувача. Спробуйте пізніше.",
+
+        "getLocalProposalListError": "Помилка при отриманні списку пропозицій. Спробуйте пізніше.",
+        "getLocalProposalError": "Помилка при отриманні пропозиції. Спробуйте пізніше.",
+        "saveLocalProposalError": "Помилка при зберіганні пропозиції. Спробуйте пізніше.",
+        "updateLocalProposalError": "Помилка при оновленні пропозиції. Спробуйте пізніше.",
+        "deleteLocalProposalError": "Помилка при видаленні пропозиції. Спробуйте пізніше.",
     };
     EN = {
         "contacts": "Contacts",
@@ -743,6 +750,7 @@ function loadJSONs() {
         "requiredField": "This field is required",
         "validNumber": "Please enter a valid number",
         "validLength": "Incorrect field content length",
+        "minNumber": "Please enter a value greater than or equal to 0.1",
 
         "getProposalError": "Error while getting proposal list. Try later.",
         "saveOrderError": "Error while saving order. Try later.",
@@ -794,7 +802,13 @@ function loadJSONs() {
 
         "getUserListError": "Error while getting user list. Try later.",
         "saveUserError": "Error while saving user. Try later.",
-        "deleteUserError": "Error while deleting user. Try later."
+        "deleteUserError": "Error while deleting user. Try later.",
+
+        "getLocalProposalListError": "Error while getting local proposal list. Try later.",
+        "getLocalProposalError": "Error while getting local proposal. Try later.",
+        "saveLocalProposalError": "Error while saving local proposal. Try later.",
+        "updateLocalProposalError": "Error while updating local proposal. Try later.",
+        "deleteLocalProposalError": "Error while deleting local proposal. Try later."
     }
 }
 

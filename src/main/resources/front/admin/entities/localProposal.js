@@ -10,6 +10,7 @@ function renderLocalProposalEntity() {
     var select = localProposalEntitySelectTemplate();
     $('#mainContainer').empty().append(html);
     $('#localProposalSelect').empty().append(select);
+    validateLocalProposal();
 }
 
 function renderSelectProposalLocalProposal(data) {
@@ -29,8 +30,7 @@ function getLocalProposals() {
             renderLocalProposalList(convertedData);
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getLocalProposalListError'));
         }});
 }
 
@@ -65,8 +65,7 @@ function getLocalProposal(e) {
             setTranslateLocalProposalEntity();
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
+            alert($.i18n._('getLocalProposalError'));
         }});
 }
 
@@ -110,6 +109,10 @@ function saveLocalProposal() {
         isActive: getIsLocalProposalNonBlocked()
     };
 
+    if (!$('#localProposalFormF').valid()) {
+        return;
+    }
+
     $.ajax({
         url: "http://localhost:8080/localProposals",
         type: "POST",
@@ -121,6 +124,7 @@ function saveLocalProposal() {
             getLocalProposals();
         },
         error: function(data) {
+            alert($.i18n._('saveLocalProposalError'));
         }
     });
 
@@ -134,6 +138,10 @@ function updateLocalProposal() {
         isActive: getIsLocalProposalNonBlocked()
     };
 
+    if (!$('#localProposalFormF').valid()) {
+        return;
+    }
+
     $.ajax({
         url: "http://localhost:8080/localProposals/",
         type: "PUT",
@@ -145,6 +153,7 @@ function updateLocalProposal() {
             getLocalProposals();
         },
         error: function(data) {
+            alert($.i18n._('updateLocalProposalError'));
         }
     });
 }
@@ -244,4 +253,27 @@ function changeLocalProposalPopulatedPoint() {
     renderSelectPopulatedPointItem(points, "localProposal", '#localProposalSelect');
     $('#localProposalPopulatedPointId').val(points[0].id);
     $('#localProposalPopulatedPointId').change();
+}
+
+/////////
+
+function validateLocalProposal() {
+
+    $('#localProposalFormF').validate({
+        rules: {
+            localProposalPrice: {
+                required: true,
+                number: true,
+                min: 0.1
+            }
+        },
+        messages: {
+            localProposalPrice: {
+                required: $.i18n._('requiredField'),
+                number: $.i18n._('validNumber'),
+                min: $.i18n._('minNumber7')
+            }
+        }
+    });
+
 }
