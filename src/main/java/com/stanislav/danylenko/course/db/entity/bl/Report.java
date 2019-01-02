@@ -1,5 +1,7 @@
 package com.stanislav.danylenko.course.db.entity.bl;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.stanislav.danylenko.course.JsonRules;
 import lombok.*;
 
 import java.io.Serializable;
@@ -11,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @ToString
+@JsonView(value = JsonRules.MobileProposal.class)
 public class Report implements Serializable {
 
     private double humidity = -9999;
