@@ -420,11 +420,11 @@ function loadJSONs() {
         "noAvailableProposal": "<h1>Відсутні будт-які пропозиції в обраному регіоні</h1>",
 
         "reportHeader": "Звіт замовлення",
-        "reportTHumidity": "Вологість",
-        "reportTRadiation": "Рівень радіації",
-        "reportTPressure": "Атмосферний тиск",
-        "reportTAirPollution": "Забрудненість повітря",
-        "reportTTemperature": "Температура",
+        "reportTHumidity": "Вологість, %",
+        "reportTRadiation": "Рівень радіації, Зв",
+        "reportTPressure": "Атмосферний тиск, Пa",
+        "reportTAirPollution": "Забрудненість повітря, %",
+        "reportTTemperature": "Температура, ℃",
         "reportComment": "Коментар:",
 
         "proposal": "Пропозиція",
@@ -648,11 +648,11 @@ function loadJSONs() {
         "noAvailableProposal": "<h1>No available proposals in this region</h1>",
 
         "reportHeader": "Order report",
-        "reportTHumidity": "Humidity",
-        "reportTRadiation": "Radiation",
-        "reportTPressure": "Pressure",
-        "reportTAirPollution": "Air pollution",
-        "reportTTemperature": "Temperature",
+        "reportTHumidity": "Humidity, %",
+        "reportTRadiation": "Radiation, Sv",
+        "reportTPressure": "Pressure, Pa",
+        "reportTAirPollution": "Air pollution, %",
+        "reportTTemperature": "Temperature, ℃",
         "reportComment": "Comment:",
 
         "proposal": "Proposal",
