@@ -8,12 +8,15 @@ import com.stanislav.danylenko.course.db.entity.pk.LocalProposalUserPK;
 import com.stanislav.danylenko.course.db.enumeration.OperationStatus;
 import com.stanislav.danylenko.course.db.enumeration.TypeOfSensor;
 import com.stanislav.danylenko.course.db.repository.LocalProposalUserRepository;
+import com.stanislav.danylenko.course.service.location.PopulatedPointService;
 import com.stanislav.danylenko.course.web.model.LocalProposalUserModel;
 import com.stanislav.danylenko.course.web.model.ReportModel;
+import com.stanislav.danylenko.course.web.model.StatisticModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class LocalProposalUserService {
@@ -29,6 +32,12 @@ public class LocalProposalUserService {
 
     @Autowired
     private DroneService droneService;
+
+    @Autowired
+    private ProposalService proposalService;
+
+    @Autowired
+    private PopulatedPointService populatedPointService;
 
 
     public LocalProposalUser save(LocalProposalUser localProposalUser) {
@@ -221,6 +230,28 @@ public class LocalProposalUserService {
             return drone;
         }
         return null;
+    }
+
+    public StatisticModel getStatisticByProposal() {
+        Iterable<Proposal> proposals = proposalService.findAll();
+        StatisticModel model = new StatisticModel();
+        for (Proposal proposal : proposals) {
+            Integer countOrder = repository.countByLocalProposal_ProposalId(proposal.getId());
+            model.addProposal(proposal.getName());
+            model.addPopularity(countOrder);
+        }
+        return model;
+    }
+
+    public StatisticModel getStatisticByPoint() {
+        Iterable<PopulatedPoint> points = populatedPointService.findAll();
+        StatisticModel model = new StatisticModel();
+        for (PopulatedPoint point : points) {
+            Integer countOrder = repository.countByLocalProposalPopulatedPointId(point.getId());
+            model.addProposal(point.getName());
+            model.addPopularity(countOrder);
+        }
+        return model;
     }
 
 }

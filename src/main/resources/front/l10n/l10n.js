@@ -420,6 +420,8 @@ function loadJSONs() {
         "region": "Регіон",
         "point": "Населений пункт",
 
+        "count": "Кількість замовлень",
+
         "selectLocation": "Оберіть місцезнаходження",
         "latitude": "Широта",
         "longitude": "Довгота",
@@ -650,6 +652,8 @@ function loadJSONs() {
         "country": "Country",
         "region": "Region",
         "point": "Populated Point",
+
+        "count": "Count of orders",
 
         "selectLocation": "Select Location ",
         "latitude": "Latitude",

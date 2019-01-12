@@ -11,6 +11,7 @@ import com.stanislav.danylenko.course.service.LocalProposalUserService;
 import com.stanislav.danylenko.course.web.model.LocalProposalModel;
 import com.stanislav.danylenko.course.web.model.LocalProposalUserModel;
 import com.stanislav.danylenko.course.web.model.ReportModel;
+import com.stanislav.danylenko.course.web.model.StatisticModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -156,4 +158,20 @@ public class LocalProposalUserController {
         service.cancelOrder(proposal.getDroneId());
         response.setStatus(HttpServletResponse.SC_OK);
     }
+
+    /////////////
+    @GetMapping("/statistic/proposal")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
+    public @ResponseBody
+    ResponseEntity<StatisticModel> getStatisticByProposal() throws DBException {
+        return new ResponseEntity<>(service.getStatisticByProposal(), HttpStatus.OK);
+    }
+
+    @GetMapping("/statistic/point")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
+    public @ResponseBody
+    ResponseEntity<StatisticModel> getStatisticByPoint() throws DBException {
+        return new ResponseEntity<>(service.getStatisticByPoint(), HttpStatus.OK);
+    }
+
 }

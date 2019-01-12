@@ -109,7 +109,7 @@ function loadCurrentProposal() {
 
 function loadStatistic() {
     statisticTemplate = Handlebars.compile($('#statisticTemplate').html());
-    $(document).on('change', '#statisticSwapper', changeStatistic);
+    $(document).on('change', '#selectStatisticType', changeStatistic);
 }
 
 function setDataTeble(tableName) {
