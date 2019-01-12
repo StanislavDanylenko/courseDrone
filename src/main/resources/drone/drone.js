@@ -13,6 +13,11 @@ var statuses = ['NEW', 'GO_TO_TARGET_PALACE', 'PERFORMING', 'GO_TO_HOME', 'FINAL
 var uuid;
 var templateChangeStatus = "Change status to ";
 
+
+var globalCheckPointsList;
+var positionInCheckPointList = 0;
+
+
 $(document).ready(function () {
 
     firstTemplate = Handlebars.compile($('#firstTemplate').html());
@@ -260,6 +265,7 @@ function processOrderInfo(data) {
     }
 
     data.checkPointsList = checkPointsList;
+    globalCheckPointsList = checkPointsList;
 
     return data;
 }
@@ -333,4 +339,141 @@ function getAllSensors() {
         }
     }
 
+}
+
+///////////////////
+
+
+function goToEnd() {
+    setTimeout(function () {
+        console.log('go to target - coord: ' + globalCheckPointsList[positionInCheckPointList]);
+
+        if (positionInCheckPointList < globalCheckPointsList.length) {
+
+            drone.batteryLevel = drone.batteryLevel - 5;
+
+            var droneInfo = {
+                batteryLevel: drone.batteryLevel,
+                currentCoordinates: globalCheckPointsList[positionInCheckPointList]
+            };
+
+            $.ajax({
+                url: "http://localhost:8080/drones/" + drone.id,
+                type: "PUT",
+                dataType: "json",
+                contentType: "application/json",
+                xhrFields: { withCredentials: true },
+                data: JSON.stringify(droneInfo),
+                success: function () {
+                    console.log('Success update coordinates');
+                },
+                error: function() {
+                    console.log('Error while updating drone info');
+                }
+            });
+
+            positionInCheckPointList++;
+            goToEnd();
+
+        } else {
+            setTimeout(function () {
+                --positionInCheckPointList;
+                middleOperation();
+            }, 5000);
+        }
+    }, 3000)
+}
+
+function goToStart() {
+    setTimeout(function () {
+        console.log('go to station - coord: ' + globalCheckPointsList[positionInCheckPointList]);
+
+        drone.batteryLevel = drone.batteryLevel - 5;
+
+        var droneInfo = {
+            batteryLevel: drone.batteryLevel,
+            currentCoordinates: globalCheckPointsList[positionInCheckPointList]
+        };
+
+        $.ajax({
+            url: "http://localhost:8080/drones/" + drone.id,
+            type: "PUT",
+            dataType: "json",
+            contentType: "application/json",
+            xhrFields: { withCredentials: true },
+            data: JSON.stringify(droneInfo),
+            success: function () {
+                console.log('Success update coordinates');
+            },
+            error: function() {
+                console.log('Error while updating drone info');
+            }
+        });
+
+        positionInCheckPointList--;
+        if (positionInCheckPointList >= 0) {
+            goToStart();
+        } else {
+            setTimeout(function () {
+                endOperation();
+            }, 5000);
+        }
+    }, 3000)
+}
+
+function middleOperation() {
+    console.log("performing...");
+
+    // set value of sensors here
+    updateOrderAutomatic(statuses[2], sensors);
+
+    setTimeout(function () {
+        setTimeout(function () {
+            goToStart();
+        }, 3000);
+        updateOrderAutomatic(statuses[3]);
+    }, 3000);
+
+}
+
+function endOperation() {
+    console.log("end");
+    updateOrderAutomatic(statuses[4]);
+}
+
+function automatic() {
+    goToEnd(positionInCheckPointList);
+}
+
+/*
+automatic();*/
+
+////////////
+
+function updateOrderAutomatic(status, sensors) {
+
+    var order = {
+        uuid: uuid,
+        status: status
+    };
+
+    if (sensors !== undefined) {
+        order.sensors = sensors;
+    }
+
+    $.ajax({
+        url: "http://localhost:8080/userProposals/" + uuid,
+        type: "PUT",
+        dataType: "json",
+        contentType: "application/json",
+        xhrFields: { withCredentials: true },
+        data: JSON.stringify(order),
+        success: function () {
+            console.log('Succes update status');
+
+        },
+        error: function(data) {
+            console.log('Error while updating order status');
+        }
+    });
 }
