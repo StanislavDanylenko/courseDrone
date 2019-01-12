@@ -112,6 +112,8 @@ function setTranslateUser() {
     $("#getUserAllOrders")._t("getUserAllOrders");
     $("#getUserHistory")._t("getUserHistory");
     $("#getUserCanceled")._t("getUserCanceled");
+    $("#getStatistic")._t("getStatistic");
+    $("#getCalculator")._t("getCalculator");
     $("#userGreeting")._t("userGreeting");
 }
 
@@ -395,6 +397,10 @@ function loadJSONs() {
         "getUserAllOrders": "Список замовлень",
         "getUserHistory": "Історія",
         "getUserCanceled": "Відхилені",
+
+        "getStatistic": "Статистика",
+        "getCalculator": "Калькулятор",
+
         "userGreeting": "Вітаємо в панелі користувача",
         "adminGreeting": "Вітаємо в панелі адміністратора",
 
@@ -623,6 +629,9 @@ function loadJSONs() {
         "getUserAllOrders": "Orders",
         "getUserHistory": "History",
         "getUserCanceled": "Canceled",
+        "getStatistic": "Statistic",
+        "getCalculator": "Calculator",
+
         "userGreeting": "Hello in user panel",
         "adminGreeting": "Hello in admin panel",
 

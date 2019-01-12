@@ -13,6 +13,8 @@ var userOrdinalProposalEntitySelectTemplate;
 var userOrdinalProposalEntitySelectCountryTemplate;
 var userOrdinalProposalEntitySelectRegionTemplate;
 
+var statisticTemplate;
+
 $(document).ready(function() {
 
     loadUserLS();
@@ -26,6 +28,7 @@ $(document).ready(function() {
     loadOrders();
     loadProposls();
     loadCurrentProposal();
+    loadStatistic();
 
     $(window).on('hashchange', function () {
         checkHash();
@@ -104,6 +107,11 @@ function loadCurrentProposal() {
     $(document).on('click', '.buy-order', saveUserProposalOrder);
 }
 
+function loadStatistic() {
+    statisticTemplate = Handlebars.compile($('#statisticTemplate').html());
+    $(document).on('change', '#statisticSwapper', changeStatistic);
+}
+
 function setDataTeble(tableName) {
 
     var lang;
@@ -179,6 +187,8 @@ function checkHash() {
         case "#canceled": getCanceledOrders();
             break;
         case "#profile": getOrdinalUser();
+            break;
+        case "#statistic": getStatistic();
             break;
         case "#home": renderHome();
             break;

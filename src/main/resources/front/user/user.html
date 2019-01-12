@@ -62,6 +62,12 @@
             <div class="btn btn-block btn-secondary btn-custom" id="getUserCanceled" onclick="window.location.href='#canceled'">
                 Canceled
             </div>
+            <div class="btn btn-block btn-secondary btn-custom" id="getStatistic" onclick="window.location.href='#statistic'">
+                Statistic
+            </div>
+            <div class="btn btn-block btn-secondary btn-custom" id="getCalculator">
+                Calculator
+            </div>
             <div class="btn btn-block btn-secondary btn-custom profile" id="getUserProfile" onclick="window.location.href='#profile'">
                 Profile
             </div>
@@ -353,6 +359,25 @@
     {{/this}}
 </script>
 
+<script id="statisticTemplate" type="text/x-handlebars-template">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="text-center mb-5">
+                <select class="select-nav" id="selectStatisticType">
+                    <option value="Location">Populated point</option>
+                    <option value="Country">Country</option>
+                </select>
+            </div>
+            <div>
+                <canvas id="popChart" width="600" height="400"></canvas>
+            </div>
+        </div>
+
+        <div class="col-2"></div>
+    </div>
+</script>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
@@ -361,10 +386,13 @@
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
 <script src="../user.js"></script>
 <script src="entities/oldUserProposal.js"></script>
 <script src="entities/userProfile.js"></script>
 <script src="entities/userProposal.js"></script>
+<script src="entities/statistic.js"></script>
 <script src="../admin/entities/location.js"></script>
 
 
