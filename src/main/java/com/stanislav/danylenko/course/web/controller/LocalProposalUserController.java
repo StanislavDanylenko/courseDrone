@@ -160,18 +160,18 @@ public class LocalProposalUserController {
     }
 
     /////////////
-    @GetMapping("/statistic/proposal")
+    @GetMapping("/statistic/proposal/{id}")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public @ResponseBody
-    ResponseEntity<StatisticModel> getStatisticByProposal() throws DBException {
-        return new ResponseEntity<>(service.getStatisticByProposal(), HttpStatus.OK);
+    ResponseEntity<StatisticModel> getStatisticByProposal(@PathVariable("id") Long id) throws DBException {
+        return new ResponseEntity<>(service.getStatisticByProposal(id), HttpStatus.OK);
     }
 
-    @GetMapping("/statistic/point")
+    @GetMapping("/statistic/point/{id}")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public @ResponseBody
-    ResponseEntity<StatisticModel> getStatisticByPoint() throws DBException {
-        return new ResponseEntity<>(service.getStatisticByPoint(), HttpStatus.OK);
+    ResponseEntity<StatisticModel> getStatisticByPoint(@PathVariable("id") Long id) throws DBException {
+        return new ResponseEntity<>(service.getStatisticByPoint(id), HttpStatus.OK);
     }
 
 }

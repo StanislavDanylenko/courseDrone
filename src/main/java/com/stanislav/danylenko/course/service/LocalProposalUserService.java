@@ -232,22 +232,22 @@ public class LocalProposalUserService {
         return null;
     }
 
-    public StatisticModel getStatisticByProposal() {
+    public StatisticModel getStatisticByProposal(Long userId) {
         Iterable<Proposal> proposals = proposalService.findAll();
         StatisticModel model = new StatisticModel();
         for (Proposal proposal : proposals) {
-            Integer countOrder = repository.countByLocalProposal_ProposalId(proposal.getId());
+            Integer countOrder = repository.countByLocalProposal_ProposalIdAndUserId(proposal.getId(), userId);
             model.addProposal(proposal.getName());
             model.addPopularity(countOrder);
         }
         return model;
     }
 
-    public StatisticModel getStatisticByPoint() {
+    public StatisticModel getStatisticByPoint(Long userId) {
         Iterable<PopulatedPoint> points = populatedPointService.findAll();
         StatisticModel model = new StatisticModel();
         for (PopulatedPoint point : points) {
-            Integer countOrder = repository.countByLocalProposalPopulatedPointId(point.getId());
+            Integer countOrder = repository.countByLocalProposalPopulatedPointIdAndUserId(point.getId(), userId);
             model.addProposal(point.getName());
             model.addPopularity(countOrder);
         }

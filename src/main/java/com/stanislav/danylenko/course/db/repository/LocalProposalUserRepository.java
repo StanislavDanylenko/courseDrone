@@ -27,7 +27,7 @@ public interface LocalProposalUserRepository extends JpaRepository<LocalProposal
 
     LocalProposalUser findByUuid(UUID uuid);
 
-    Integer countByLocalProposal_ProposalId(Long id);
+    Integer countByLocalProposal_ProposalIdAndUserId(Long id, Long userId);
 
-    Integer countByLocalProposalPopulatedPointId(Long id);
+    Integer countByLocalProposalPopulatedPointIdAndUserId(Long id, Long userId);
 }

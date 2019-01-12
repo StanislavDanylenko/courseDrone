@@ -65,7 +65,7 @@
             <div class="btn btn-block btn-secondary btn-custom" id="getStatistic" onclick="window.location.href='#statistic'">
                 Statistic
             </div>
-            <div class="btn btn-block btn-secondary btn-custom" id="getCalculator">
+            <div class="btn btn-block btn-secondary btn-custom" id="getCalculator" data-toggle="modal" data-target="#modalCalculator">
                 Calculator
             </div>
             <div class="btn btn-block btn-secondary btn-custom profile" id="getUserProfile" onclick="window.location.href='#profile'">
@@ -113,6 +113,27 @@
                     <button type="button" class="btn btn-primary" id="submitUpdatePassword">Update</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<!--Modal calculator-->
+<div class="modal fade" id="modalCalculator" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
         </div>
     </div>
 </div>
@@ -369,7 +390,7 @@
                     <option value="point" id="statisticPoint">Populated point</option>
                 </select>
             </div>
-            <div>
+            <div id="canvas">
                 <canvas id="popChart" width="600" height="400"></canvas>
             </div>
         </div>

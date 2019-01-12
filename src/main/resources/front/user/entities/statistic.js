@@ -7,6 +7,8 @@ function getStatistic() {
 }
 
 function renderChart(data) {
+    $('#canvas').empty().append('<canvas id="popChart" width="600" height="400"></canvas>');
+
     var popCanvas = $("#popChart");
 
     var barChart = new Chart(popCanvas, {
@@ -59,7 +61,7 @@ function getStatisticData(type) {
         url = 'point';
     }
     $.ajax({
-        url: "http://localhost:8080/userProposals/statistic/" + url,
+        url: "http://localhost:8080/userProposals/statistic/" + url + "/" + USER.id,
         type: "GET",
         xhrFields: { withCredentials: true },
         success: function (data) {
