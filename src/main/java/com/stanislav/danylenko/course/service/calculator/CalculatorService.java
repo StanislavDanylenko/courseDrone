@@ -14,9 +14,6 @@ import java.util.List;
 public class CalculatorService {
 
     public static final Double DELAY_COEFFICIENT = 1.1d;
-    private static final Double START_X = 7.1d;
-    private static final Double START_Y = 41.97d;
-
     @Autowired
     private PopulatedPointService populatedPointService;
 
@@ -24,17 +21,14 @@ public class CalculatorService {
 
     public CalculateResult calculate(Double latitude, Double longitude) {
 
-        if (points.size() == 0) {
-            fillList();
-        }
+        fillList();
         return findNearestPoint(latitude, longitude);
     }
 
     private void fillList() {
         Iterable<PopulatedPoint> populatedPoints = populatedPointService.findAll();
-        int i = 1;
         for (PopulatedPoint point : populatedPoints) {
-            points.add(new Coordinates(point.getId(), START_X * i, START_Y * i++));
+            points.add(new Coordinates(point.getId(), point.getLatitude(), point.getLongitude()));
         }
     }
 
