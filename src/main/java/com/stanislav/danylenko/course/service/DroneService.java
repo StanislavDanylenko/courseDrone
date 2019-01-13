@@ -67,6 +67,7 @@ public class DroneService implements GenericService<Drone> {
         if (model.getPopulatedPointId() != null) {
             PopulatedPoint populatedPoint = populatedPointService.find(model.getPopulatedPointId());
             drone.setPopulatedPoint(populatedPoint);
+            drone.setCurrentLocation(new Double[] {populatedPoint.getLatitude(), populatedPoint.getLongitude()});
         }
 
         if (model.getIsAvailable() != null) {
@@ -115,11 +116,13 @@ public class DroneService implements GenericService<Drone> {
         drone.setIsAvailable(true);
         drone.setBatteryLevel(model.getBatteryLevel());
         drone.setName(model.getName());
-        drone.setCurrentLocation(model.getCurrentCoordinates());
+        //drone.setCurrentLocation(model.getCurrentCoordinates());
         drone.setMac(model.getMac());
 
         PopulatedPoint populatedPoint = populatedPointService.find(model.getPopulatedPointId());
         drone.setPopulatedPoint(populatedPoint);
+
+        drone.setCurrentLocation(new Double[] {populatedPoint.getLatitude(), populatedPoint.getLongitude()});
 
         List<Sensor> sensors = model.getSensors();
         if (!sensors.isEmpty()) {

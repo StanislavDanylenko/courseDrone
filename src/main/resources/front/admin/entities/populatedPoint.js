@@ -79,6 +79,7 @@ function editPopulatedPoint(e) {
     button.bind('click', updatePopulatedPoint);
     $('#populatedPointOperation')._t('editPoint');
     getPopulatedPoint(id);
+    hideFieds();
 }
 
 
@@ -86,7 +87,9 @@ function savePopulatedPoint() {
 
     var populatedPoint = {
         name: $('#populatedPointName').val(),
-        regionId: $('#populatedPointRegionId').val()
+        regionId: $('#populatedPointRegionId').val(),
+        latitude: $('#pointX').val(),
+        longitude: $('#pointY').val()
     };
 
     if (!$('#populatedPointForm').valid()) {
@@ -164,6 +167,14 @@ function validatePopulatedPoint() {
             },
             regionId: {
                 required: true
+            },
+            pointX: {
+                required: true,
+                number: true
+            },
+            pointY: {
+                required: true,
+                number: true
             }
         },
         messages: {
@@ -172,8 +183,20 @@ function validatePopulatedPoint() {
             },
             regionId: {
                 required: $.i18n._('requiredField')
+            },
+            pointX: {
+                required: $.i18n._('requiredField'),
+                number: $.i18n._('validNumber')
+            },
+            pointY: {
+                required: $.i18n._('requiredField'),
+                number: $.i18n._('validNumber')
             }
         }
     });
 
+}
+
+function hideFieds() {
+    $('#hidePointCoordinates').hide();
 }

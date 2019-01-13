@@ -6,6 +6,7 @@ import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
 import com.stanislav.danylenko.course.service.GeoService;
 import com.stanislav.danylenko.course.service.location.PopulatedPointService;
 import com.stanislav.danylenko.course.exception.DBException;
+import com.stanislav.danylenko.course.web.model.location.PopulatedPointCreateModel;
 import com.stanislav.danylenko.course.web.model.location.PopulatedPointModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,11 +43,11 @@ public class PopulatedPointController {
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public @ResponseBody
-    ResponseEntity<PopulatedPointModel> createPopulatedPoint(@RequestBody PopulatedPointModel populatedPointModel) throws DBException {
+    ResponseEntity<PopulatedPointModel> createPopulatedPoint(@RequestBody PopulatedPointCreateModel populatedCreatePointModel) throws DBException {
         PopulatedPoint populatedPoint = new PopulatedPoint();
-        service.updatePopulatedPoint(populatedPoint, populatedPointModel);
+        service.createPopulatedPoint(populatedPoint, populatedCreatePointModel);
         service.save(populatedPoint);
-        populatedPointModel = service.getViewModel(populatedPoint);
+        PopulatedPointModel populatedPointModel = service.getViewModel(populatedPoint);
         return new ResponseEntity<>(populatedPointModel, HttpStatus.CREATED);
     }
 

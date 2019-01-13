@@ -235,6 +235,8 @@ function setTranslatePointEntity() {
     $(".title")._t("title");
     $(".region")._t("region");
     $(".save")._t("save");
+    $(".latitude")._t("latitude");
+    $(".longitude")._t("longitude");
 }
 
 

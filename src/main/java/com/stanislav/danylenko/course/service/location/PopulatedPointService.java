@@ -3,6 +3,7 @@ package com.stanislav.danylenko.course.service.location;
 import com.stanislav.danylenko.course.db.entity.location.PopulatedPoint;
 import com.stanislav.danylenko.course.db.repository.location.PopulatedPointRepository;
 import com.stanislav.danylenko.course.service.GenericService;
+import com.stanislav.danylenko.course.web.model.location.PopulatedPointCreateModel;
 import com.stanislav.danylenko.course.web.model.location.PopulatedPointModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,6 +57,16 @@ public class PopulatedPointService implements GenericService<PopulatedPoint> {
         if (regionId != null) {
             point.setRegion(regionService.find(regionId));
         }
+    }
+
+    public void createPopulatedPoint(PopulatedPoint point, PopulatedPointCreateModel newPoint) {
+        point.setName(newPoint.getName());
+        Long regionId = newPoint.getRegionId();
+        if (regionId != null) {
+            point.setRegion(regionService.find(regionId));
+        }
+        point.setLatitude(newPoint.getLatitude());
+        point.setLongitude(newPoint.getLongitude());
     }
 
     public PopulatedPointModel getViewModel(PopulatedPoint point) {

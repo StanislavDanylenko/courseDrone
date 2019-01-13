@@ -131,7 +131,7 @@ function saveDrone() {
         mac: $('#droneMac').val(),
         batteryLevel: $('#droneBattery').val(),
         isAvailable: getAvailabilityOfDrone(),
-        currentCoordinates: getCoordinates(),
+        /*currentCoordinates: getCoordinates(),*/
         sensors: getSensors(),
         populatedPointId: $('#dronePopulatedPointId').val()
     };
@@ -259,12 +259,12 @@ function setAvailabilityOfDrone(data) {
     }
 }
 
-function getCoordinates() {
+/*function getCoordinates() {
     if (($('#droneX').val() != -1000000) && ($('#droneY').val() != -1000000)) {
         return [$('#droneX').val(), $('#droneY').val()];
     }
     return null;
-}
+}*/
 
 function getAllSensors() {
     var sensors = getSensors();
@@ -306,7 +306,7 @@ function getSensorsFromTable() {
 function hideUnnesseseryFields() {
     $('#hideDroneBattery').hide();
     $('#hideDroneMAC').hide();
-    $('#hideDroneCoordinates').hide();
+    // $('#hideDroneCoordinates').hide();
     $('#droneName').prop('readonly', true);
 }
 

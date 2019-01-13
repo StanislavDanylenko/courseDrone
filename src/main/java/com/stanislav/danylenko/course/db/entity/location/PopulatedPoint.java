@@ -31,6 +31,12 @@ public class PopulatedPoint extends BaseEntity {
     private Region region;
 
     @JsonIgnore
+    private Double latitude;
+
+    @JsonIgnore
+    private Double longitude;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "populatedPoint", cascade = CascadeType.ALL)
     private List<LocalProposal> proposalList = new ArrayList<>();
 
