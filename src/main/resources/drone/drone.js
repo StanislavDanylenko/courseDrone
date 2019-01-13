@@ -14,7 +14,7 @@ var uuid;
 var templateChangeStatus = "Change status to ";
 
 
-var globalCheckPointsList;
+var globalCheckPointsList = [];
 var positionInCheckPointList = 0;
 
 
@@ -31,6 +31,9 @@ $(document).ready(function () {
     $(document).on('click', '#sendData', updateDrone);
     $(document).on('click', '#changeStatus', changeStatus);
     $(document).on('click', '#crashOrder', crashOrder);
+    $(document).on('click', '#automaticMode', automatic);
+
+    $('#autoPanel').hide();
 
     fillFirstTemplate();
 
@@ -210,9 +213,11 @@ function displayDroneInfo(data) {
 
     if (data.currentUuid == null) {
         $('#orderContainer').empty().append("<h3>No order</h3>");
+        $('#sendData').prop('disabled', true);
     } else {
         uuid = data.currentUuid;
         $('#changeStatus').prop('disabled', false);
+        $('#sendData').prop('disabled', false);
         $('#sendData').prop('disabled', false);
         getOrder();
     }
@@ -262,10 +267,11 @@ function processOrderInfo(data) {
     var checkPointsList = [];
     for (var item in data.checkPoints) {
         checkPointsList.push(item + ":" + data.checkPoints[item]);
+        globalCheckPointsList.push([item, data.checkPoints[item]]);
     }
 
     data.checkPointsList = checkPointsList;
-    globalCheckPointsList = checkPointsList;
+    $('#statusAuto').empty().append(data.status);
 
     return data;
 }
@@ -342,13 +348,16 @@ function getAllSensors() {
 }
 
 ///////////////////
+/////////////////// automatic mode
+///////////////////
 
 
 function goToEnd() {
     setTimeout(function () {
-        console.log('go to target - coord: ' + globalCheckPointsList[positionInCheckPointList]);
-
         if (positionInCheckPointList < globalCheckPointsList.length) {
+
+            console.log('go to target - coord: ' + globalCheckPointsList[positionInCheckPointList]);
+            writeLog('go to target - coord: ' + globalCheckPointsList[positionInCheckPointList]);
 
             drone.batteryLevel = drone.batteryLevel - 5;
 
@@ -366,9 +375,12 @@ function goToEnd() {
                 data: JSON.stringify(droneInfo),
                 success: function () {
                     console.log('Success update coordinates');
+                    writeLog('Success update coordinates');
+                    changeCoordsA(globalCheckPointsList[positionInCheckPointList]);
                 },
                 error: function() {
                     console.log('Error while updating drone info');
+                    writeLog('Error while updating drone info');
                 }
             });
 
@@ -387,6 +399,7 @@ function goToEnd() {
 function goToStart() {
     setTimeout(function () {
         console.log('go to station - coord: ' + globalCheckPointsList[positionInCheckPointList]);
+        writeLog('go to station - coord: ' + globalCheckPointsList[positionInCheckPointList]);
 
         drone.batteryLevel = drone.batteryLevel - 5;
 
@@ -403,10 +416,13 @@ function goToStart() {
             xhrFields: { withCredentials: true },
             data: JSON.stringify(droneInfo),
             success: function () {
-                console.log('Success update coordinates');
+                console.log('Success update coordinates ' + droneInfo.currentCoordinates);
+                writeLog('Success update coordinates ' + droneInfo.currentCoordinates);
+                changeCoordsA(globalCheckPointsList[positionInCheckPointList]);
             },
             error: function() {
                 console.log('Error while updating drone info');
+                writeLog('Error while updating drone info');
             }
         });
 
@@ -423,26 +439,41 @@ function goToStart() {
 
 function middleOperation() {
     console.log("performing...");
+    writeLog("performing...");
 
-    // set value of sensors here
-    updateOrderAutomatic(statuses[2], sensors);
+
+    updateOrderAutomatic(statuses[2]);
 
     setTimeout(function () {
         setTimeout(function () {
             goToStart();
         }, 3000);
-        updateOrderAutomatic(statuses[3]);
+        sensors = fillSensorsAutomatically();
+        updateOrderAutomatic(statuses[3], sensors);
     }, 3000);
 
 }
 
 function endOperation() {
     console.log("end");
+    writeLog("end");
     updateOrderAutomatic(statuses[4]);
+    $('#autoPanel').hide();
+    $('#mainPanel').show();
+    getDrone(drone.mac);
 }
 
 function automatic() {
-    goToEnd(positionInCheckPointList);
+    positionInCheckPointList = 0;
+    initAuto();
+    goToEnd();
+}
+
+function fillSensorsAutomatically() {
+    for (var i = 0; i < sensors.length; i++) {
+        sensors[i].value = Math.floor(Math.random() * 100);
+    }
+    return sensors;
 }
 
 /*
@@ -469,11 +500,32 @@ function updateOrderAutomatic(status, sensors) {
         xhrFields: { withCredentials: true },
         data: JSON.stringify(order),
         success: function () {
-            console.log('Succes update status');
-
+            console.log('Success update status ' + status);
+            writeLog('Success update status ' + status);
+            changeStatusA(status);
         },
         error: function(data) {
             console.log('Error while updating order status');
+            writeLog('Error while updating order status');
         }
     });
+}
+
+function writeLog(text) {
+    $('#log').append('<p>' + text + '</p>');
+}
+
+function changeStatusA(text) {
+    $('#statusAuto').empty().append(text);
+}
+
+function changeCoordsA(text) {
+    $('#coordAuto').empty().append(text[0] + " : " + text[1]);
+}
+
+function initAuto() {
+    $('#autoPanel').show();
+    $('#mainPanel').hide();
+    $('#log').empty();
+    $('#coordAuto').empty().append(globalCheckPointsList[0][0] + " : " + globalCheckPointsList[0][1]);
 }

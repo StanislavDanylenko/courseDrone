@@ -13,7 +13,24 @@
 <body>
 
     <div class="container-fluid">
-        <div class="row">
+
+        <div class="row m-5 p-5 border border-primary" id="autoPanel" style="position: absolute; background-color: white; height: 90%; width: 90%;">
+            <div style="height: 80%; width: 50%; overflow: auto;" class="col-6 border border-primary" id="log">
+
+            </div>
+            <div class="col-6 ">
+                <div class="mb-5">
+                    <h1>STATUS</h1>
+                    <h2 id="statusAuto">sd</h2>
+                </div>
+                <div class="mt-5 pt-5">
+                    <h1>COORDINATES</h1>
+                    <h2 id="coordAuto">sd</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="mainPanel">
 
             <div class="border border-primary rounded p-2 w-100 m-3 bg-light ">
                 <button class="btn btn-primary mr-3" id="getDroneInfoByMac">Get info</button>
@@ -21,6 +38,7 @@
                 <button class="btn btn-success" id="sendData">Send data to server</button>
                 <button class="btn btn-danger ml-3" id="cleanDrone">Clean Drone</button>
                 <button class="btn btn-danger ml-3" id="crashOrder">CRASH!</button>
+                <button class="btn btn-warning ml-3" id="automaticMode">AUTO MODE</button>
                 <h1 id="statusName"></h1>
             </div>
 
