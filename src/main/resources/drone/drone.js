@@ -460,7 +460,10 @@ function endOperation() {
     updateOrderAutomatic(statuses[4]);
     $('#autoPanel').hide();
     $('#mainPanel').show();
+    fillFirstTemplate();
     getDrone(drone.mac);
+    $('#mac').val(drone.mac);
+    $('#changeStatus').html(templateChangeStatus);
 }
 
 function automatic() {
