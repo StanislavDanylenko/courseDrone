@@ -128,11 +128,23 @@
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                <!--coords-->
+                <div class="form-group" id="coords">
+                    <div class="form-group">
+                        <label for="posX" class="latitude">Latitude</label>
+                        <input type="number" class="form-control" id="posX" name="posX">
+                    </div>
+                    <div class="form-group">
+                        <label for="posY" class="longitude">Longitude</label>
+                        <input type="number" class="form-control"  id="posY" name="posY">
+                    </div>
+                </div>
+                <p id="resultDistance"></p>
+                <p id="resultPoint"></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="calculatorCancelButton">Close</button>
+                <button type="button" class="btn btn-primary" id="calculatorCheckButton">Check</button>
             </div>
         </div>
     </div>
@@ -414,6 +426,7 @@
 <script src="entities/userProfile.js"></script>
 <script src="entities/userProposal.js"></script>
 <script src="entities/statistic.js"></script>
+<script src="entities/calculator.js"></script>
 <script src="../admin/entities/location.js"></script>
 
 

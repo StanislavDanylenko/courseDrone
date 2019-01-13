@@ -29,6 +29,7 @@ $(document).ready(function() {
     loadProposls();
     loadCurrentProposal();
     loadStatistic();
+    loadCalculaor();
 
     $(window).on('hashchange', function () {
         checkHash();
@@ -110,6 +111,12 @@ function loadCurrentProposal() {
 function loadStatistic() {
     statisticTemplate = Handlebars.compile($('#statisticTemplate').html());
     $(document).on('change', '#selectStatisticType', changeStatistic);
+}
+
+function loadCalculaor() {
+    $(document).on('click', '#calculatorCheckButton', calculate);
+    $(document).on('change', '#posX', clearFields);
+    $(document).on('change', '#posY', clearFields);
 }
 
 function setDataTeble(tableName) {
