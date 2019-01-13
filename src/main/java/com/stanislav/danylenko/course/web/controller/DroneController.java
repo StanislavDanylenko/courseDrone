@@ -116,7 +116,12 @@ public class DroneController {
         DroneTaskModel model = new DroneTaskModel();
         model.setUuid(uuid);
         model.setStatus(localProposalUser.getStatus());
-        model.setCheckPoints(GeoService.getCheckPoints());
+
+        model.setCheckPoints(
+                GeoService.getCheckPoints(
+                        drone.getCurrentLocation(),
+                        localProposalUser.getTargetCoordinates()));
+
         model.setCurrentLocation(drone.getCurrentLocation());
         model.setStartLocation(drone.getCurrentLocation());
         model.setTargetLocation(localProposalUser.getTargetCoordinates());

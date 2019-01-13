@@ -10,26 +10,26 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Service
 public class GeoService {
 
-    public static double[] getCurrentCoordinates() {
-        return new double[]{50.000, 45.000};
-    }
+    public static Map<Double, Double> getCheckPoints(Double[] start, Double[] finish) {
 
-    public static double[] getTargetCoordinates() {
-        return new double[]{100.000, 105.000};
-    }
+        double distanceX = finish[0] - start[0];
+        double distanceY = finish[1] - start[1];
 
-    public static Map<Double, Double> getCheckPoints() {
-        Map<Double, Double> coordinates = new HashMap<>();
-        coordinates.put(52.2134, 57.212);
-        coordinates.put(59.2454, 66.712);
-        coordinates.put(70.26734, 88.278);
-        coordinates.put(83.28934, 100.7676);
-        coordinates.put(99.54, 103.267);
+        double pointX = distanceX / 5;
+        double pointY = distanceY / 5;
+
+        Map<Double, Double> coordinates = new LinkedHashMap<>();
+
+        for (int i = 1; i <= 5; i++) {
+            coordinates.put(start[0] + pointX * i, start[1] + pointY * i);
+        }
+
         return coordinates;
     }
 
