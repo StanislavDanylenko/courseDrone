@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class CalculatorService {
 
-    public static final Double DELAY_COEFFICIENT = 1.4d;
+    public static final Double DELAY_COEFFICIENT = 1.1d;
     private static final Double START_X = 7.1d;
     private static final Double START_Y = 41.97d;
 

@@ -422,6 +422,12 @@ function loadJSONs() {
 
         "count": "Кількість замовлень",
 
+        "calculatorTime": "Калькулятор часу",
+        "calculate": "Порахувати",
+        "cancel": "Відміна",
+        "maxTime": "Максимальний час: ",
+        "nearestPoint": "Найближчий населений пункт: ",
+
         "selectLocation": "Оберіть місцезнаходження",
         "latitude": "Широта",
         "longitude": "Довгота",
@@ -654,6 +660,11 @@ function loadJSONs() {
         "point": "Populated Point",
 
         "count": "Count of orders",
+        "calculatorTime": "Time calculator",
+        "calculate": "Calculate",
+        "cancel": "Cancel",
+        "maxTime": "Max time: ",
+        "nearestPoint": "Nearest populated pooint: ",
 
         "selectLocation": "Select Location ",
         "latitude": "Latitude",

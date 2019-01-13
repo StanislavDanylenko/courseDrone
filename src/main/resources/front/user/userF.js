@@ -117,6 +117,7 @@ function loadCalculaor() {
     $(document).on('click', '#calculatorCheckButton', calculate);
     $(document).on('change', '#posX', clearFields);
     $(document).on('change', '#posY', clearFields);
+    $(document).on('click', '#getCalculator', setTranslation);
 }
 
 function setDataTeble(tableName) {
