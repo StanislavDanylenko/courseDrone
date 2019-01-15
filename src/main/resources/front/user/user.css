@@ -71,3 +71,15 @@ input[type='number'] {
 .error {
     color: red;
 }
+
+div.dt-buttons {
+    float: none;
+    margin: 5px;
+}
+
+.dt-button {
+    border-radius: 5px !important;
+    background-color: rgba(0, 0, 0, 0.44) !important;
+    background-image: none !important;
+    color: white !important;
+}

@@ -44,6 +44,8 @@ $(document).ready(function() {
     }, $.i18n._('samePassword'));
     validatePassword();
 
+    $(document).on('click', '#saveReport', saveReportPDF);
+
 });
 
 function logout() {
@@ -175,7 +177,11 @@ function setDataTeble(tableName) {
     }
 
     $(tableName).DataTable( {
-        "language": lang
+        "language": lang,
+        dom: 'Blfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'print'
+        ]
     } );
 }
 
